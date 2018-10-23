@@ -1,0 +1,32 @@
+#!groovy
+
+@Library("Infrastructure")
+
+def type = "java"
+def product = "fr"
+def app = "ns"
+
+List<LinkedHashMap<String, Object>> secrets = [
+        secret("auth-provider-service-client-key", "AUTH_PROVIDER_SERVICE_CLIENT_KEY"),
+        secret("uk-gov-notify-api-key", "UK_GOV_NOTIFY_API_KEY")
+]
+
+static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
+    [ $class: 'AzureKeyVaultSecret',
+      secretType: 'Secret',
+      name: secretName,
+      version: '',
+      envVariable: envVar
+    ]
+}
+
+withPipeline(type, product, app) {
+    // TODO: create a channel
+    // enableSlackNotifications('#financialremedy-tech')
+
+    loadVaultSecrets(secrets)
+
+    before('smokeTest:prod') {
+        error('Halting pipeline before prod stages')
+    }
+}
