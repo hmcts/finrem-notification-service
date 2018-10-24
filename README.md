@@ -118,7 +118,7 @@ This will start the API container exposing the application's port 8086
 In order to test if the application is up, you can call its health endpoint:
 
 ```bash
-  curl http://localhost:8086/health
+  curl http://localhost:8086//actuator/healthhealth
 ```
 
 You should get a response similar to this:
@@ -126,22 +126,6 @@ You should get a response similar to this:
 ```
   {"status":"UP","diskSpace":{"status":"UP","total":249644974080,"free":137188298752,"threshold":10485760}}
 ```
-
-### Swagger API
-
-on CNP aat,
-
-https://finrem-notification-service-aat.service.core-compute-aat.internal/swagger-ui.html
-
-local dev :
-
-http://localhost:8086/swagger-ui.html
-
-### Running integration tests
-
-gradle integrationTest
-
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
