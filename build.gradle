@@ -1,6 +1,6 @@
 buildscript {
   ext {
-    springBootVersion = '1.5.12.RELEASE'
+    springBootVersion = '2.0.6.RELEASE'
   }
   repositories {
     mavenLocal()
@@ -8,6 +8,7 @@ buildscript {
   }
   dependencies {
     classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: '2.6.2'
   }
 }
 
@@ -15,22 +16,32 @@ plugins {
   id 'application'
   id 'checkstyle'
   id 'pmd'
-  id 'jacoco'
-  id 'org.springframework.boot' version '1.5.12.RELEASE'
-  id 'org.owasp.dependencycheck' version '3.1.2'
-  id 'com.github.ben-manes.versions' version '0.17.0'
   id 'org.sonarqube' version '2.6.2'
+  id 'jacoco'
+  id 'org.owasp.dependencycheck' version '3.2.1'
+  id "info.solidsoft.pitest" version "1.3.0"
+  id 'com.github.ben-manes.versions' version '0.17.0'
+  id "io.spring.dependency-management" version "1.0.6.RELEASE"
+  id 'org.springframework.boot' version '2.0.6.RELEASE'
   id 'net.ltgt.apt' version '0.13'
-  id 'io.franzbecker.gradle-lombok' version '1.11'
+  id 'io.franzbecker.gradle-lombok' version '1.14'
 }
 
 //apply plugin: 'net.serenity-bdd.aggregator'
 
-group = 'uk.gov.hmcts.reform.finrem'
+group = 'uk.gov.hmcts.reform.finrem.notifications'
 version = '0.0.1'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': project.name,
+            'Implementation-Version': project.version
+  }
+  archiveName 'finrem-notification-service.jar'
+}
 
 checkstyle {
   maxWarnings = 0
@@ -38,7 +49,6 @@ checkstyle {
   configDir = new File(rootDir, 'config/checkstyle')
 }
 
-// https://github.com/gradle/gradle/pull/3901 - at the time it is planed for Gradle 4.7RC1
 // make build fail on Checkstyle issues (https://github.com/gradle/gradle/issues/881)
 tasks.withType(Checkstyle).each { checkstyleTask ->
   checkstyleTask.doLast {
@@ -51,19 +61,15 @@ tasks.withType(Checkstyle).each { checkstyleTask ->
   }
 }
 
-// https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/configuration.html
-dependencyCheck {
-  // Specifies if the build should be failed if a CVSS score above a specified level is identified.
-  // range of 0-10 fails the build, anything greater and it doesn't fail the build
-  failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'true' ? 0 : 11
-  suppressionFile = 'dependency-check-suppressions.xml'
-  analyzers {
-    // Disable scanning of .NET related binaries
-    assemblyEnabled = false
-  }
+mainClassName = 'uk.gov.hmcts.reform.finrem.notifications.NotificationApplication'
+
+compileJava {
+  options.compilerArgs << '-parameters' << '-Xlint:deprecation'
 }
 
-mainClassName = 'NotificationApplication.class'
+compileTestJava {
+  options.compilerArgs << '-Xlint:deprecation'
+}
 
 repositories {
   mavenLocal()
@@ -74,35 +80,6 @@ repositories {
   maven { url "http://repo.maven.apache.org/maven2" }
 }
 
-sourceSets {
-  test {
-    java.srcDir 'src/test/java'
-  }
-  functional {
-    java.srcDir 'src/functional/java'
-    resources.srcDir 'src/functional/resources'
-    compileClasspath += main.output + test.output
-    runtimeClasspath += main.output + test.output
-  }
-
-  integrationTest {
-    java.srcDir 'src/integrationTest/java'
-    resources.srcDir 'src/integrationTest/resources'
-    compileClasspath += main.output + test.output
-    runtimeClasspath += main.output + test.output
-  }
-}
-
-configurations {
-  functionalCompile.extendsFrom testCompile
-  functionalRuntime.extendsFrom testRuntime
-}
-
-configurations {
-  integrationTestCompile.extendsFrom testCompile
-  integrationTestCompile.extendsFrom testRuntime
-}
-
 pmd {
   toolVersion = "5.8.1"
   ignoreFailures = true
@@ -111,155 +88,135 @@ pmd {
   ruleSetFiles = files("config/pmd/ruleset.xml")
 }
 
-dependencyUpdates.resolutionStrategy = {
-  componentSelection { rules ->
-    rules.all { ComponentSelection selection ->
-      boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
-        selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
-      }
-      if (rejected) {
-        selection.reject('Release candidate')
-      }
-    }
-  }
+// https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/configuration.html
+dependencyCheck {
+  // Specifies if the build should be failed if a CVSS score above a specified level is identified.
+  // range of 0-10 fails the build, anything greater and it doesn't fail the build
+  failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'true' ? 0 : 11
+  suppressionFile = 'dependency-check-suppressions.xml'
 }
-
-jacocoTestReport {
-  executionData(test)
-  reports {
-    xml.enabled = true
-    csv.enabled = false
-    xml.destination file("${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
-  }
-}
-
-def springfoxSwagger = '2.7.0'
-def javaLoggingVersion = '2.1.1'
-def serviceAuthProviderClientVersion ='0.6.0'
 
 def versions = [
-  commonsCollections4: '4.1',
-  commonsLang3: '3.0',
-  springfoxSwagger: '2.7.0',
-  javaLoggingVersion: '1.6.1',
-  hmctsNotify: '3.8.0-RELEASE',
-  jackson: '2.9.5',
-  jaxRS: '2.0.1',
-  lombok: '1.16.18'
+        commonsCollections4: '4.1',
+        commonsIO: '2.5',
+        commonsLang3: '3.0',
+        hmctsHttpProxy: '1.1.0',
+        hmctsJavaLogging: '2.1.1',
+        hmctsNotify: '3.8.0-RELEASE',
+        jackson: '2.9.5',
+        jaxRS: '2.0.1',
+        lombok: '1.16.18',
+        mapstruct: '1.2.0.CR2',
+        nimbusJWT: '5.1',
+        puppyCrawl: '7.6',
+        restAssured: '3.0.3',
+        serviceTokenGenerator: '0.6.0',
+        springfoxSwagger: '2.6.1',
+        springCloudWiremock: '1.2.4.RELEASE',
+        uniRest: '1.4.9'
 ]
-
-bootRun {
-  systemProperty 'server.port', '8086'
-}
-
-dependencyCheckAggregate.shouldRunAfter(compileJava)
-dependencyCheckAnalyze.shouldRunAfter(compileJava)
-project.tasks['sonarqube'].dependsOn test
-checkstyleMain.shouldRunAfter(compileJava)
-test.shouldRunAfter(checkstyleTest)
 
 dependencies {
   compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jackson
   compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: versions.jackson
   compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jackson
+  compile group: 'com.mashape.unirest', name: 'unirest-java', version: versions.uniRest
+  compile group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: versions.nimbusJWT
+  compile group: 'com.puppycrawl.tools', name: 'checkstyle', version:  versions.puppyCrawl
+  compile group: 'io.springfox', name: 'springfox-swagger-ui', version: versions.springfoxSwagger
+  compile(group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger) {
+    exclude(module: 'mapstruct')
+  }
 
-  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-  compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-  compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
-
-  compile group: 'io.springfox', name: 'springfox-swagger2', version: springfoxSwagger
-  compile group: 'io.springfox', name: 'springfox-swagger-ui', version: springfoxSwagger
   compile group: 'org.apache.commons', name: 'commons-collections4', version: versions.commonsCollections4
   compile group: 'org.apache.commons', name: 'commons-lang3', version: versions.commonsLang3
-  compile group: 'commons-io', name: 'commons-io', version: '2.6'
-  compile group: 'uk.gov.hmcts.reform', name: 'java-logging-spring', version: javaLoggingVersion
-  compile group: 'uk.gov.hmcts.reform', name: 'java-logging-httpcomponents', version: javaLoggingVersion
-  compile group: 'uk.gov.hmcts.reform', name: 'java-logging-appinsights', version: javaLoggingVersion
-  compile group: 'uk.gov.hmcts.reform', name: 'http-proxy-spring-boot-autoconfigure', version: '1.1.0'
-  compile (group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: serviceAuthProviderClientVersion) {
-    exclude group: 'io.reactivex', module: 'rxnetty'
-    exclude group: 'io.reactivex', module: 'rxnetty-servo'
-    exclude group: 'io.reactivex', module: 'io.reactivex'
-    exclude group: 'io.reactivex', module: 'rxnetty-contexts'
-  }
-  compile group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '5.1'
-  compile group: 'uk.gov.service.notify', name: 'notifications-java-client', version: versions.hmctsNotify
+  compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: versions.mapstruct
+  compile group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+  compile group: 'org.springframework.retry', name: 'spring-retry', version: '1.2.2.RELEASE'
+
   compile group: 'org.projectlombok', name: 'lombok', version:versions.lombok
   apt "org.projectlombok:lombok:1.16.18"
 
-  compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix', version: '1.4.0.RELEASE'
-  compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix-dashboard', version: '1.4.0.RELEASE'
-  compile group: 'org.springframework.retry', name: 'spring-retry', version: '1.2.2.RELEASE'
+  compile group: 'uk.gov.hmcts.reform', name: 'http-proxy-spring-boot-autoconfigure', version: versions.hmctsHttpProxy
+  compile group: 'uk.gov.hmcts.reform', name: 'java-logging-appinsights', version: versions.hmctsJavaLogging
+  compile group: 'uk.gov.hmcts.reform', name: 'java-logging-httpcomponents', version: versions.hmctsJavaLogging
+  compile group: 'uk.gov.hmcts.reform', name: 'java-logging-spring', version: versions.hmctsJavaLogging
+  compile group: 'uk.gov.service.notify', name: 'notifications-java-client', version: versions.hmctsNotify
+  
 
+  compile (group: 'uk.gov.hmcts.reform', name:'service-auth-provider-client', version: versions.serviceTokenGenerator){
+    exclude group: 'io.reactivex', module: 'io.reactivex'
+    exclude group: 'io.reactivex', module: 'rxnetty'
+    exclude group: 'io.reactivex', module: 'rxnetty-contexts'
+    exclude group: 'io.reactivex', module: 'rxnetty-servo'
+  }
+
+  testCompile group: 'commons-io', name: 'commons-io', version: versions.commonsIO
+  testCompile group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: versions.springCloudWiremock
   testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test') {
     exclude(module: 'commons-logging')
-    exclude(group : 'com.vaadin.external.google')
   }
-  testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.6'
-
-//  //functional test
-//  functionalCompile group: 'net.serenity-bdd', name: 'serenity-core', version: '1.5.2'
-//  functionalCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: '1.5.2'
-//  functionalCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '1.5.2'
-//  functionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: '1.5.2'
-//  functionalCompile group: 'net.serenity-bdd', name: 'serenity-cucumber', version:'1.1.3'
-
-  functionalCompile group: 'junit', name: 'junit', version: '4.12'
-  functionalCompile group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
-  functionalCompile group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '5.1'
-  functionalCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.6'
-
-  functionalCompile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-  functionalCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-
-
-
-  functionalCompile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-  functionalCompile group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
-  functionalCompile group: 'org.skyscreamer', name:'jsonassert', version: '1.2.3'
-
-  functionalCompile group: 'uk.gov.hmcts.reform', name: 'java-logging', version:'2.0.2'
-  functionalCompile group: 'uk.gov.hmcts.reform', name:'service-auth-provider-client', version: '0.6.0'
-
-  functionalCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jackson
-  functionalCompile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: versions.jackson
-  functionalCompile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jackson
+  compileOnly group: 'org.mapstruct', name: 'mapstruct-processor', version: versions.mapstruct
 }
 
-jar {
-  archiveName 'finrem-notification-service.jar'
-  manifest {
-    attributes 'Implementation-Title': project.name,
-      'Implementation-Version': project.version
+task printVersion {
+  doLast {
+    print project.version
   }
-}
-
-task smoke(type: Test, description: 'Runs the smoke tests.', group: 'Verification') {
-  testClassesDirs = sourceSets.functional.output.classesDirs
-  classpath = sourceSets.functional.runtimeClasspath
-
-  useJUnit {
-    includeCategories 'SmokeTest'
-  }
-}
-
-task functional(type: Test, description: 'Runs the functional tests.', group: 'Verification') {
-  testClassesDirs = sourceSets.functional.output.classesDirs
-  classpath = sourceSets.functional.runtimeClasspath
-}
-
-
-task integrationTest(type: Test, description: 'Runs the integration tests.', group: 'Verification') {
-  testClassesDirs = sourceSets.integrationTest.output.classesDirs
-  classpath = sourceSets.integrationTest.runtimeClasspath
 }
 
 sonarqube {
   properties {
-    property "sonar.projectName", "Financial Remedy Notification Service"
-    property "sonar.projectKey", "FINREM_NOTIFICATION_SERVICE"
-    property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
-    property "sonar.jacoco.itReportPath", "${project.buildDir}/jacoco/functional.exec"
     property "sonar.exclusions", "**/finrem/notifications/domain/**, **/finrem/notifications/exception/**, **/finrem/notifications/health/**, */finrem/notifications/NotificationApplication.java"
-   }
+    property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco.exec"
+    property "sonar.projectKey", "FINREM_NOTIFICATION_SERVICE"
+    property "sonar.projectName", "Financial Remedy Notification Service"
+  }
+}
+
+task developAddRelaseSuffix() {
+  version = "${version}-SNAPSHOT"
+}
+
+test {
+  doFirst {
+    project.ext.automatedTest = false
+  }
+}
+
+jacocoTestReport {
+  executionData(test)
+
+  reports {
+    xml {
+      enabled true
+    }
+
+    html {
+      enabled true
+    }
+  }
+}
+
+jacocoTestCoverageVerification {
+  violationRules {
+    rule {
+      limit {
+        minimum = 0.8
+      }
+    }
+  }
+}
+
+def debug = System.getProperty("debug")
+run {
+  if (debug == 'true') {
+    jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005']
+  }
+}
+
+bootRun {
+  systemProperty 'server.port', '8086'
 }
