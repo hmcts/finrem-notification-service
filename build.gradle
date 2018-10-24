@@ -20,7 +20,8 @@ plugins {
   id 'org.owasp.dependencycheck' version '3.2.1'
   id 'pmd'
   id 'jacoco'
-  
+  id 'org.sonarqube' version '2.6.2'
+
 }
 
 
@@ -67,6 +68,15 @@ dependencies {
 
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+compileJava {
+  options.compilerArgs << '-parameters' << '-Xlint:deprecation'
+}
+
+compileTestJava {
+  options.compilerArgs << '-Xlint:deprecation'
+}
+
 
 jar {
   archiveName 'finrem-notification-service.jar'
@@ -165,4 +175,13 @@ jacocoTestCoverageVerification {
 
 task developAddRelaseSuffix() {
   version = "${version}-SNAPSHOT"
+}
+
+sonarqube {
+  properties {
+    property "sonar.exclusions", "**/finrem/notifications/domain/**, **/finrem/notifications/exception/**, **/finrem/notifications/health/**, */finrem/notifications/NotificationApplication.java"
+    property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco.exec"
+    property "sonar.projectKey", "FINREM_NOTIFICATION_SERVICE"
+    property "sonar.projectName", "Financial Remedy Notification Service"
+  }
 }
