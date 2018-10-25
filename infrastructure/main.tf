@@ -14,7 +14,7 @@ locals {
   asp_rg = "${var.env == "prod" ? "div-dgs-prod" : "${var.raw_product}-${var.env}"}"
 }
 
-module "div-dgs" {
+module "finrem-ns" {
   source                          = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
   product                         = "${var.product}-${var.component}"
   location                        = "${var.location}"
