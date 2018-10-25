@@ -1,10 +1,21 @@
 #!groovy
 
+properties([
+        [
+                $class: 'GithubProjectProperty',
+                displayName: 'Financial Remedy Notification service',
+                projectUrlStr: 'https://github.com/hmcts/finrem-notification-service'
+        ],
+        pipelineTriggers([
+                [$class: 'GitHubPushTrigger']
+        ])
+])
+
 @Library("Infrastructure")
 
 def type = "java"
 def product = "fr"
-def app = "ns"
+def component = "ns"
 
 List<LinkedHashMap<String, Object>> secrets = [
         secret("auth-provider-service-client-key", "AUTH_PROVIDER_SERVICE_CLIENT_KEY"),
@@ -20,11 +31,20 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
     ]
 }
 
-withPipeline(type, product, app) {
-    // TODO: create a channel
-    // enableSlackNotifications('#financialremedy-tech')
+withPipeline(type , product, component) {
+    if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
+        enableDockerBuild()
+        enableDeployToAKS()
+    }
 
     loadVaultSecrets(secrets)
+    setVaultName('finrem')
+
+    after('checkout') {
+        echo '${product}-${component} checked out'
+    }
+
+   // enableSlackNotifications(channel)
 
     before('smokeTest:prod') {
         error('Halting pipeline before prod stages')
