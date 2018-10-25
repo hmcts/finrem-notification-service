@@ -189,12 +189,3 @@ sonarqube {
   }
 }
 
-pitest {
-  targetClasses = ['**uk.gov.hmcts.reform.finrem.notifications.*']
-  excludedClasses = ['uk.gov.hmcts.reform.finrem.notifications.NotificationApplication']
-  threads = 10
-  outputFormats = ['XML', 'HTML']
-  timestampedReports = true
-  mutationThreshold = 90
-}
-
