@@ -110,6 +110,9 @@ sonarqube {
 check.dependsOn dependencyCheckAnalyze
 
 task smoke(type: Test, description: 'Runs the smoke tests.', group: 'Verification') {
+  useJUnit {
+    includeCategories 'uk.gov.hmcts.reform.finrem.notifications.category.SmokeTest'
+  }
 }
 
 task functional(type: Test, description: 'Runs the functional tests.', group: 'Verification') {
@@ -185,3 +188,4 @@ sonarqube {
     property "sonar.projectName", "Financial Remedy Notification Service"
   }
 }
+
