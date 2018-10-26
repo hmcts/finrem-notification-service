@@ -1,5 +1,5 @@
 variable "reform_service_name" {
-  default = "ns"
+  default = "frns"
 }
 
 variable "reform_team" {
@@ -66,8 +66,6 @@ variable "location" {
 }
 
 variable "ilbIp" {}
-
-variable "vault_env" {}
 
 variable "common_tags" {
   type = "map"
