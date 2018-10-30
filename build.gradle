@@ -176,12 +176,3 @@ jacocoTestCoverageVerification {
   }
 }
 
-sonarqube {
-  properties {
-    property "sonar.exclusions", "**/finrem/notifications/domain/**, **/finrem/notifications/exception/**, **/finrem/notifications/health/**, */finrem/notifications/NotificationApplication.java"
-    property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco.exec"
-    property "sonar.projectKey", "FINREM_NOTIFICATION_SERVICE"
-    property "sonar.projectName", "Financial Remedy Notification Service"
-  }
-}
-
