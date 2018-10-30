@@ -14,7 +14,7 @@ properties([
 @Library("Infrastructure")
 
 def type = "java"
-def product = "fr"
+def product = "finrem"
 def component = "ns"
 
 List<LinkedHashMap<String, Object>> secrets = [
