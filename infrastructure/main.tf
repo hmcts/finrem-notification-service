@@ -8,10 +8,10 @@ locals {
   previewVaultName = "${var.reform_team}-aat"
   nonPreviewVaultName = "${var.reform_team}-${var.env}"
   vaultName = "${var.env == "preview" ? local.previewVaultName : local.nonPreviewVaultName}"
-  vaultUri = "${data.azurerm_key_vault.finrem_ns_key_vault.vault_uri}"
+  vaultUri = "${data.azurerm_key_vault.finrem_key_vault.vault_uri}"
 
-  asp_name = "${var.env == "prod" ? "div-dgs-prod" : "${var.raw_product}-${var.env}"}"
-  asp_rg = "${var.env == "prod" ? "div-dgs-prod" : "${var.raw_product}-${var.env}"}"
+  asp_name = "${var.env == "prod" ? "finrem-ns-prod" : "${var.raw_product}-${var.env}"}"
+  asp_rg = "${var.env == "prod" ? "finrem-ns-prod" : "${var.raw_product}-${var.env}"}"
 }
 
 module "finrem-ns" {
@@ -39,17 +39,17 @@ module "finrem-ns" {
   }
 }
 
-data "azurerm_key_vault" "finrem_ns_key_vault" {
+data "azurerm_key_vault" "finrem_key_vault" {
   name                = "${local.vaultName}"
   resource_group_name = "${local.vaultName}"
 }
 
 data "azurerm_key_vault_secret" "finrem-notification-service-s2s-key" {
   name      = "finrem-notification-service-s2s-secret"
-  vault_uri = "${data.azurerm_key_vault.finrem_ns_key_vault.vault_uri}"
+  vault_uri = "${data.azurerm_key_vault.finrem_key_vault.vault_uri}"
 }
 
 data "azurerm_key_vault_secret" "gov-uk-notification-key" {
   name      = "gov-uk-notification-key"
-  vault_uri = "${data.azurerm_key_vault.finrem_ns_key_vault.vault_uri}"
+  vault_uri = "${data.azurerm_key_vault.finrem_key_vault.vault_uri}"
 }
