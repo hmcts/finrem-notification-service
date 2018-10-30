@@ -77,8 +77,7 @@ compileTestJava {
   options.compilerArgs << '-Xlint:deprecation'
 }
 
-jar {
-    enabled = true
+bootJar {
     archiveName 'finrem-notification-service.jar'
     manifest {
     attributes('Implementation-Title': project.name,
