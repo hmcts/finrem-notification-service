@@ -78,8 +78,9 @@ compileTestJava {
 }
 
 jar {
-  println(" jar ..")
-  manifest {
+    enabled = true
+    archiveName 'finrem-notification-service.jar'
+    manifest {
     attributes('Implementation-Title': project.name,
             'Implementation-Version': project.version)
   }
