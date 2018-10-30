@@ -19,7 +19,7 @@ def component = "ns"
 
 List<LinkedHashMap<String, Object>> secrets = [
         secret("finrem-notification-service-s2s-key", "AUTH_PROVIDER_SERVICE_CLIENT_KEY"),
-        secret("uk-gov-notify-api-key", "UK_GOV_NOTIFY_API_KEY")
+        secret("gov-uk-notification-key", "UK_GOV_NOTIFY_API_KEY")
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
