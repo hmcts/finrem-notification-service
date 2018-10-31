@@ -1,11 +1,13 @@
-FROM openjdk:8-jre
+FROM hmcts/cnp-java-base:openjdk-jre-8-alpine-1.4
 
-COPY build/install/finrem-notification-service /opt/app/
+ENV APP finrem-notification-service.jar
+ENV APPLICATION_TOTAL_MEMORY 1024M
+ENV APPLICATION_SIZE_ON_DISK_IN_MB 59
+
+COPY build/libs/$APP /opt/app/
 
 WORKDIR /opt/app
 
-HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD http_proxy="" curl --silent --fail http://localhost:8086/health
+HEALTHCHECK --interval=100s --timeout=100s --retries=10 CMD http_proxy="" wget -q http://localhost:8086/health || exit 1
 
 EXPOSE 8086
-
-ENTRYPOINT ["/opt/app/bin/finrem-notification-service"]

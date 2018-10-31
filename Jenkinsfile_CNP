@@ -14,12 +14,12 @@ properties([
 @Library("Infrastructure")
 
 def type = "java"
-def product = "fr"
+def product = "finrem"
 def component = "ns"
 
 List<LinkedHashMap<String, Object>> secrets = [
-        secret("auth-provider-service-client-key", "AUTH_PROVIDER_SERVICE_CLIENT_KEY"),
-        secret("uk-gov-notify-api-key", "UK_GOV_NOTIFY_API_KEY")
+        secret("finrem-notification-service-s2s-key", "AUTH_PROVIDER_SERVICE_CLIENT_KEY"),
+        secret("gov-uk-notification-key", "UK_GOV_NOTIFY_API_KEY")
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -32,13 +32,10 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withPipeline(type , product, component) {
-    if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
-        enableDockerBuild()
-        enableDeployToAKS()
-    }
-
+    enableDockerBuild()
+    enableDeployToAKS()
     loadVaultSecrets(secrets)
-    setVaultName('finrem')
+    setVaultName(product)
 
     after('checkout') {
         echo '${product}-${component} checked out'
