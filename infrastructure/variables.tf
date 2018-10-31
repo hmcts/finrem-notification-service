@@ -54,7 +54,7 @@ variable "auth_provider_service_client_tokentimetoliveinseconds" {
   default = "900"
 }
 
-variable "finrem_notification_service_api_health_endpoint" {
+  variable "finrem_notification_service_api_health_endpoint" {
   default = "/health"
 }
 

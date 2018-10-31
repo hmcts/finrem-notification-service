@@ -1,15 +1,15 @@
 version: '2.1'
 
 services:
-  finrem-draft-store-service:
+  finrem-notification-service:
     build:
       context: .
       args:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: docker.artifactory.reform.hmcts.net/reform/finrem-draft-store-service
-    container_name: finrem-draft-store-service
+    image: docker.artifactory.reform.hmcts.net/hmcts/finrem-notification-service:latest
+    container_name: finrem-notification-service
     environment:
       # these environment variables are used by java-logging library
       - ROOT_APPENDER
@@ -18,113 +18,8 @@ services:
       - REFORM_SERVICE_NAME
       - REFORM_TEAM
       - REFORM_ENVIRONMENT
-      - AUTH_PROVIDER_SERVICE_CLIENT_BASEURL=http://service-auth-provider-api:8489
-      - DRAFT_STORE_API_BASEURL=http://draft-store-api:8800
-    volumes:
-      - ./build/install/finrem-draft-store-service:/opt/app/
+#    volumes:
+#      - ./build/install/finrem-notification-service:/opt/app/
     ports:
       # check .env
-      - $SERVER_PORT:$SERVER_PORT
-    depends_on:
-      - service-auth-provider-api
-      - draft-store-api
-    links:
-      - service-auth-provider-api
-  draft-store-api:
-    image: docker.artifactory.reform.hmcts.net/reform/draft-store-api:latest
-    environment:
-      - DRAFT_STORE_DB_HOST=draft-store-database
-      - DRAFT_STORE_DB_PASSWORD=draftstore
-      - IDAM_URL=http://idam-api:8080
-      - S2S_URL=http://service-auth-provider-api:8489
-    ports:
-      - 4601:8800
-    depends_on:
-      - idam-api
-      - service-auth-provider-api
-      - draft-store-database
-
-  draft-store-database:
-      image: docker.artifactory.reform.hmcts.net/reform/draft-store-database:latest
-      environment:
-        - DRAFT_STORE_DB_PASSWORD=draftstore
-      ports:
-        - 5601:5432
-      volumes:
-        - draft-store-database-data:/var/lib/postgresql/data
-  service-auth-provider-api:
-      image: hmcts/service-auth-provider-app:latest
-      healthcheck:
-        disable: true
-      ports:
-       - 8489:8489
-      environment:
-        - AUTH_PROVIDER_SERVICE_TESTING_SUPPORT_ENABLED=true
-        - AUTH_PROVIDER_SERVICE_SERVER_JWTKEY=wThK0f0/lh3FlxFcL4xUWDMI5C1J9KyQBgXV4wseh1e5J1uYJIjvTvArHxQDrYoHJ23xFxjHkOnvNbR5dXRoxA==
-        - AUTH_PROVIDER_SERVICE_SERVER_MICROSERVICE_KEYS_FINREM_DRAFT_STORE=AAAAAAAAAAAAAAAA
-
-  idam-api:
-      image: docker.artifactory.reform.hmcts.net/auth/idam-api:28b516eb041f62d9131c4be9af79fd0be53a17e0
-      command: --wait-for-database 60
-      ports:
-        - 8080:8080
-      environment:
-        - JAVA_OPTS=-Xms8m -Xmx256m
-        - IDAM_SUPERUSER_EMAIL=cmc-int-test@cmc.reform.hmcts.net
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-database:5432/idam
-        - IDAM_TESTING_SUPPORT_ENABLED=true
-        - NOTIFY_API_KEY=${GOV_NOTIFY_API_KEY}
-        - NOTIFY_CMC_ACTIVATE_USER_TEMPLATE=76aa8695-64e8-4afd-ae13-bc8385302b1f
-        - NOTIFY_CMC_SOLICITOR_ACTIVATE_USER_TEMPLATE=76aa8695-64e8-4afd-ae13-bc8385302b1f
-        - IDAM_SECRET=cmc_it_test_secret_key
-        - NOTIFY=true
-        - NOTIFY_CMC_WELCOME_USER_TEMPLATE=fake
-        - NOTIFY_DIVORCE_WELCOME_USER_TEMPLATE=fake
-        - NOTIFY_SSCS_WELCOME_USER_TEMPLATE=fake
-        - NOTIFY_RESET_PASSWORD_TEMPLATE=fake
-        - NOTIFY_PROBATE_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_DIVORCE_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_SSCS_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_CCD_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_BAR_ACTIVATE_USER_TEMPLATE=fake
-        - NOTIFY_FREG_ACTIVATE_USER_TEMPLATE=fake
-        - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_FINREM=123456
-        - http_proxy
-        - https_proxy
-        - no_proxy
-        - REFORM_ENVIRONMENT=test
-        - IDAM_CMC_ANONYMOUSCITIZEN_USER=civilmoneyclaims+anonymouscitizen@gmail.com
-        - IDAM_CMC_ANONYMOUSCITIZEN_PASSWORD=Password12
-        - IDAM_CMC_SYSTEMUPDATE_USER=civilmoneyclaims+systemupdate@gmail.com
-        - IDAM_CMC_SYSTEMUPDATE_PASSWORD=Password12
-        - IDAM_CMC_URL=https://www-citizen.moneyclaim.reform.hmcts.net:3000
-        - IDAM_CMC_WHITELIST=https://www-citizen.moneyclaim.reform.hmcts.net:3000/receiver
-        - IDAM_CMC_SOLICITOR_WHITELIST=https://www-legal.moneyclaim.reform.hmcts.net:4000/legal/receiver
-      mem_limit: 512m
-      memswap_limit: 0
-      depends_on:
-        shared-database:
-          condition: service_healthy
-
-  shared-database:
-      image: postgres:9.6-alpine
-      command: postgres -c 'max_connections=250'
-      ports:
-        - 5430:5432
-      volumes:
-        - shared-database-data:/var/lib/postgresql/data
-        - ./docker/database/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-      healthcheck:
-        test: psql -c 'select 1' -d postgres -U postgres
-        retries: 40
-      mem_limit: 320m
-      memswap_limit: 0
-  redis:
-      image: redis
-      expose:
-        - 6379
-      ports:
-        - 6379:6379
-volumes:
-    shared-database-data:
-    draft-store-database-data:
+      - 8086:8086
