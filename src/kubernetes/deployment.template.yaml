@@ -28,8 +28,8 @@ spec:
       - image: ${IMAGE_NAME}
         name: ${SERVICE_NAME}
         envFrom:
-          - configMapRef:
-              name: ${SERVICE_NAME}-config
+        - configMapRef:
+            name: ${SERVICE_NAME}-config
 
         # These may be adjusted, but be mindful please
         resources:
@@ -42,7 +42,7 @@ spec:
 
         # This is the port your process is listening on in the container
         ports:
-        - containerPort: 4009
+        - containerPort: 8086
           name: http
         imagePullPolicy: Always
 
@@ -60,6 +60,6 @@ spec:
   ports:
   - port: 80
     # Make sure targetPort is the same as 'containerPort' above...
-    targetPort: 4009
+    targetPort: 8086
   selector:
     app: ${SERVICE_NAME}
