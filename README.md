@@ -118,7 +118,7 @@ This will start the API container exposing the application's port 8086
 In order to test if the application is up, you can call its health endpoint:
 
 ```bash
-  curl http://localhost:8086//actuator/health
+  curl http://localhost:8086/health
 ```
 
 You should get a response similar to this:
