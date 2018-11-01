@@ -272,7 +272,7 @@ task developAddRelaseSuffix() {
 }
 
 jacocoTestReport {
-  executionData(test, functional)
+  executionData(test)
 
   reports {
     xml {
