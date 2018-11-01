@@ -2,7 +2,7 @@ locals {
   ase_name = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
   local_env = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "aat" : "saat" : var.env}"
 
-  idam_s2s_url                       = "http://${var.idam_s2s_url_prefix}-${local.local_env}.service.core-compute-${local.local_env}.internal"
+  idam_s2s_url = "http://${var.idam_s2s_url_prefix}-${local.local_env}.service.core-compute-${local.local_env}.internal"
 
 
   previewVaultName = "${var.reform_team}-aat"
