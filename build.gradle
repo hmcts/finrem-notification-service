@@ -52,7 +52,7 @@ bootJar {
     attributes 'Implementation-Title': project.name,
             'Implementation-Version': project.version
   }
-  archiveName 'finrem-document-generator.jar'
+  archiveName 'finrem-notification-service.jar'
 }
 
 mainClassName = 'uk.gov.hmcts.reform.finrem.notifications.NotificationApplication'
