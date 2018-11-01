@@ -45,7 +45,7 @@ data "azurerm_key_vault" "finrem_key_vault" {
 }
 
 data "azurerm_key_vault_secret" "finrem-notification-service-s2s-key" {
-  name      = "finrem-notification-service-s2s-secret"
+  name      = "finrem-notification-service-s2s-key"
   vault_uri = "${data.azurerm_key_vault.finrem_key_vault.vault_uri}"
 }
 
