@@ -4,8 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
+import uk.gov.hmcts.reform.authorisation.healthcheck.ServiceAuthHealthIndicator;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {ServiceAuthHealthIndicator.class})
 public class NotificationApplication {
 
     public static void main(String[] args) {
