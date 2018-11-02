@@ -16,6 +16,7 @@ properties([
 def type = "java"
 def product = "finrem"
 def component = "ns"
+def channel = '#finrem-dev'
 
 List<LinkedHashMap<String, Object>> secrets = [
         secret("finrem-notification-service-s2s-key", "AUTH_PROVIDER_SERVICE_CLIENT_KEY"),
@@ -41,7 +42,7 @@ withPipeline(type , product, component) {
         echo '${product}-${component} checked out'
     }
 
-   // enableSlackNotifications(channel)
+   enableSlackNotifications(channel)
 
     before('smokeTest:prod') {
         error('Halting pipeline before prod stages')
