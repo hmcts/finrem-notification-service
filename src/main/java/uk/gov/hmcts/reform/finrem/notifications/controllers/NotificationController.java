@@ -36,9 +36,9 @@ public class NotificationController {
             @RequestHeader("Authorization")
             @ApiParam(value = "JWT authorisation token issued by IDAM", required = true) final String authToken,
             @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number," +
-                    " solicitorReferenceNumber and the email address that will receive " +
-                    "the notification that the HWF is successful and all are mandatory")
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive "
+                    + "the notification that the HWF is successful and all are mandatory")
             final HwfSuccessfulNotificationRequest notificationRequest) {
         log.info("Received request for notification email for HWFSuccessful. Auth token: {}, Notification request : {}",
                 authToken, notificationRequest);
