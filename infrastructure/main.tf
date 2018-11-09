@@ -36,6 +36,8 @@ module "finrem-ns" {
     AUTH_PROVIDER_SERVICE_CLIENT_MICROSERVICE             = "${var.auth_provider_service_client_microservice}"
     AUTH_PROVIDER_SERVICE_CLIENT_KEY                      = "${data.azurerm_key_vault_secret.finrem-notification-service-s2s-key.value}"
     AUTH_PROVIDER_SERVICE_CLIENT_TOKENTIMETOLIVEINSECONDS = "${var.auth_provider_service_client_tokentimetoliveinseconds}"
+    UK_GOV_NOTIFY_API_KEY                                 = "${data.azurerm_key_vault_secret.gov-uk-notification-key.value}"
+    UK_GOV_NOTIFY_EMAIL_TEMPLATES                         = "${data.azurerm_key_vault_secret.gov-uk-notification-email-templates.value}"
   }
 }
 
@@ -51,5 +53,10 @@ data "azurerm_key_vault_secret" "finrem-notification-service-s2s-key" {
 
 data "azurerm_key_vault_secret" "gov-uk-notification-key" {
   name      = "gov-uk-notification-key"
+  vault_uri = "${data.azurerm_key_vault.finrem_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "gov-uk-notification-email-templates" {
+  name      = "gov-uk-notification-email-templates"
   vault_uri = "${data.azurerm_key_vault.finrem_key_vault.vault_uri}"
 }
