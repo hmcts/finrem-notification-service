@@ -16,8 +16,8 @@ public class EmailToSendTest {
     public void setUp() {
         templateVars = new HashMap<>();
         templateVars.put("abc", "123");
-        emailToSend = new EmailToSend("test@test.com", "12345"
-                , templateVars, "referenceId");
+        emailToSend = new EmailToSend("test@test.com", "12345",
+                templateVars, "referenceId");
     }
 
     @Test
