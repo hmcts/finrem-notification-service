@@ -3,6 +3,7 @@ package uk.gov.hmcts.reform.finrem.notifications.domain;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class HwfSuccessfulNotificationRequestTest {
 
@@ -21,10 +22,10 @@ public class HwfSuccessfulNotificationRequestTest {
     @Test
     public void shouldNotGetHwfNotificationRequestData() {
         underTest = new HwfSuccessfulNotificationRequest();
-        assertEquals(null, underTest.getCaseReferenceNumber());
-        assertEquals(null, underTest.getSolicitorReferenceNumber());
-        assertEquals(null, underTest.getName());
-        assertEquals(null, underTest.getNotificationEmail());
+        assertNull(underTest.getCaseReferenceNumber());
+        assertNull( underTest.getSolicitorReferenceNumber());
+        assertNull(underTest.getName());
+        assertNull(underTest.getNotificationEmail());
     }
 
     @Test
