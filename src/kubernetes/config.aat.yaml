@@ -8,13 +8,14 @@ data:
   AUTH_PROVIDER_SERVICE_CLIENT_BASEURL : "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
   SLOT : "PRODUCTION"
   REFORM_ENVIRONMENT : "aat"
-  AUTH_PROVIDER_SERVICE_CLIENT_MICROSERVICE : "finrem_notification_service"
+  AUTH_PROVIDER_SERVICE_CLIENT_MICROSERVICE : "finrem-notification-service"
   REFORM_SERVICE_NAME : "ns"
   AUTH_PROVIDER_SERVICE_CLIENT_TOKENTIMETOLIVEINSECONDS : "900"
   REFORM_TEAM : "finrem"
   ENVIRONMENT_NAME : "aat"
   VAULTNAME : "finrem-aat"
   AUTH_PROVIDER_SERVICE_CLIENT_KEY : ${AUTH_PROVIDER_SERVICE_CLIENT_KEY}
+  UK_GOV_NOTIFY_API_KEY : ${UK_GOV_NOTIFY_API_KEY}
   VAULTURI : "https://finrem-aat.vault.azure.net/"
   IDAM_S2S_URL : "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
   APPINSIGHTS_INSTRUMENTATIONKEY : "97f6a0e1-6be6-44b0-97bf-d03852b7791f"
