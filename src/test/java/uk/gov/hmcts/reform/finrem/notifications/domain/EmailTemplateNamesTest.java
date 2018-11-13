@@ -8,6 +8,6 @@ public class EmailTemplateNamesTest {
 
     @Test
     public void shouldReturnHWFSuccessful() {
-        assertEquals(EmailTemplateNames.FR_HWF_SUCCESSFUL.name(), "FR_HWF_SUCCESSFUL");
+        assertEquals("FR_HWF_SUCCESSFUL", EmailTemplateNames.FR_HWF_SUCCESSFUL.name());
     }
 }
