@@ -8,4 +8,9 @@
         <gav regex="true">^org\.apache\.tomcat:tomcat-annotations-api:.*$</gav>
         <cpe>cpe:/a:apache:tomcat</cpe>
     </suppress>
+    <suppress>
+        <notes>last present in 24.1; fixed in 24.1.1 and 25.0</notes>
+        <cpe>cpe:2.3:a:google:guava:*:*:*:*:*:*:*:*</cpe>
+        <cve>CVE-2018-10237</cve>
+    </suppress>
 </suppressions>
