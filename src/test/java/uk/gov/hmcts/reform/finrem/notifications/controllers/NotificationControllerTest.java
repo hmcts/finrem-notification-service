@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = NotificationApplication.class)
 public class NotificationControllerTest {
 
-    private static final String NOTIFY_HWF_SUCCESSFUL_URL = "/notify/hwfSuccessful";
+    private static final String NOTIFY_HWF_SUCCESSFUL_URL = "/notify/hwf-successful";
     @MockBean
     private EmailService emailService;
 
