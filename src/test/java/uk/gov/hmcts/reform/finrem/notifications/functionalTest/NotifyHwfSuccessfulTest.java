@@ -41,7 +41,6 @@ public class NotifyHwfSuccessfulTest {
     @Autowired
     private MockMvc webClient;
 
-
     @MockBean
     private EmailClient emailClient;
 
@@ -64,7 +63,7 @@ public class NotifyHwfSuccessfulTest {
     }
 
     @Test
-    public void givenCaseData_whenNotifyHwfSuccessfulAndThrowsNotificationException_ThenShouldNotSendHwfNotificationSuccessfully() throws Exception {
+    public void givenCaseData_whenNotifyHwfSuccessfulAndThrowsNotificationException() throws Exception {
         HwfSuccessfulNotificationRequest hwfSuccessfulNotificationRequest = new HwfSuccessfulNotificationRequest();
         hwfSuccessfulNotificationRequest.setNotificationEmail("test@test.com");
         hwfSuccessfulNotificationRequest.setCaseReferenceNumber("EZ00110000");
