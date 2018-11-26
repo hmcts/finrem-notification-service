@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HwfSuccessfulNotificationRequest {
+public class NotificationRequest {
     @NotNull
     private String caseReferenceNumber;
     @NotNull

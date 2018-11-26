@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 import uk.gov.hmcts.reform.finrem.notifications.client.EmailClient;
-import uk.gov.hmcts.reform.finrem.notifications.domain.HwfSuccessfulNotificationRequest;
+import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.service.notify.NotificationClientException;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -46,7 +46,7 @@ public class NotifyHwfSuccessfulTest {
 
     @Test
     public void givenCaseData_whenNotifyHwfSuccessful_ThenShouldSendHwfNotificationSuccessfully() throws Exception {
-        HwfSuccessfulNotificationRequest hwfSuccessfulNotificationRequest = new HwfSuccessfulNotificationRequest();
+        NotificationRequest hwfSuccessfulNotificationRequest = new NotificationRequest();
         hwfSuccessfulNotificationRequest.setNotificationEmail("test@test.com");
         hwfSuccessfulNotificationRequest.setCaseReferenceNumber("EZ00110000");
         hwfSuccessfulNotificationRequest.setSolicitorReferenceNumber("LL02");
@@ -64,7 +64,7 @@ public class NotifyHwfSuccessfulTest {
 
     @Test
     public void givenCaseData_whenNotifyHwfSuccessfulAndThrowsNotificationException() throws Exception {
-        HwfSuccessfulNotificationRequest hwfSuccessfulNotificationRequest = new HwfSuccessfulNotificationRequest();
+        NotificationRequest hwfSuccessfulNotificationRequest = new NotificationRequest();
         hwfSuccessfulNotificationRequest.setNotificationEmail("test@test.com");
         hwfSuccessfulNotificationRequest.setCaseReferenceNumber("EZ00110000");
         hwfSuccessfulNotificationRequest.setSolicitorReferenceNumber("LL02");

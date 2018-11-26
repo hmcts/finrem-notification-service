@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.finrem.notifications.client.EmailClient;
 import uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames;
 import uk.gov.hmcts.reform.finrem.notifications.domain.EmailToSend;
-import uk.gov.hmcts.reform.finrem.notifications.domain.HwfSuccessfulNotificationRequest;
+import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.service.notify.NotificationClientException;
 
 import java.util.HashMap;
@@ -27,15 +27,21 @@ public class EmailService {
     @Value("#{${uk.gov.notify.email.template.vars}}")
     private Map<String, Map<String, String>> emailTemplateVars;
 
-    public void sendHwfSuccessfulConfirmationEmail(HwfSuccessfulNotificationRequest notificationRequest) {
-        String templateName = EmailTemplateNames.FR_HWF_SUCCESSFUL.name();
+    public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
+        Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
+        EmailToSend emailToSend = generateEmail(notificationRequest.getNotificationEmail(), template.name(),
+                templateVars);
+        sendEmail(emailToSend, "send Confirmation email for " + template.name());
+    }
+
+    private Map<String, String> buildTemplateVars(NotificationRequest notificationRequest, String templateName) {
         Map<String, String> templateVars = new HashMap<>();
-        templateVars.put("caseReferenceNumber",notificationRequest.getCaseReferenceNumber());
+        templateVars.put("caseReferenceNumber", notificationRequest.getCaseReferenceNumber());
         templateVars.put("solicitorReferenceNumber", notificationRequest.getSolicitorReferenceNumber());
         templateVars.put("name", notificationRequest.getName());
+        log.info("email template vars " + emailTemplateVars.get(templateName));
         templateVars.putAll(emailTemplateVars.get(templateName));
-        EmailToSend emailToSend = generateEmail(notificationRequest.getNotificationEmail(), templateName, templateVars);
-        sendEmail(emailToSend, "send HWF Successful Confirmation email");
+        return templateVars;
     }
 
     private EmailToSend generateEmail(String destinationAddress,
