@@ -5,13 +5,13 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class HwfSuccessfulNotificationRequestTest {
+public class NotificationRequestTest {
 
-    private HwfSuccessfulNotificationRequest underTest;
+    private NotificationRequest underTest;
 
     @Test
     public void shouldGetHwfNotificationRequestData() {
-        underTest = new HwfSuccessfulNotificationRequest("123456",
+        underTest = new NotificationRequest("123456",
                 "45623", "Padmaja", "test@test.com");
         assertEquals("123456", underTest.getCaseReferenceNumber());
         assertEquals("45623", underTest.getSolicitorReferenceNumber());
@@ -21,7 +21,7 @@ public class HwfSuccessfulNotificationRequestTest {
 
     @Test
     public void shouldNotGetHwfNotificationRequestData() {
-        underTest = new HwfSuccessfulNotificationRequest();
+        underTest = new NotificationRequest();
         assertNull(underTest.getCaseReferenceNumber());
         assertNull( underTest.getSolicitorReferenceNumber());
         assertNull(underTest.getName());
@@ -30,7 +30,7 @@ public class HwfSuccessfulNotificationRequestTest {
 
     @Test
     public void shouldSetAndGetHwfNotificationRequestData() {
-        underTest = new HwfSuccessfulNotificationRequest();
+        underTest = new NotificationRequest();
         underTest.setName("Prashanth");
         underTest.setSolicitorReferenceNumber("123123");
         underTest.setCaseReferenceNumber("case1234");
