@@ -28,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class NotificationControllerTest {
 
     private static final String NOTIFY_HWF_SUCCESSFUL_URL = "/notify/hwf-successful";
+    private static final String NOTIFY_ASSIGN_TO_JUDGE_URL = "/notify/assign-to-judge";
+    private static final String NOTIFY_CONSENT_ORDER_MADE_URL = "/notify/consent-order-made";
     @MockBean
     private EmailService emailService;
 
@@ -50,6 +52,34 @@ public class NotificationControllerTest {
                 .getResource("/fixtures/hwfSuccessfulEmail.json").toURI()));
 
         mvc.perform(post(NOTIFY_HWF_SUCCESSFUL_URL)
+                .content(request.toString())
+                .header("Authorization", BEARER_TOKEN)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+    }
+
+    @Test
+    public void sendEmailForAssignedToJudge() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+                .getResource("/fixtures/assignedToJudge.json").toURI()));
+
+        mvc.perform(post(NOTIFY_ASSIGN_TO_JUDGE_URL)
+                .content(request.toString())
+                .header("Authorization", BEARER_TOKEN)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+    }
+
+    @Test
+    public void sendEmailForConsentOrderMade() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+                .getResource("/fixtures/consentOrderMade.json").toURI()));
+
+        mvc.perform(post(NOTIFY_CONSENT_ORDER_MADE_URL)
                 .content(request.toString())
                 .header("Authorization", BEARER_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))

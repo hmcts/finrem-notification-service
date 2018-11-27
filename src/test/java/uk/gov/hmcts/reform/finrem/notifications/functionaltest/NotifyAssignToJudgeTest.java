@@ -32,9 +32,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @PropertySource(value = "/application.properties")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class NotifyHwfSuccessfulTest {
+public class NotifyAssignToJudgeTest {
     private static final String AUTHORIZATION = "Authorization";
-    private static final String HWF_SUCCESSFUL_API_URI = "/notify/hwf-successful";
+    private static final String NOTIFY_ASSIGN_TO_JUDGE = "/notify/assign-to-judge";
     private static final String BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9";
     private static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -46,15 +46,15 @@ public class NotifyHwfSuccessfulTest {
 
     @Test
     public void givenCaseData_whenNotifyHwfSuccessful_ThenShouldSendHwfNotificationSuccessfully() throws Exception {
-        NotificationRequest hwfSuccessfulNotificationRequest = new NotificationRequest();
-        hwfSuccessfulNotificationRequest.setNotificationEmail("test@test.com");
-        hwfSuccessfulNotificationRequest.setCaseReferenceNumber("EZ00110000");
-        hwfSuccessfulNotificationRequest.setSolicitorReferenceNumber("LL02");
-        hwfSuccessfulNotificationRequest.setName("Test");
+        NotificationRequest notificationRequest = new NotificationRequest();
+        notificationRequest.setNotificationEmail("test1@test.com");
+        notificationRequest.setCaseReferenceNumber("EZ00110001");
+        notificationRequest.setSolicitorReferenceNumber("LL02");
+        notificationRequest.setName("Test");
 
-        webClient.perform(post(HWF_SUCCESSFUL_API_URI)
+        webClient.perform(post(NOTIFY_ASSIGN_TO_JUDGE)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonString(hwfSuccessfulNotificationRequest))
+                .content(convertObjectToJsonString(notificationRequest))
                 .header(AUTHORIZATION, BEARER_TOKEN))
                 .andExpect(status().isNoContent());
 
@@ -64,16 +64,16 @@ public class NotifyHwfSuccessfulTest {
 
     @Test
     public void givenCaseData_whenNotifyHwfSuccessfulAndThrowsNotificationException() throws Exception {
-        NotificationRequest hwfSuccessfulNotificationRequest = new NotificationRequest();
-        hwfSuccessfulNotificationRequest.setNotificationEmail("test@test.com");
-        hwfSuccessfulNotificationRequest.setCaseReferenceNumber("EZ00110000");
-        hwfSuccessfulNotificationRequest.setSolicitorReferenceNumber("LL02");
+        NotificationRequest notificationRequest = new NotificationRequest();
+        notificationRequest.setNotificationEmail("test1@test.com");
+        notificationRequest.setCaseReferenceNumber("EZ00110001");
+        notificationRequest.setSolicitorReferenceNumber("LL02");
         when(emailClient.sendEmail(anyString(), anyString(), Mockito.anyMap(), anyString()))
                 .thenThrow(new NotificationClientException(new Exception("Sending Email Failed ")));
 
-        webClient.perform(post(HWF_SUCCESSFUL_API_URI)
+        webClient.perform(post(NOTIFY_ASSIGN_TO_JUDGE)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonString(hwfSuccessfulNotificationRequest))
+                .content(convertObjectToJsonString(notificationRequest))
                 .header(AUTHORIZATION, BEARER_TOKEN))
                 .andExpect(status().isNoContent());
     }
