@@ -39,7 +39,6 @@ public class EmailService {
         templateVars.put("caseReferenceNumber", notificationRequest.getCaseReferenceNumber());
         templateVars.put("solicitorReferenceNumber", notificationRequest.getSolicitorReferenceNumber());
         templateVars.put("name", notificationRequest.getName());
-        log.info("email template vars " + emailTemplateVars.get(templateName));
         templateVars.putAll(emailTemplateVars.get(templateName));
         return templateVars;
     }
