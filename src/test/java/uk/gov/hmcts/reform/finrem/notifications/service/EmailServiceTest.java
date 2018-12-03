@@ -23,7 +23,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -132,6 +134,61 @@ public class EmailServiceTest {
                 .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
         try {
             emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_MADE);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void sendConsentOrderNotApprovedEmailShouldCallTheEmailClientToSendAnEmail()
+            throws NotificationClientException {
+        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
+        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_NOT_APPROVED.name()));
+
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED);
+
+        verify(mockClient).sendEmail(
+                eq(emailTemplates.get(FR_CONSENT_ORDER_NOT_APPROVED.name())),
+                eq(EMAIL_ADDRESS),
+                eq(expectedEmailTemplateVars),
+                anyString());
+    }
+
+    @Test
+    public void sendConsentOrderNotApprovedEmailShouldNotPropagateNotificationClientException()
+            throws NotificationClientException {
+        doThrow(new NotificationClientException(new Exception("Exception inception")))
+                .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
+        try {
+            emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void sendConsentOrderAvailableEmailShouldCallTheEmailClientToSendAnEmail()
+            throws NotificationClientException {
+        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
+        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_AVAILABLE.name()));
+
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE);
+
+        verify(mockClient).sendEmail(
+                eq(emailTemplates.get(FR_CONSENT_ORDER_AVAILABLE.name())),
+                eq(EMAIL_ADDRESS),
+                eq(expectedEmailTemplateVars),
+                anyString());
+    }
+
+
+    @Test
+    public void sendConsentOrderAvailableEmailShouldNotPropagateNotificationClientException()
+            throws NotificationClientException {
+        doThrow(new NotificationClientException(new Exception("Exception inception")))
+                .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
+        try {
+            emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE);
         } catch (Exception e) {
             fail();
         }
