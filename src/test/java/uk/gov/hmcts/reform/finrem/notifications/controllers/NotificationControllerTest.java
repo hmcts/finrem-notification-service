@@ -15,10 +15,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
+import uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames;
+import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import java.io.File;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,6 +35,8 @@ public class NotificationControllerTest {
     private static final String NOTIFY_HWF_SUCCESSFUL_URL = "/notify/hwf-successful";
     private static final String NOTIFY_ASSIGN_TO_JUDGE_URL = "/notify/assign-to-judge";
     private static final String NOTIFY_CONSENT_ORDER_MADE_URL = "/notify/consent-order-made";
+    private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/consent-order-not-approved";
+
     @MockBean
     private EmailService emailService;
 
@@ -56,7 +63,8 @@ public class NotificationControllerTest {
                 .header("Authorization", BEARER_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
-
+        verify(emailService, times(1))
+                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
     }
 
     @Test
@@ -70,6 +78,8 @@ public class NotificationControllerTest {
                 .header("Authorization", BEARER_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+        verify(emailService, times(1))
+                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
 
     }
 
@@ -84,6 +94,40 @@ public class NotificationControllerTest {
                 .header("Authorization", BEARER_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+        verify(emailService, times(1))
+                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+
+    }
+
+    @Test
+    public void sendEmailForConsentOrderNotApproved() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+                .getResource("/fixtures/consentOrderNotApproved.json").toURI()));
+
+        mvc.perform(post(NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL)
+                .content(request.toString())
+                .header("Authorization", BEARER_TOKEN)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+        verify(emailService, times(1))
+                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+
+    }
+
+    @Test
+    public void sendEmailForConsentOrderAvailable() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+                .getResource("/fixtures/consentOrderAvailable.json").toURI()));
+
+        mvc.perform(post(NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL)
+                .content(request.toString())
+                .header("Authorization", BEARER_TOKEN)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+        verify(emailService, times(1))
+                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
 
     }
 }

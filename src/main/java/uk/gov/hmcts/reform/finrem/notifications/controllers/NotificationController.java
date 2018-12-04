@@ -19,7 +19,9 @@ import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 @RestController
@@ -61,9 +63,8 @@ public class NotificationController {
                     + " solicitorReferenceNumber and the email address that will receive "
                     + "the notification that a case is assigned to judge and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Case assigned to Judge. Auth token: {},"
-                        + " Notification request : {}",
-                authToken, notificationRequest);
+        log.info("Received request for notification email for Case assigned to Judge Notification request : {}",
+                notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_ASSIGNED_TO_JUDGE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -80,10 +81,45 @@ public class NotificationController {
                     + " solicitorReferenceNumber and the email address that will receive "
                     + "the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for consent order made. Auth token: {}, "
-                        + "Notification request : {}",
-                authToken, notificationRequest);
+        log.info("Received request for notification email for consent order made. Notification request : {}",
+                notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_MADE);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/consent-order-not-approved", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Consent order Not Approved.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Consent order not approved e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailConsentOrderNotApproved(
+            @RequestHeader("Authorization")
+            @ApiParam(value = "JWT authorisation token issued by IDAM", required = true) final String authToken,
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive "
+                    + "the notification that a consent order is made and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for consent order not approved, Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/consent-order-available", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Consent order available.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Consent order available e-mail notification sent successfully")})
+    public ResponseEntity<Void> sendEmailConsentOrderAvailable(
+            @RequestHeader("Authorization")
+            @ApiParam(value = "JWT authorisation token issued by IDAM", required = true) final String authToken,
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive "
+                    + "the notification that a consent order is made and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for consent order available Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
