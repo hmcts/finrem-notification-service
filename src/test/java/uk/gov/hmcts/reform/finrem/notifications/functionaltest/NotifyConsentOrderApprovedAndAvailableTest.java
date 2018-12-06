@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.finrem.notifications.functionaltest;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -32,9 +33,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @PropertySource(value = "/application.properties")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class NotifyAssignToJudgeTest {
+public class NotifyConsentOrderApprovedAndAvailableTest {
     private static final String AUTHORIZATION = "Authorization";
-    private static final String NOTIFY_ASSIGN_TO_JUDGE = "/notify/assign-to-judge";
+    private static final String CONSENT_ORDER_APPROVED_AVAILABLE = "/notify/consent-order-approved-available";
     private static final String BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9";
     private static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -44,15 +45,22 @@ public class NotifyAssignToJudgeTest {
     @MockBean
     private EmailClient emailClient;
 
-    @Test
-    public void givenCaseData_whenAssignToJudge_ThenShouldSendNotificationSuccessfully() throws Exception {
-        NotificationRequest notificationRequest = new NotificationRequest();
-        notificationRequest.setNotificationEmail("test1@test.com");
-        notificationRequest.setCaseReferenceNumber("EZ00110001");
-        notificationRequest.setSolicitorReferenceNumber("LL02");
+    private NotificationRequest notificationRequest;
+
+    @Before
+    public void setUp() {
+        notificationRequest = new NotificationRequest();
+        notificationRequest.setNotificationEmail("test2@test.com");
+        notificationRequest.setCaseReferenceNumber("EZ00110004");
+        notificationRequest.setSolicitorReferenceNumber("LL04");
         notificationRequest.setName("Test");
 
-        webClient.perform(post(NOTIFY_ASSIGN_TO_JUDGE)
+    }
+
+    @Test
+    public void givenCaseData_whenNotifyConsentOrderApprovedAndAvailable_ThenShouldSendEmail()
+            throws Exception {
+        webClient.perform(post(CONSENT_ORDER_APPROVED_AVAILABLE)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonString(notificationRequest))
                 .header(AUTHORIZATION, BEARER_TOKEN))
@@ -63,15 +71,11 @@ public class NotifyAssignToJudgeTest {
     }
 
     @Test
-    public void givenCaseData_whenAssignToJudgeAndThrowsNotificationException() throws Exception {
-        NotificationRequest notificationRequest = new NotificationRequest();
-        notificationRequest.setNotificationEmail("test1@test.com");
-        notificationRequest.setCaseReferenceNumber("EZ00110001");
-        notificationRequest.setSolicitorReferenceNumber("LL02");
+    public void givenCaseData_whenNotifyConsentOrderApprovedAndAvailableThrowsNotificationException()
+            throws Exception {
         when(emailClient.sendEmail(anyString(), anyString(), Mockito.anyMap(), anyString()))
                 .thenThrow(new NotificationClientException(new Exception("Sending Email Failed ")));
-
-        webClient.perform(post(NOTIFY_ASSIGN_TO_JUDGE)
+        webClient.perform(post(CONSENT_ORDER_APPROVED_AVAILABLE)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonString(notificationRequest))
                 .header(AUTHORIZATION, BEARER_TOKEN))
@@ -80,7 +84,6 @@ public class NotifyAssignToJudgeTest {
 
 
     private String convertObjectToJsonString(final Object object) {
-
         try {
             return objectMapper.writeValueAsString(object);
         } catch (Exception e) {
