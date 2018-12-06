@@ -45,7 +45,7 @@ public class NotifyConsentOrderMadeTest {
     private EmailClient emailClient;
 
     @Test
-    public void givenCaseData_whenNotifyHwfSuccessful_ThenShouldSendHwfNotificationSuccessfully() throws Exception {
+    public void givenCaseData_whenNotifyConsentOrderMade_ThenShouldSendHwfNotificationSuccessfully() throws Exception {
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setNotificationEmail("test2@test.com");
         notificationRequest.setCaseReferenceNumber("EZ00110002");
@@ -63,7 +63,7 @@ public class NotifyConsentOrderMadeTest {
     }
 
     @Test
-    public void givenCaseData_whenNotifyHwfSuccessfulAndThrowsNotificationException() throws Exception {
+    public void givenCaseData_whenNotifyConsentOrderMadeAndThrowsNotificationException() throws Exception {
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setNotificationEmail("test2@test.com");
         notificationRequest.setCaseReferenceNumber("EZ00110002");

@@ -58,7 +58,7 @@ public class NotifyConsentOrderNotApprovedTest {
     }
 
     @Test
-    public void givenCaseData_whenNotifyConsentOrderAvailable_ThenShouldSendHwfNotificationSuccessfully()
+    public void givenCaseData_whenNotifyConsentOrderNotApproved_ThenShouldSendHwfNotificationSuccessfully()
             throws Exception {
         webClient.perform(post(CONSENT_ORDER_NOT_APPROVED)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +71,7 @@ public class NotifyConsentOrderNotApprovedTest {
     }
 
     @Test
-    public void givenCaseData_whenNotifyConsentOrderAvailableAndThrowsNotificationException() throws Exception {
+    public void givenCaseData_whenNotifyConsentOrderNotApprovedAndThrowsNotificationException() throws Exception {
         when(emailClient.sendEmail(anyString(), anyString(), Mockito.anyMap(), anyString()))
                 .thenThrow(new NotificationClientException(new Exception("Sending Email Failed ")));
         webClient.perform(post(CONSENT_ORDER_NOT_APPROVED)
