@@ -37,7 +37,6 @@ public class NotificationControllerTest {
     private static final String NOTIFY_CONSENT_ORDER_MADE_URL = "/notify/consent-order-made";
     private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/consent-order-not-approved";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_URL = "/notify/consent-order-available";
-    private static final String CONSENT_ORDER_APPROVED_AVAILABLE_URL = "/notify/consent-order-approved-available";
 
     @MockBean
     private EmailService emailService;
@@ -124,22 +123,6 @@ public class NotificationControllerTest {
                 .getResource("/fixtures/consentOrderAvailable.json").toURI()));
 
         mvc.perform(post(NOTIFY_CONSENT_ORDER_AVAILABLE_URL)
-                .content(request.toString())
-                .header("Authorization", BEARER_TOKEN)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
-        verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
-
-    }
-
-    @Test
-    public void sendEmailForConsentOrderApprovedAndAvailable() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-                .getResource("/fixtures/consentOrderApprovedAndAvailable.json").toURI()));
-
-        mvc.perform(post(CONSENT_ORDER_APPROVED_AVAILABLE_URL)
                 .content(request.toString())
                 .header("Authorization", BEARER_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
