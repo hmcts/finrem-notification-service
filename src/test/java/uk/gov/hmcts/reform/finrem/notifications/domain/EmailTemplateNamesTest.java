@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_APPROVED_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
@@ -35,10 +34,5 @@ public class EmailTemplateNamesTest {
     @Test
     public void shouldReturnConsentOrderAvailable() {
         assertEquals("FR_CONSENT_ORDER_AVAILABLE", FR_CONSENT_ORDER_AVAILABLE.name());
-    }
-
-    @Test
-    public void shouldReturnConsentOrderApprovedAndAvailable() {
-        assertEquals("FR_CONSENT_ORDER_APPROVED_AVAILABLE", FR_CONSENT_ORDER_APPROVED_AVAILABLE.name());
     }
 }
