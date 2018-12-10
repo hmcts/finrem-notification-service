@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_APPROVED_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
@@ -190,34 +189,6 @@ public class EmailServiceTest {
                 .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
         try {
             emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE);
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void sendConsentOrderApprovedAndAvailableEmailShouldCallTheEmailClientToSendAnEmail()
-            throws NotificationClientException {
-        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
-        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_APPROVED_AVAILABLE.name()));
-
-        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_APPROVED_AVAILABLE);
-
-        verify(mockClient).sendEmail(
-                eq(emailTemplates.get(FR_CONSENT_ORDER_APPROVED_AVAILABLE.name())),
-                eq(EMAIL_ADDRESS),
-                eq(expectedEmailTemplateVars),
-                anyString());
-    }
-
-
-    @Test
-    public void sendConsentOrderApprovedAndAvailableEmailShouldNotPropagateNotificationClientException()
-            throws NotificationClientException {
-        doThrow(new NotificationClientException(new Exception("Exception inception")))
-                .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
-        try {
-            emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_APPROVED_AVAILABLE);
         } catch (Exception e) {
             fail();
         }

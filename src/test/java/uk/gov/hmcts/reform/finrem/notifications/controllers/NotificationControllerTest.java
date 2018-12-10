@@ -132,20 +132,4 @@ public class NotificationControllerTest {
                 .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
 
     }
-
-    @Test
-    public void sendEmailForConsentOrderApprovedAndAvailable() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-                .getResource("/fixtures/consentOrderApprovedAndAvailable.json").toURI()));
-
-        mvc.perform(post(CONSENT_ORDER_APPROVED_AVAILABLE_URL)
-                .content(request.toString())
-                .header("Authorization", BEARER_TOKEN)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
-        verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
-
-    }
 }
