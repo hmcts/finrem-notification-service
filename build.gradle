@@ -253,11 +253,7 @@ pitest {
   mutationThreshold = 90
 }
 
-def sonarExclusions = [
-        '**/finrem/notifications/config/**.java',
-        '**/finrem/notifications/domain/**.java',
-        '**uk/gov/hmcts/reform/finrem/notifications/NotificationApplication.java'
-]
+def sonarExclusions = ['**uk/gov/hmcts/reform/finrem/notifications/NotificationApplication.java']
 
 sonarqube {
   println "echo sonarqube"

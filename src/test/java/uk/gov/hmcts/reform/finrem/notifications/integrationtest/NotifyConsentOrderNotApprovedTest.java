@@ -1,7 +1,8 @@
-package uk.gov.hmcts.reform.finrem.notifications.functionaltest;
+package uk.gov.hmcts.reform.finrem.notifications.integrationtest;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -32,9 +33,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @PropertySource(value = "/application.properties")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class NotifyConsentOrderMadeTest {
+public class NotifyConsentOrderNotApprovedTest {
     private static final String AUTHORIZATION = "Authorization";
-    private static final String CONSENT_ORDER_MADE = "/notify/consent-order-made";
+    private static final String CONSENT_ORDER_NOT_APPROVED = "/notify/consent-order-not-approved";
     private static final String BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9";
     private static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -44,15 +45,22 @@ public class NotifyConsentOrderMadeTest {
     @MockBean
     private EmailClient emailClient;
 
-    @Test
-    public void givenCaseData_whenNotifyConsentOrderMade_ThenShouldSendHwfNotificationSuccessfully() throws Exception {
-        NotificationRequest notificationRequest = new NotificationRequest();
-        notificationRequest.setNotificationEmail("test2@test.com");
-        notificationRequest.setCaseReferenceNumber("EZ00110002");
+    private NotificationRequest notificationRequest;
+
+    @Before
+    public void setUp() {
+        notificationRequest = new NotificationRequest();
+        notificationRequest.setNotificationEmail("test4@test.com");
+        notificationRequest.setCaseReferenceNumber("EZ00110004");
         notificationRequest.setSolicitorReferenceNumber("LL03");
         notificationRequest.setName("Test");
 
-        webClient.perform(post(CONSENT_ORDER_MADE)
+    }
+
+    @Test
+    public void givenCaseData_whenNotifyConsentOrderNotApproved_ThenShouldSendHwfNotificationSuccessfully()
+            throws Exception {
+        webClient.perform(post(CONSENT_ORDER_NOT_APPROVED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonString(notificationRequest))
                 .header(AUTHORIZATION, BEARER_TOKEN))
@@ -63,15 +71,10 @@ public class NotifyConsentOrderMadeTest {
     }
 
     @Test
-    public void givenCaseData_whenNotifyConsentOrderMadeAndThrowsNotificationException() throws Exception {
-        NotificationRequest notificationRequest = new NotificationRequest();
-        notificationRequest.setNotificationEmail("test2@test.com");
-        notificationRequest.setCaseReferenceNumber("EZ00110002");
-        notificationRequest.setSolicitorReferenceNumber("LL03");
+    public void givenCaseData_whenNotifyConsentOrderNotApprovedAndThrowsNotificationException() throws Exception {
         when(emailClient.sendEmail(anyString(), anyString(), Mockito.anyMap(), anyString()))
                 .thenThrow(new NotificationClientException(new Exception("Sending Email Failed ")));
-
-        webClient.perform(post(CONSENT_ORDER_MADE)
+        webClient.perform(post(CONSENT_ORDER_NOT_APPROVED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonString(notificationRequest))
                 .header(AUTHORIZATION, BEARER_TOKEN))
