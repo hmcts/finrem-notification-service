@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
@@ -38,15 +37,13 @@ public class NotificationController {
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "HWFSuccessful e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailHwfSuccessFul(
-            @RequestHeader("Authorization")
-            @ApiParam(value = "JWT authorisation token issued by IDAM", required = true) final String authToken,
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
                     + " solicitorReferenceNumber and the email address that will receive "
                     + "the notification that the HWF is successful and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for HWFSuccessful. Auth token: {}, Notification request : {}",
-                authToken, notificationRequest);
+        log.info("Received request for notification email for HWFSuccessful. Notification request : {}",
+                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_HWF_SUCCESSFUL);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -56,8 +53,6 @@ public class NotificationController {
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Assigned to Judge e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailAssignToJudge(
-            @RequestHeader("Authorization")
-            @ApiParam(value = "JWT authorisation token issued by IDAM", required = true) final String authToken,
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
                     + " solicitorReferenceNumber and the email address that will receive "
@@ -74,8 +69,6 @@ public class NotificationController {
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Consent order made e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailConsentOrderApproved(
-            @RequestHeader("Authorization")
-            @ApiParam(value = "JWT authorisation token issued by IDAM", required = true) final String authToken,
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
                     + " solicitorReferenceNumber and the email address that will receive "
@@ -92,8 +85,6 @@ public class NotificationController {
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Consent order not approved e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailConsentOrderNotApproved(
-            @RequestHeader("Authorization")
-            @ApiParam(value = "JWT authorisation token issued by IDAM", required = true) final String authToken,
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
                     + " solicitorReferenceNumber and the email address that will receive "
@@ -110,8 +101,6 @@ public class NotificationController {
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Consent order available e-mail notification sent successfully")})
     public ResponseEntity<Void> sendEmailConsentOrderAvailable(
-            @RequestHeader("Authorization")
-            @ApiParam(value = "JWT authorisation token issued by IDAM", required = true) final String authToken,
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
                     + " solicitorReferenceNumber and the email address that will receive "
