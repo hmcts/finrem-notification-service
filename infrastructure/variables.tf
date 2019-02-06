@@ -70,3 +70,7 @@ variable "ilbIp" {}
 variable "common_tags" {
   type = "map"
 }
+
+variable "finrem_ns_url_prefix" {
+  default = "finrem-ns"
+}
