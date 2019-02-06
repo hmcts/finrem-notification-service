@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.finrem.notifications.functionaltest;
+package uk.gov.hmcts.reform.finrem.notifications.integrationtest;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
