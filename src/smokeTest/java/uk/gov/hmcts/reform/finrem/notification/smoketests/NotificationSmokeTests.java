@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.finrem.smoketests;
+package uk.gov.hmcts.reform.finrem.notification.smoketests;
 
 import io.restassured.RestAssured;
 import io.restassured.config.HttpClientConfig;
