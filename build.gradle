@@ -141,7 +141,7 @@ def versions = [
         serviceTokenGenerator: '1.0.4',
         springRetry          : '1.2.1.RELEASE',
         restAssured          : '3.0.3',
-        hmctsNotify          : '3.8.0-RELEASE'
+        hmctsNotify          : '3.8.0-RELEASE',
         commonsLang3: '3.7',
         commonsIo: '2.5',
         jsonAssert: '1.2.3',
@@ -244,15 +244,15 @@ task smoke(type: Test, description: 'Runs the smoke tests.', group: 'Verificatio
   }
 }
 
-  testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-core', version: '1.5.2'
-  testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: '1.5.2'
-  testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '1.5.2'
-  testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: '1.0.26'
+//  testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-core', version: '1.5.2'
+//  testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: '1.5.2'
+//  testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '1.5.2'
+//  testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: '1.0.26'
+//
+//  testSmokeCompile group: 'io.rest-assured', name: 'rest-assured', version: versions.restAssured
+//  testSmokeCompile sourceSets.main.runtimeClasspath
+//  testSmokeCompile sourceSets.test.runtimeClasspath
 
-  testSmokeCompile group: 'io.rest-assured', name: 'rest-assured', version: versions.restAssured
-  testSmokeCompile sourceSets.main.runtimeClasspath
-  testSmokeCompile sourceSets.test.runtimeClasspath
-}
 def sonarExclusions = ['**/uk/gov/hmcts/reform/finrem/notifications/config/**',
                        '**/uk/gov/hmcts/reform/finrem/notifications/domain/**',
                        '**/uk/gov/hmcts/reform/finrem/notifications/NotificationApplication'
@@ -348,11 +348,11 @@ bootJar {
   archiveName 'finrem-notification-service.jar'
 }
 
-task smoke(type: Test, description: 'Runs the smoke tests.', group: 'Verification') {
-  testClassesDirs = sourceSets.testSmoke.output.classesDirs
-  classpath = sourceSets.testSmoke.runtimeClasspath
-  finalizedBy aggregate
-}
+//task smoke(type: Test, description: 'Runs the smoke tests.', group: 'Verification') {
+//  testClassesDirs = sourceSets.testSmoke.output.classesDirs
+//  classpath = sourceSets.testSmoke.runtimeClasspath
+//  finalizedBy aggregate
+//}
 
 task functional(type: Test, description: 'Runs the smoke tests.', group: 'Verification') {
   testClassesDirs = sourceSets.testFunctional.output.classesDirs
