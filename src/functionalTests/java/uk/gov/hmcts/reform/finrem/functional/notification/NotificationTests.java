@@ -12,6 +12,7 @@ import net.serenitybdd.rest.SerenityRest;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import uk.gov.hmcts.reform.finrem.functional.IntegrationTestBase;
 
@@ -28,11 +29,13 @@ public class NotificationTests extends IntegrationTestBase {
     private static final String CONSENT_ORDER_NOT_APPROVED = "/notify/consent-order-not-approved";
     private static final String HWF_SUCCESSFUL_API_URI = "/notify/hwf-successful";
 
+    @Value("${notification.uri}")
+    private String notificationUrl;
 
     @Test
     public void verifyNotifyAssignToJudgeTestIsOkay() {
 
-        validatePostSuccessForNotification( NOTIFY_ASSIGN_TO_JUDGE,"assignToJudge.json");
+        validatePostSuccessForNotification( NOTIFY_ASSIGN_TO_JUDGE,"assignedToJudge.json");
 
     }
 
@@ -71,7 +74,7 @@ public class NotificationTests extends IntegrationTestBase {
                 .relaxedHTTPSValidation()
                 .headers(utils.getNewHeaders())
                 .body(utils.getJsonFromFile(jsonFileName))
-                .when().post(url)
+                .when().post(notificationUrl + url)
                 .then().assertThat().statusCode(200);
 
     }

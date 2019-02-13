@@ -21,6 +21,7 @@ public abstract class IntegrationTestBase {
     @Autowired
     protected FunctionalTestUtils utils;
 
+    @Value("${notification.uri}")
     private String notificationUrl;
 
 
