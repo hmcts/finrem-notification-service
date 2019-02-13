@@ -32,6 +32,11 @@ public class NotificationTests extends IntegrationTestBase {
     @Value("${notification.uri}")
     private String notificationUrl;
 
+    @Value("${env}")
+    private String environment;
+
+
+
     @Test
     public void verifyNotifyAssignToJudgeTestIsOkay() {
 
@@ -69,7 +74,9 @@ public class NotificationTests extends IntegrationTestBase {
 
 
     private void validatePostSuccessForNotification(String url,String jsonFileName) {
-        System.out.println("URL is " + "=========" + notificationUrl + "=========" + url);
+
+        System.out.println("URL is " + "=========" + notificationUrl + "========="
+                + url + "==============" + "env is :" + environment);
         SerenityRest.given()
                 .relaxedHTTPSValidation()
                 .headers(utils.getNewHeaders())
