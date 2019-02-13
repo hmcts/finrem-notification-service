@@ -30,7 +30,7 @@ public abstract class IntegrationTestBase {
     }
 
     @Autowired
-    public void migrationUrl(@Value("${notification.uri}")
+    public void notificationUrl(@Value("${notification.uri}")
                                                     String notificationUrl) {
         this.notificationUrl = notificationUrl;
         RestAssured.baseURI = notificationUrl;
