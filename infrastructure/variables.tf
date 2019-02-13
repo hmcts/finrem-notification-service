@@ -74,3 +74,7 @@ variable "common_tags" {
 variable "finrem_ns_url_prefix" {
   default = "finrem-ns"
 }
+
+variable "swagger_enabled" {
+  default = true
+}
