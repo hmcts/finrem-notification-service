@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.ResourceUtils;
 import uk.gov.hmcts.reform.finrem.functional.TestContextConfiguration;
-import uk.gov.hmcts.reform.finrem.functional.idam.IdamUtils;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -18,26 +18,6 @@ import java.nio.file.Files;
 @ContextConfiguration(classes = TestContextConfiguration.class)
 @Component
 public class FunctionalTestUtils {
-
-
-    @Autowired
-    private IdamUtils idamUtils;
-
-    @Value("${idam.username}")
-    private String idamUserName;
-
-    @Value("${idam.userpassword}")
-    private String idamUserPassword;
-
-    @Value("${user.id.url}")
-    private String userId;
-
-    @Value("${idam.api.url}")
-    private String baseServiceOauth2Url = "";
-
-
-    private String serviceToken;
-    private String clientToken;
 
 
     public String getJsonFromFile(String fileName) {
@@ -53,8 +33,6 @@ public class FunctionalTestUtils {
 
     public Headers getNewHeaders() {
         return Headers.headers(
-                //new Header("Authorization", idamUtils.generateUserTokenWithNoRoles(idamUserName, idamUserPassword)),
-                //new Header("Authorization", "{gov.uk.notify.key}"),
                 new Header("Content-Type", ContentType.JSON.toString()));
     }
 
