@@ -19,9 +19,6 @@ public class NotificationTests extends IntegrationTestBase {
     @Value("${notification.uri}")
     private String notificationUrl;
 
-    @Value("${env}")
-    private String environment;
-
 
     @Test
     public void verifyNotifyAssignToJudgeTestIsOkay() {
