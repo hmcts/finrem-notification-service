@@ -5,7 +5,6 @@ import net.serenitybdd.rest.SerenityRest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import uk.gov.hmcts.reform.finrem.functional.IntegrationTestBase;
 
 @RunWith(SerenityRunner.class)
@@ -67,7 +66,7 @@ public class NotificationTests extends IntegrationTestBase {
                 .headers(utils.getNewHeaders())
                 .body(utils.getJsonFromFile(jsonFileName))
                 .when().post(notificationUrl + url)
-                .then().assertThat().statusCode(HttpStatus.OK.value());
+                .then().assertThat().statusCode(204);
 
     }
 
