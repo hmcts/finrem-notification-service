@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan("uk.gov.hmcts.reform.finrem.functional")
 @PropertySource(value = {"classpath:application.properties"})
-@PropertySource(value = {"classpath:application-${env}.properties"})
+//@PropertySource(value = {"classpath:application-${env}.properties"})
 public class TestContextConfiguration {
 
 
