@@ -2,8 +2,6 @@ locals {
   ase_name = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
   local_env = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "aat" : "saat" : var.env}"
 
-  idam_s2s_url = "http://${var.idam_s2s_url_prefix}-${local.local_env}.service.core-compute-${local.local_env}.internal"
-
   previewVaultName = "${var.reform_team}-aat"
   nonPreviewVaultName = "${var.reform_team}-${var.env}"
   vaultName = "${var.env == "preview" ? local.previewVaultName : local.nonPreviewVaultName}"
@@ -31,10 +29,6 @@ module "finrem-ns" {
     REFORM_SERVICE_NAME                                   = "${var.reform_service_name}"
     REFORM_TEAM                                           = "${var.reform_team}"
     REFORM_ENVIRONMENT                                    = "${var.env}"
-    AUTH_PROVIDER_SERVICE_CLIENT_BASEURL                  = "${local.idam_s2s_url}"
-    AUTH_PROVIDER_SERVICE_CLIENT_MICROSERVICE             = "${var.auth_provider_service_client_microservice}"
-    AUTH_PROVIDER_SERVICE_CLIENT_KEY                      = "${data.azurerm_key_vault_secret.finrem-notification-service-s2s-key.value}"
-    AUTH_PROVIDER_SERVICE_CLIENT_TOKENTIMETOLIVEINSECONDS = "${var.auth_provider_service_client_tokentimetoliveinseconds}"
     UK_GOV_NOTIFY_API_KEY                                 = "${data.azurerm_key_vault_secret.gov-uk-notification-key.value}"
     UK_GOV_NOTIFY_EMAIL_TEMPLATES                         = "${data.azurerm_key_vault_secret.gov-uk-notification-email-templates.value}"
     SWAGGER_ENABLED                                       = "${var.swagger_enabled}"
@@ -44,11 +38,6 @@ module "finrem-ns" {
 data "azurerm_key_vault" "finrem_key_vault" {
   name                = "${local.vaultName}"
   resource_group_name = "${local.vaultName}"
-}
-
-data "azurerm_key_vault_secret" "finrem-notification-service-s2s-key" {
-  name      = "finrem-notification-service-s2s-key"
-  vault_uri = "${data.azurerm_key_vault.finrem_key_vault.vault_uri}"
 }
 
 data "azurerm_key_vault_secret" "gov-uk-notification-key" {
