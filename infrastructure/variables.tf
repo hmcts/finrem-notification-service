@@ -42,10 +42,6 @@ variable "appinsights_instrumentation_key" {
   default = ""
 }
 
-variable "idam_s2s_url_prefix" {
-  default = "rpe-service-auth-provider"
-}
-
 variable "auth_provider_service_client_microservice" {
   default = "finrem-notification-service"
 }
