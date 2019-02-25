@@ -19,7 +19,6 @@ def component = "ns"
 def channel = '#finrem-dev'
 
 List<LinkedHashMap<String, Object>> secrets = [
-        secret("finrem-notification-service-s2s-key", "AUTH_PROVIDER_SERVICE_CLIENT_KEY"),
         secret("gov-uk-notification-key", "UK_GOV_NOTIFY_API_KEY")
 ]
 
@@ -43,8 +42,4 @@ withPipeline(type , product, component) {
     }
 
    enableSlackNotifications(channel)
-
-    before('smokeTest:prod') {
-        error('Halting pipeline before prod stages')
-    }
 }
