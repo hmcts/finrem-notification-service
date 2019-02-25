@@ -3,8 +3,6 @@ locals {
   local_env = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "aat" : "saat" : var.env}"
 
   idam_s2s_url = "http://${var.idam_s2s_url_prefix}-${local.local_env}.service.core-compute-${local.local_env}.internal"
-  finrem_ns_url                     =  "http://${var.finrem_ns_url_prefix}-${local.local_env}.service.core-compute-${local.local_env}.internal"
-
 
   previewVaultName = "${var.reform_team}-aat"
   nonPreviewVaultName = "${var.reform_team}-${var.env}"
@@ -39,7 +37,6 @@ module "finrem-ns" {
     AUTH_PROVIDER_SERVICE_CLIENT_TOKENTIMETOLIVEINSECONDS = "${var.auth_provider_service_client_tokentimetoliveinseconds}"
     UK_GOV_NOTIFY_API_KEY                                 = "${data.azurerm_key_vault_secret.gov-uk-notification-key.value}"
     UK_GOV_NOTIFY_EMAIL_TEMPLATES                         = "${data.azurerm_key_vault_secret.gov-uk-notification-email-templates.value}"
-    FINREM_NOTIFICATION_SERVICE_BASE_URL                  = "${local.finrem_ns_url}"
     SWAGGER_ENABLED                                       = "${var.swagger_enabled}"
   }
 }
