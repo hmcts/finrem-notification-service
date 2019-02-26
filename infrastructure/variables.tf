@@ -1,5 +1,5 @@
 variable "reform_service_name" {
-  default = "frns"
+  default = "ns"
 }
 
 variable "reform_team" {
