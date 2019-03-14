@@ -42,4 +42,8 @@ withPipeline(type , product, component) {
     }
 
    enableSlackNotifications(channel)
+
+    before('buildinfra:prod') {
+        error('Halting pipeline before PROD.')
+    }
 }
