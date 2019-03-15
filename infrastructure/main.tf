@@ -32,6 +32,7 @@ module "finrem-ns" {
     UK_GOV_NOTIFY_API_KEY                                 = "${data.azurerm_key_vault_secret.gov-uk-notification-key.value}"
     UK_GOV_NOTIFY_EMAIL_TEMPLATES                         = "${data.azurerm_key_vault_secret.gov-uk-notification-email-templates.value}"
     SWAGGER_ENABLED                                       = "${var.swagger_enabled}"
+    FORCE_UPDATE_APP_SETTINGS                             = "true"
   }
 }
 
