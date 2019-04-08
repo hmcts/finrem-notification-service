@@ -1,6 +1,8 @@
 java:
+  # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
     AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     REFORM_ENVIRONMENT: aat
+    UK_GOV_NOTIFY_API_KEY: ${UK_GOV_NOTIFY_API_KEY}
