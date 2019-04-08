@@ -8,5 +8,4 @@ java:
       REFORM_SERVICE_NAME: 'ns'
       AUTH_PROVIDER_SERVICE_CLIENT_TOKENTIMETOLIVEINSECONDS: '900'
       REFORM_TEAM: 'finrem'
-      UK_GOV_NOTIFY_API_KEY: ${UK_GOV_NOTIFY_API_KEY}
   image: 'https://hmcts.azurecr.io/hmcts/finrem-notification-service:latest'
