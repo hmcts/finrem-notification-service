@@ -89,4 +89,8 @@
         <cve>CVE-2015-2156</cve>
         <cve>CVE-2014-3488</cve>
     </suppress>
+    <suppress>
+        <notes>CVE-2018-1258: we do not use Spring Method Security, so this does not affect us. see https://pivotal.io/security/cve-2018-1258</notes>
+        <cve>CVE-2018-1258</cve>
+    </suppress>
 </suppressions>
