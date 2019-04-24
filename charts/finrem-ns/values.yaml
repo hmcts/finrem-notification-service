@@ -1,0 +1,11 @@
+java:
+  applicationPort: '8086'
+  livenessPath: '/health'
+  environment:
+      APPLICATION_INSIGHTS_IKEY: '97f6a0e1-6be6-44b0-97bf-d03852b7791f'
+      SLOT: 'PRODUCTION'
+      AUTH_PROVIDER_SERVICE_CLIENT_MICROSERVICE: 'finrem-notification-service'
+      REFORM_SERVICE_NAME: 'ns'
+      AUTH_PROVIDER_SERVICE_CLIENT_TOKENTIMETOLIVEINSECONDS: '900'
+      REFORM_TEAM: 'finrem'
+  image: 'https://hmcts.azurecr.io/hmcts/finrem-notification-service:latest'
