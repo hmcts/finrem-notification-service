@@ -3,4 +3,4 @@ home: https://github.com/hmcts/finrem-notification-service
 version: 0.0.1
 description: Financial Remedy Notification service. Purpose is to request email notifications and integration with notify.gov.uk
 maintainers:
-  - name: HMCTS Financial remedy team Team
+  - name: HMCTS Financial Remedy Team
