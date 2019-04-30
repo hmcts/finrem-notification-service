@@ -9,3 +9,8 @@ java:
       AUTH_PROVIDER_SERVICE_CLIENT_TOKENTIMETOLIVEINSECONDS: '900'
       REFORM_TEAM: 'finrem'
   image: 'https://hmcts.azurecr.io/hmcts/finrem-notification-service:latest'
+  keyVaults:
+    finrem:
+      resourceGroup: finrem
+      secrets:
+        - gov-uk-notification-key

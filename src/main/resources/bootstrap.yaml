@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    propertiesvolume:
+      enabled: true
+      prefixed: true
+      paths: /mnt/secrets/finrem
+      aliases:
+        finrem.gov-uk-notification-key: UK_GOV_NOTIFY_API_KEY
