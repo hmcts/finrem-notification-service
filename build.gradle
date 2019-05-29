@@ -136,7 +136,6 @@ dependencies {
   compile(group: 'io.springfox', name: 'springfox-swagger-ui', version: versions.springfoxSwagger)
   compile group: 'org.springframework.retry', name: 'spring-retry', version: versions.springRetry
   compile group: 'uk.gov.service.notify', name: 'notifications-java-client', version: versions.hmctsNotify
-  compile group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: versions.serviceTokenGenerator
 
   compile group: 'uk.gov.hmcts.reform', name: 'health-spring-boot-starter', version:'0.0.3'
   compile group: 'uk.gov.hmcts.reform', name: 'properties-volume-spring-boot-starter', version:'0.0.4'
