@@ -40,4 +40,9 @@
         <gav regex="true">.*</gav>
         <cve>CVE-2019-0232</cve>
     </suppress>
+    <suppress>
+        <notes>Don't use SSI</notes>
+        <gav regex="true">.*</gav>
+        <cve>CVE-2019-0221</cve>
+    </suppress>
 </suppressions>
