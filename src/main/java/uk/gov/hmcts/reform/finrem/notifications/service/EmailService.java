@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static java.util.Objects.nonNull;
+
 @Service
 @Slf4j
 public class EmailService {
@@ -27,6 +29,9 @@ public class EmailService {
     @Value("#{${uk.gov.notify.email.template.vars}}")
     private Map<String, Map<String, String>> emailTemplateVars;
 
+    @Value("#{${uk.gov.notify.email.contestedContactEmails}}")
+    private Map<String, Map<String, String>> contestedContactEmails;
+
     public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
         Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
         EmailToSend emailToSend = generateEmail(notificationRequest.getNotificationEmail(), template.name(),
@@ -39,6 +44,12 @@ public class EmailService {
         templateVars.put("caseReferenceNumber", notificationRequest.getCaseReferenceNumber());
         templateVars.put("solicitorReferenceNumber", notificationRequest.getSolicitorReferenceNumber());
         templateVars.put("name", notificationRequest.getName());
+        // contested email notifications
+        if (nonNull(notificationRequest.getSelectedCourt())) {
+            Map<String, String> courtDetails = contestedContactEmails.get(notificationRequest.getSelectedCourt());
+            templateVars.put("courtName", courtDetails.get("name"));
+            templateVars.put("courtEmail", courtDetails.get("email"));
+        }
         templateVars.putAll(emailTemplateVars.get(templateName));
         return templateVars;
     }
