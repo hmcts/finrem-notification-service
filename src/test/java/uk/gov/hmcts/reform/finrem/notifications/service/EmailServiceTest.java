@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.finrem.notifications.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import uk.gov.service.notify.NotificationClientException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.nonNull;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -31,6 +33,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = NotificationApplication.class)
 @TestPropertySource(locations = "/application.properties")
+@Slf4j
 public class EmailServiceTest {
     private static final String EMAIL_ADDRESS = "simulate-delivered@notifications.service.gov.uk";
 
@@ -45,6 +48,9 @@ public class EmailServiceTest {
 
     @Value("#{${uk.gov.notify.email.template.vars}}")
     private Map<String, Map<String, String>> emailTemplateVars;
+
+    @Value("#{${uk.gov.notify.email.contestedContactEmails}}")
+    private Map<String, Map<String, String>> contestedContactEmails;
 
     private NotificationRequest notificationRequest;
 
@@ -70,6 +76,26 @@ public class EmailServiceTest {
                 eq(EMAIL_ADDRESS),
                 eq(expectedEmailTemplateVars),
                 anyString());
+    }
+
+    @Test
+    public void sendHwfSuccessfulConfirmationEmailContested()
+            throws NotificationClientException {
+        setContestedData();
+        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
+        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_HWF_SUCCESSFUL.name()));
+
+        emailService.sendConfirmationEmail(notificationRequest, FR_HWF_SUCCESSFUL);
+
+        verify(mockClient).sendEmail(
+                eq(emailTemplates.get(FR_HWF_SUCCESSFUL.name())),
+                eq(EMAIL_ADDRESS),
+                eq(expectedEmailTemplateVars),
+                anyString());
+    }
+
+    private void setContestedData() {
+        notificationRequest.setSelectedCourt("nottingham");
     }
 
     @Test
@@ -199,6 +225,11 @@ public class EmailServiceTest {
         expectedEmailTemplateVars.put("caseReferenceNumber", notificationRequest.getCaseReferenceNumber());
         expectedEmailTemplateVars.put("solicitorReferenceNumber", notificationRequest.getSolicitorReferenceNumber());
         expectedEmailTemplateVars.put("name", notificationRequest.getName());
+        Map<String, String> courtDetails = contestedContactEmails.get(notificationRequest.getSelectedCourt());
+        if (nonNull(notificationRequest.getSelectedCourt())) {
+            expectedEmailTemplateVars.put("courtName", courtDetails.get("name"));
+            expectedEmailTemplateVars.put("courtEmail", courtDetails.get("email"));
+        }
         return expectedEmailTemplateVars;
     }
 }
