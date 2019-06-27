@@ -22,4 +22,6 @@ public class NotificationRequest {
     @Email
     private String notificationEmail;
 
+    private String selectedCourt;
+
 }
