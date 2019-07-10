@@ -18,12 +18,12 @@ import uk.gov.service.notify.NotificationClientException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.util.Objects.nonNull;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.springframework.util.StringUtils.isEmpty;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
@@ -226,7 +226,7 @@ public class EmailServiceTest {
         expectedEmailTemplateVars.put("solicitorReferenceNumber", notificationRequest.getSolicitorReferenceNumber());
         expectedEmailTemplateVars.put("name", notificationRequest.getName());
         Map<String, String> courtDetails = contestedContactEmails.get(notificationRequest.getSelectedCourt());
-        if (nonNull(notificationRequest.getSelectedCourt())) {
+        if (!isEmpty(notificationRequest.getSelectedCourt())) {
             expectedEmailTemplateVars.put("courtName", courtDetails.get("name"));
             expectedEmailTemplateVars.put("courtEmail", courtDetails.get("email"));
         }

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static java.util.Objects.nonNull;
+import static org.springframework.util.StringUtils.isEmpty;
 
 @Service
 @Slf4j
@@ -45,7 +45,7 @@ public class EmailService {
         templateVars.put("solicitorReferenceNumber", notificationRequest.getSolicitorReferenceNumber());
         templateVars.put("name", notificationRequest.getName());
         // contested email notifications
-        if (nonNull(notificationRequest.getSelectedCourt())) {
+        if (!isEmpty(notificationRequest.getSelectedCourt())) {
             Map<String, String> courtDetails = contestedContactEmails.get(notificationRequest.getSelectedCourt());
             templateVars.put("courtName", courtDetails.get("name"));
             templateVars.put("courtEmail", courtDetails.get("email"));
