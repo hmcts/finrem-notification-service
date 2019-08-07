@@ -66,6 +66,11 @@
         <cve>CVE-2019-14379</cve>
     </suppress>
     <suppress>
+        <notes>Ignore jackson</notes>
+        <gav regex="true">.*</gav>
+        <cve>CVE-2019-14439</cve>
+    </suppress>
+    <suppress>
         <notes>Ignore tomcat embed</notes>
         <gav regex="true">.*</gav>
         <cve>CVE-2019-10072</cve>
