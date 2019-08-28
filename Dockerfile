@@ -9,8 +9,8 @@ ENV APPLICATION_SIZE_ON_DISK_IN_MB 47
 COPY build/libs/$APP /opt/app/
 COPY lib/applicationinsights-agent-2.3.1.jar lib/AI-Agent.xml /opt/app/
 
-HEALTHCHECK --interval=100s --timeout=100s --retries=10 CMD http_proxy="" wget -q http://localhost:4006/health || exit 1
+HEALTHCHECK --interval=100s --timeout=100s --retries=10 CMD http_proxy="" wget -q http://localhost:8086/health || exit 1
 
-EXPOSE 4006
+EXPOSE 8086
 
 CMD ["finrem-notification-service.jar"]
