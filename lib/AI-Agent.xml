@@ -5,7 +5,7 @@
         <BuiltIn enabled="true">
             <HTTP enabled="true"/>
         </BuiltIn>
-        <Class name="uk.gov.hmcts.reform.emclient.service.EvidenceManagementUploadServiceImpl">
+        <Class name="uk.gov.hmcts.reform.finrem.notifications.service.EmailService">
             <Method name="upload" reportCaughtExceptions="true" reportExecutionTime="true"/>
         </Class>
     </Instrumentation>
