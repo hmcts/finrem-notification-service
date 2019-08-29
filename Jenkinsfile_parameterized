@@ -13,9 +13,11 @@ properties([
   pipelineTriggers([[$class: 'GitHubPushTrigger']])
 ])
 
-List<LinkedHashMap<String, Object>> secrets = [
-        secret("gov-uk-notification-key", "UK_GOV_NOTIFY_API_KEY"),
-        secret("gov-uk-notification-email-templates", "UK_GOV_NOTIFY_EMAIL_TEMPLATES")
+def secrets = [
+        'finrem-${env}': [
+                secret("gov-uk-notification-key", "UK_GOV_NOTIFY_API_KEY"),
+                secret("gov-uk-notification-email-templates", "UK_GOV_NOTIFY_EMAIL_TEMPLATES")
+        ]
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
