@@ -35,7 +35,6 @@ withPipeline(type , product, component) {
     enableDockerBuild()
     installCharts()
     loadVaultSecrets(secrets)
-    setVaultName(product)
 
     after('checkout') {
         echo '${product}-${component} checked out'
