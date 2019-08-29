@@ -18,8 +18,10 @@ def product = "finrem"
 def component = "ns"
 def channel = '#finrem-dev'
 
-List<LinkedHashMap<String, Object>> secrets = [
-        secret("gov-uk-notification-key", "UK_GOV_NOTIFY_API_KEY")
+def secrets = [
+        'finrem-${env}': [
+                secret("gov-uk-notification-key", "UK_GOV_NOTIFY_API_KEY")
+        ]
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -35,7 +37,6 @@ withPipeline(type , product, component) {
     enableDockerBuild()
     installCharts()
     loadVaultSecrets(secrets)
-    setVaultName(product)
 
     after('checkout') {
         echo '${product}-${component} checked out'
