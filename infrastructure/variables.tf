@@ -70,3 +70,7 @@ variable "common_tags" {
 variable "swagger_enabled" {
   default = true
 }
+
+variable "managed_identity_object_id" {
+  default = ""
+}
