@@ -5,3 +5,5 @@ java:
   environment:
     AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     REFORM_ENVIRONMENT: aat
+  aadIdentityName: finrem
+  
