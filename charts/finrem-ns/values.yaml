@@ -14,3 +14,4 @@ java:
       resourceGroup: finrem
       secrets:
         - gov-uk-notification-key
+  aadIdentityName: finrem
