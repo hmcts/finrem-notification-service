@@ -125,9 +125,9 @@ def versions = [
 
 configurations.all {
   resolutionStrategy {
-    eachDependency { DependencyResolveDetails details ->
-      if (details.requested.group in ['com.fasterxml.jackson.core', 'com.fasterxml.jackson.module', 'com.fasterxml.jackson.datatype']) {
-        details.useVersion '2.9.9'
+    eachDependency { DependencyResolveDetails dependencyDetails ->
+      if (dependencyDetails.requested.group in ['com.fasterxml.jackson.core', 'com.fasterxml.jackson.module', 'com.fasterxml.jackson.datatype']) {
+        dependencyDetails.useVersion '2.9.9'
       }
     }
   }

@@ -3,8 +3,8 @@
     xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
     <suppress>
         <notes><![CDATA[
-   file name: tomcat-annotations-api-8.5.23.jar
-   ]]></notes>
+            file name: tomcat-annotations-api-8.5.23.jar
+        ]]></notes>
         <gav regex="true">^org\.apache\.tomcat:tomcat-annotations-api:.*$</gav>
         <cpe>cpe:/a:apache:tomcat</cpe>
     </suppress>
@@ -14,9 +14,7 @@
         <cve>CVE-2018-10237</cve>
     </suppress>
     <suppress>
-        <notes><![CDATA[
-   relates to CETS
-   ]]></notes>
+        <notes><![CDATA[ relates to CETS ]]></notes>
         <gav regex="true">.*</gav>
         <cve>CVE-2018-8088</cve>
     </suppress>
@@ -34,10 +32,6 @@
         <notes>We are not using web sockets</notes>
         <gav regex="true">.*</gav>
         <cve>CVE-2019-0199</cve>
-    </suppress>
-    <suppress>
-        <notes>We are not using web sockets</notes>
-        <gav regex="true">.*</gav>
         <cve>CVE-2019-0232</cve>
     </suppress>
     <suppress>
@@ -54,21 +48,18 @@
         <notes>Ignore jackson</notes>
         <gav regex="true">.*</gav>
         <cve>CVE-2019-12384</cve>
-    </suppress>
-    <suppress>
-        <notes>Ignore jackson</notes>
-        <gav regex="true">.*</gav>
         <cve>CVE-2019-12814</cve>
-    </suppress>
-    <suppress>
-        <notes>Ignore jackson</notes>
-        <gav regex="true">.*</gav>
         <cve>CVE-2019-14379</cve>
+        <cve>CVE-2019-14439</cve>
     </suppress>
     <suppress>
-        <notes>Ignore jackson</notes>
+        <notes><![CDATA[
+            This is exploitable in com.zaxxer.hikari.HikariConfig and com.zaxxer.hikari.HikariDataSource
+            which we do not use. Pending the release of a stable jackson databind version (>2.9.9.3) ]]>
+        </notes>
         <gav regex="true">.*</gav>
-        <cve>CVE-2019-14439</cve>
+        <cve>CVE-2019-14540</cve>
+        <cve>CVE-2019-16335</cve>
     </suppress>
     <suppress>
         <notes>Ignore tomcat embed</notes>
@@ -79,15 +70,7 @@
         <notes>Ignore bcproxy</notes>
         <gav regex="true">.*</gav>
         <cve>CVE-2017-13098</cve>
-    </suppress>
-    <suppress>
-        <notes>Ignore bcproxy</notes>
-        <gav regex="true">.*</gav>
         <cve>CVE-2018-1000180</cve>
-    </suppress>
-    <suppress>
-        <notes>Ignore bcproxy</notes>
-        <gav regex="true">.*</gav>
         <cve>CVE-2018-1000613</cve>
     </suppress>
 </suppressions>
