@@ -2,7 +2,6 @@ java:
   applicationPort: '8086'
   livenessPath: '/health'
   environment:
-      APPLICATION_INSIGHTS_IKEY: 'eb08d1ca-cf60-4744-854d-b0e6a94b99e2'
       SLOT: 'PRODUCTION'
       AUTH_PROVIDER_SERVICE_CLIENT_MICROSERVICE: 'finrem-notification-service'
       REFORM_SERVICE_NAME: 'ns'
