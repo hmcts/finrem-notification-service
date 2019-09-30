@@ -7,8 +7,6 @@ ENV APP finrem-notification-service.jar
 COPY build/libs/$APP /opt/app/
 COPY lib/AI-Agent.xml /opt/app/
 
-HEALTHCHECK --interval=100s --timeout=100s --retries=10 CMD http_proxy="" wget -q http://localhost:8086/health || exit 1
-
 EXPOSE 8086
 
 CMD ["finrem-notification-service.jar"]
