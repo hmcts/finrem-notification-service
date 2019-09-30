@@ -2,8 +2,3 @@ java:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-  environment:
-    APPLICATION_INSIGHTS_IKEY: '97f6a0e1-6be6-44b0-97bf-d03852b7791f'
-    AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    REFORM_ENVIRONMENT: aat
-  
