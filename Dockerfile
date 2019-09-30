@@ -3,8 +3,6 @@ FROM hmctspublic.azurecr.io/base/java:openjdk-8-distroless-1.2
 
 # Mandatory!
 ENV APP finrem-notification-service.jar
-ENV APPLICATION_TOTAL_MEMORY 1024M
-ENV APPLICATION_SIZE_ON_DISK_IN_MB 47
 
 COPY build/libs/$APP /opt/app/
 COPY lib/AI-Agent.xml /opt/app/
