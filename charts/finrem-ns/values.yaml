@@ -7,5 +7,4 @@ java:
     finrem:
       secrets:
         - gov-uk-notification-key
-  environment:
-    SWAGGER_ENABLED: false
+
