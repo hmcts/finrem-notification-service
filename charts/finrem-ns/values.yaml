@@ -7,4 +7,3 @@ java:
     finrem:
       secrets:
         - gov-uk-notification-key
-
