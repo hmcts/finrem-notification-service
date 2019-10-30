@@ -18,7 +18,7 @@ buildscript {
 plugins {
   id 'application'
   id 'checkstyle'
-  id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+  id 'io.spring.dependency-management' version '1.0.8.RELEASE'
   id 'jacoco'
   id 'net.ltgt.apt' version '0.10'
   id 'io.franzbecker.gradle-lombok' version '1.14'
