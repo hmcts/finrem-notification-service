@@ -44,4 +44,5 @@ withPipeline(type , product, component) {
     }
 
     enableSlackNotifications(channel)
+    if (env.BRANCH_NAME != 'demo') { disableLegacyDeployment() }
 }
