@@ -1,7 +1,3 @@
-provider "azurerm" {
-  version = "1.44.0"
-}
-
 locals {
   ase_name = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
   local_env = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "aat" : "saat" : var.env}"
@@ -28,7 +24,7 @@ module "finrem-ns" {
   common_tags                     = "${var.common_tags}"
   asp_name                        = "${local.asp_name}"
   asp_rg                          = "${local.asp_rg}"
-  enable_ase                      = false
+  enable_ase                      = ${(var.env != "demo") ? false : true}
 
   app_settings = {
     REFORM_SERVICE_NAME                                   = "${var.reform_service_name}"
@@ -47,10 +43,10 @@ data "azurerm_key_vault" "finrem_key_vault" {
 
 data "azurerm_key_vault_secret" "gov-uk-notification-key" {
   name      = "gov-uk-notification-key"
-  key_vault_id = "${data.azurerm_key_vault.finrem_key_vault.id}"
+  vault_uri = "${data.azurerm_key_vault.finrem_key_vault.vault_uri}"
 }
 
 data "azurerm_key_vault_secret" "gov-uk-notification-email-templates" {
   name      = "gov-uk-notification-email-templates"
-  key_vault_id = "${data.azurerm_key_vault.finrem_key_vault.id}"
+  vault_uri = "${data.azurerm_key_vault.finrem_key_vault.vault_uri}"
 }
