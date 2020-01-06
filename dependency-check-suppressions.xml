@@ -36,6 +36,8 @@
         <gav regex="true">.*</gav>
         <cve>CVE-2019-0199</cve>
         <cve>CVE-2019-0232</cve>
+        <cve>CVE-2019-12418</cve>
+        <cve>CVE-2019-17563</cve>
     </suppress>
     <suppress>
         <notes>Don't use SSI</notes>
@@ -72,6 +74,8 @@
         <notes>Ignore tomcat embed</notes>
         <gav regex="true">.*</gav>
         <cve>CVE-2019-10072</cve>
+        <cve>CVE-2019-12418</cve>
+        <cve>CVE-2019-17563</cve>
     </suppress>
     <suppress>
         <notes>Ignore bcproxy</notes>
