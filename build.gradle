@@ -216,8 +216,12 @@ dependencyCheck {
   }
 }
 
-checkstyle.toolVersion = '7.2'
-checkstyle.configFile = new File(rootDir, "checkstyle.xml")
+checkstyle {
+  maxWarnings = 0
+  toolVersion = '7.8.2'
+  // need to set configDir to rootDir otherwise submodule will use submodule/config/checkstyle
+  configFile = new File(rootDir, "checkstyle.xml")
+}
 
 // make build fail on Checkstyle issues (https://github.com/gradle/gradle/issues/881)
 tasks.withType(Checkstyle).each { checkstyleTask ->
