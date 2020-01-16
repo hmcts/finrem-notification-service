@@ -1,6 +1,5 @@
 package uk.gov.hmcts.reform.finrem.notifications.integrationtest;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
