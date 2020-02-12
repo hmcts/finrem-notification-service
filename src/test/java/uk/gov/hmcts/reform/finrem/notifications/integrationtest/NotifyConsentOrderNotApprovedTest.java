@@ -1,6 +1,5 @@
 package uk.gov.hmcts.reform.finrem.notifications.integrationtest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +24,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.AUTHORIZATION_HEADER;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.BEARER_AUTH_TOKEN;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_FAMILY_MAN_ID;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
+import static uk.gov.hmcts.reform.finrem.notifications.testutil.ObjectMapperTestUtil.convertObjectToJsonString;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = NotificationApplication.class)
@@ -33,10 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
 public class NotifyConsentOrderNotApprovedTest {
-    private static final String AUTHORIZATION = "Authorization";
     private static final String CONSENT_ORDER_NOT_APPROVED = "/notify/consent-order-not-approved";
-    private static final String BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9";
-    private static ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private MockMvc webClient;
@@ -49,11 +52,10 @@ public class NotifyConsentOrderNotApprovedTest {
     @Before
     public void setUp() {
         notificationRequest = new NotificationRequest();
-        notificationRequest.setNotificationEmail("test4@test.com");
-        notificationRequest.setCaseReferenceNumber("EZ00110004");
-        notificationRequest.setSolicitorReferenceNumber("LL03");
-        notificationRequest.setName("Test");
-
+        notificationRequest.setNotificationEmail(TEST_SOLICITOR_EMAIL);
+        notificationRequest.setCaseReferenceNumber(TEST_CASE_FAMILY_MAN_ID);
+        notificationRequest.setSolicitorReferenceNumber(TEST_SOLICITOR_REFERENCE);
+        notificationRequest.setName(TEST_SOLICITOR_NAME);
     }
 
     @Test
@@ -62,7 +64,7 @@ public class NotifyConsentOrderNotApprovedTest {
         webClient.perform(post(CONSENT_ORDER_NOT_APPROVED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonString(notificationRequest))
-                .header(AUTHORIZATION, BEARER_TOKEN))
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN))
                 .andExpect(status().isNoContent());
 
         verify(emailClient, Mockito.times(1))
@@ -73,20 +75,11 @@ public class NotifyConsentOrderNotApprovedTest {
     public void givenCaseData_whenNotifyConsentOrderNotApprovedAndThrowsNotificationException() throws Exception {
         when(emailClient.sendEmail(anyString(), anyString(), Mockito.anyMap(), anyString()))
                 .thenThrow(new NotificationClientException(new Exception("Sending Email Failed ")));
+
         webClient.perform(post(CONSENT_ORDER_NOT_APPROVED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonString(notificationRequest))
-                .header(AUTHORIZATION, BEARER_TOKEN))
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN))
                 .andExpect(status().isNoContent());
-    }
-
-
-    private String convertObjectToJsonString(final Object object) {
-
-        try {
-            return objectMapper.writeValueAsString(object);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

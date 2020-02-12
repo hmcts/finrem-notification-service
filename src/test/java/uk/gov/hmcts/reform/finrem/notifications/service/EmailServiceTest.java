@@ -24,6 +24,10 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.springframework.util.StringUtils.isEmpty;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_FAMILY_MAN_ID;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
@@ -57,10 +61,10 @@ public class EmailServiceTest {
     @Before
     public void setUp() {
         notificationRequest = new NotificationRequest();
-        notificationRequest.setNotificationEmail(EMAIL_ADDRESS);
-        notificationRequest.setCaseReferenceNumber("12345");
-        notificationRequest.setSolicitorReferenceNumber("56789");
-        notificationRequest.setName("Padmaja Ramisetti");
+        notificationRequest.setNotificationEmail(TEST_SOLICITOR_EMAIL);
+        notificationRequest.setCaseReferenceNumber(TEST_CASE_FAMILY_MAN_ID);
+        notificationRequest.setSolicitorReferenceNumber(TEST_SOLICITOR_REFERENCE);
+        notificationRequest.setName(TEST_SOLICITOR_NAME);
     }
 
     @Test
@@ -206,7 +210,6 @@ public class EmailServiceTest {
                 eq(expectedEmailTemplateVars),
                 anyString());
     }
-
 
     @Test
     public void sendConsentOrderAvailableEmailShouldNotPropagateNotificationClientException()

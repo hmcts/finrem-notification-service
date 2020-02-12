@@ -26,6 +26,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.AUTHORIZATION_HEADER;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.BEARER_AUTH_TOKEN;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(NotificationController.class)
@@ -47,8 +49,6 @@ public class NotificationControllerTest {
 
     private MockMvc mvc;
 
-    private static final String BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9";
-
     @Before
     public void setUp() {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -62,9 +62,10 @@ public class NotificationControllerTest {
 
         mvc.perform(post(NOTIFY_HWF_SUCCESSFUL_URL)
                 .content(request.toString())
-                .header("Authorization", BEARER_TOKEN)
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+
         verify(emailService, times(1))
                 .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
     }
@@ -77,12 +78,12 @@ public class NotificationControllerTest {
 
         mvc.perform(post(NOTIFY_ASSIGN_TO_JUDGE_URL)
                 .content(request.toString())
-                .header("Authorization", BEARER_TOKEN)
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+
         verify(emailService, times(1))
                 .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
-
     }
 
     @Test
@@ -93,12 +94,12 @@ public class NotificationControllerTest {
 
         mvc.perform(post(NOTIFY_CONSENT_ORDER_MADE_URL)
                 .content(request.toString())
-                .header("Authorization", BEARER_TOKEN)
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+
         verify(emailService, times(1))
                 .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
-
     }
 
     @Test
@@ -109,12 +110,12 @@ public class NotificationControllerTest {
 
         mvc.perform(post(NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL)
                 .content(request.toString())
-                .header("Authorization", BEARER_TOKEN)
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+
         verify(emailService, times(1))
                 .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
-
     }
 
     @Test
@@ -125,12 +126,12 @@ public class NotificationControllerTest {
 
         mvc.perform(post(NOTIFY_CONSENT_ORDER_AVAILABLE_URL)
                 .content(request.toString())
-                .header("Authorization", BEARER_TOKEN)
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+
         verify(emailService, times(1))
                 .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
-
     }
 
     @Test
@@ -141,11 +142,11 @@ public class NotificationControllerTest {
 
         mvc.perform(post(NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL)
                 .content(request.toString())
-                .header("Authorization", BEARER_TOKEN)
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+
         verify(emailService, times(1))
                 .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
-
     }
 }
