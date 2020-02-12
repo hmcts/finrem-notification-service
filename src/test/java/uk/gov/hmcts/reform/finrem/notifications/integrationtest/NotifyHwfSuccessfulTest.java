@@ -1,6 +1,6 @@
 package uk.gov.hmcts.reform.finrem.notifications.integrationtest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -24,6 +24,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.AUTHORIZATION_HEADER;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.BEARER_AUTH_TOKEN;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_FAMILY_MAN_ID;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
+import static uk.gov.hmcts.reform.finrem.notifications.testutil.ObjectMapperTestUtil.convertObjectToJsonString;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = NotificationApplication.class)
@@ -32,10 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
 public class NotifyHwfSuccessfulTest {
-    private static final String AUTHORIZATION = "Authorization";
     private static final String HWF_SUCCESSFUL_API_URI = "/notify/hwf-successful";
-    private static final String BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9";
-    private static ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private MockMvc webClient;
@@ -43,18 +47,24 @@ public class NotifyHwfSuccessfulTest {
     @MockBean
     private EmailClient emailClient;
 
+    private NotificationRequest notificationRequest;
+
+    @Before
+    public void setUp() {
+        notificationRequest = new NotificationRequest();
+        notificationRequest.setNotificationEmail(TEST_SOLICITOR_EMAIL);
+        notificationRequest.setCaseReferenceNumber(TEST_CASE_FAMILY_MAN_ID);
+        notificationRequest.setSolicitorReferenceNumber(TEST_SOLICITOR_REFERENCE);
+    }
+
     @Test
     public void givenCaseData_whenNotifyHwfSuccessful_ThenShouldSendHwfNotificationSuccessfully() throws Exception {
-        NotificationRequest hwfSuccessfulNotificationRequest = new NotificationRequest();
-        hwfSuccessfulNotificationRequest.setNotificationEmail("test@test.com");
-        hwfSuccessfulNotificationRequest.setCaseReferenceNumber("EZ00110000");
-        hwfSuccessfulNotificationRequest.setSolicitorReferenceNumber("LL02");
-        hwfSuccessfulNotificationRequest.setName("Test");
+        notificationRequest.setName(TEST_SOLICITOR_NAME);
 
         webClient.perform(post(HWF_SUCCESSFUL_API_URI)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonString(hwfSuccessfulNotificationRequest))
-                .header(AUTHORIZATION, BEARER_TOKEN))
+                .content(convertObjectToJsonString(notificationRequest))
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN))
                 .andExpect(status().isNoContent());
 
         verify(emailClient, Mockito.times(1))
@@ -63,27 +73,13 @@ public class NotifyHwfSuccessfulTest {
 
     @Test
     public void givenCaseData_whenNotifyHwfSuccessfulAndThrowsNotificationException() throws Exception {
-        NotificationRequest hwfSuccessfulNotificationRequest = new NotificationRequest();
-        hwfSuccessfulNotificationRequest.setNotificationEmail("test@test.com");
-        hwfSuccessfulNotificationRequest.setCaseReferenceNumber("EZ00110000");
-        hwfSuccessfulNotificationRequest.setSolicitorReferenceNumber("LL02");
         when(emailClient.sendEmail(anyString(), anyString(), Mockito.anyMap(), anyString()))
                 .thenThrow(new NotificationClientException(new Exception("Sending Email Failed ")));
 
         webClient.perform(post(HWF_SUCCESSFUL_API_URI)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonString(hwfSuccessfulNotificationRequest))
-                .header(AUTHORIZATION, BEARER_TOKEN))
+                .content(convertObjectToJsonString(notificationRequest))
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN))
                 .andExpect(status().isNoContent());
-    }
-
-
-    private String convertObjectToJsonString(final Object object) {
-
-        try {
-            return objectMapper.writeValueAsString(object);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

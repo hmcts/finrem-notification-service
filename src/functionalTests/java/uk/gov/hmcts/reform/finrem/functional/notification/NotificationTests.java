@@ -19,42 +19,30 @@ public class NotificationTests extends IntegrationTestBase {
     @Value("${notification.uri}")
     private String notificationUrl;
 
-
     @Test
     public void verifyNotifyAssignToJudgeTestIsOkay() {
-
         validatePostSuccessForNotification(NOTIFY_ASSIGN_TO_JUDGE, "assignedToJudge.json");
-
     }
 
     @Test
     public void verifyNotifyConsentOrderAvailableTestIsOkay() {
-
         validatePostSuccessForNotification(CONSENT_ORDER_AVAILABLE, "consentOrderAvailable.json");
-
     }
 
     @Test
     public void verifyNotifyConsentOrderMadeTestIsOkay() {
-
         validatePostSuccessForNotification(CONSENT_ORDER_MADE, "consentOrderMade.json");
-
     }
 
     @Test
     public void verifyNotifyConsentOrderNotApprovedTestIsOkay() {
-
         validatePostSuccessForNotification(CONSENT_ORDER_NOT_APPROVED, "consentOrderNotApproved.json");
-
     }
 
     @Test
     public void verifyNotifyHwfSuccessfulTestIsOkay() {
-
         validatePostSuccessForNotification(HWF_SUCCESSFUL_API_URI, "hwfSuccessfulEmail.json");
-
     }
-
 
     private void validatePostSuccessForNotification(String url, String jsonFileName) {
 
@@ -64,8 +52,5 @@ public class NotificationTests extends IntegrationTestBase {
                 .body(utils.getJsonFromFile(jsonFileName))
                 .when().post(notificationUrl + url)
                 .then().assertThat().statusCode(204);
-
     }
-
-
 }
