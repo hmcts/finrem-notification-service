@@ -2,21 +2,9 @@
 <suppressions
         xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
     <suppress>
-        <notes><![CDATA[
-            file name: tomcat-annotations-api-8.5.23.jar
-        ]]></notes>
-        <gav regex="true">^org\.apache\.tomcat:tomcat-annotations-api:.*$</gav>
-        <cpe>cpe:/a:apache:tomcat</cpe>
-    </suppress>
-    <suppress>
         <notes>last present in 24.1; fixed in 24.1.1 and 25.0</notes>
         <cpe>cpe:2.3:a:google:guava:*:*:*:*:*:*:*:*</cpe>
         <cve>CVE-2018-10237</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[ relates to CETS ]]></notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2018-8088</cve>
     </suppress>
     <suppress>
         <notes>CVE-2018-1258: we do not use Spring Method Security, so this does not affect us. see
@@ -32,32 +20,9 @@
         <cve>CVE-2019-3795</cve>
     </suppress>
     <suppress>
-        <notes>We are not using web sockets</notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2019-0199</cve>
-        <cve>CVE-2019-0232</cve>
-    </suppress>
-    <suppress>
-        <notes>Don't use SSI</notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2019-0221</cve>
-    </suppress>
-    <suppress>
         <notes>Ignore checkstyle</notes>
         <gav regex="true">.*</gav>
         <cve>CVE-2019-9658</cve>
-    </suppress>
-    <suppress>
-        <notes>Ignore jackson</notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2019-12384</cve>
-        <cve>CVE-2019-12814</cve>
-        <cve>CVE-2019-14379</cve>
-        <cve>CVE-2019-14439</cve>
-        <cve>CVE-2019-16942</cve>
-        <cve>CVE-2019-16943</cve>
-        <cve>CVE-2019-17267</cve>
-        <cve>CVE-2019-17531</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
@@ -67,18 +32,6 @@
         <gav regex="true">.*</gav>
         <cve>CVE-2019-14540</cve>
         <cve>CVE-2019-16335</cve>
-    </suppress>
-    <suppress>
-        <notes>Ignore tomcat embed</notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2019-10072</cve>
-    </suppress>
-    <suppress>
-        <notes>Ignore bcproxy</notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2017-13098</cve>
-        <cve>CVE-2018-1000180</cve>
-        <cve>CVE-2018-1000613</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
