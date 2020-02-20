@@ -13,38 +13,9 @@
         <cve>CVE-2018-1258</cve>
     </suppress>
     <suppress>
-        <notes>We are using SecureRandom without a custom seed so not affected. This will however be
-            fixed with spring boot 2.1.4 upgrade which is using spring-security.* of 5.1.5 or higher
-        </notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2019-3795</cve>
-    </suppress>
-    <suppress>
-        <notes>Ignore checkstyle</notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2019-9658</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-            This is exploitable in com.zaxxer.hikari.HikariConfig and com.zaxxer.hikari.HikariDataSource
-            which we do not use. Pending the release of a stable jackson databind version (>2.9.9.3) ]]>
-        </notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2019-14540</cve>
-        <cve>CVE-2019-16335</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-			Netty before 4.1.42.
-			]]></notes>
-        <gav regex="true">.*</gav>
-        <cve>CVE-2019-16869</cve>
-        <cve>CVE-2015-2156</cve>
-        <cve>CVE-2014-3488</cve>
-    </suppress>
-    <suppress>
         <notes>All versions of com.puppycrawl.tools:checkstyle before 8.29 are vulnerable to
             XML External Entity (XXE) Injection due to an incomplete fix for CVE-2019-9658. </notes>
+        <cve>CVE-2019-9658</cve>
         <cve>CVE-2019-10782</cve>
     </suppress>
 </suppressions>
