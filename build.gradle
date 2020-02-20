@@ -83,10 +83,8 @@ def versions = [
         commonsIo               : '2.6',
         hmctsNotify             : '3.15.1-RELEASE',
         jackson                 : '2.10.0',
-        javaxWsRs               : '2.1.1',
         jsonAssert              : '1.2.3',
         junit                   : '4.12',
-        lombok                  : '1.18.4',
         reformHealth            : '0.0.5',
         reformLogging           : '5.1.1',
         reformPropertiesVolume  : '0.0.4',
@@ -97,8 +95,6 @@ def versions = [
         springBoot              : '2.2.4.RELEASE',
         springfoxSwagger        : '2.9.2',
         springRetry             : '1.2.1.RELEASE',
-        springOpenFeign         : '2.0.0.RELEASE',
-        wiremockVersion         : '2.8.0',
         wiremockVersion         : '2.18.0',
 ]
 
@@ -131,12 +127,9 @@ dependencyManagement {
 dependencies {
   compile("org.springframework.boot:spring-boot-starter-actuator")
   compile("org.springframework.boot:spring-boot-configuration-processor")
-  compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0'
-  compile group: 'org.projectlombok', name: 'lombok', version: versions.lombok
   compile group: 'commons-io', name: 'commons-io', version: versions.commonsIo
   compile group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
   compile group: 'io.springfox', name: 'springfox-swagger-ui', version: versions.springfoxSwagger
-  compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: versions.javaxWsRs
   compile group: 'org.projectlombok', name: 'lombok', version: versions.lombok
   compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springBoot
   compile group: 'org.springframework.retry', name: 'spring-retry', version: versions.springRetry
