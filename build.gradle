@@ -85,6 +85,7 @@ def versions = [
         jackson                 : '2.10.0',
         jsonAssert              : '1.2.3',
         junit                   : '4.12',
+        lombok                  : '1.18.4',
         reformHealth            : '0.0.5',
         reformLogging           : '5.1.1',
         reformPropertiesVolume  : '0.0.4',
@@ -161,6 +162,9 @@ dependencies {
   functionalCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
   functionalCompile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
   functionalCompile group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: versions.serviceTokenGenerator
+
+  annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+  testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 }
 def sonarExclusions = [
         '**/uk/gov/hmcts/reform/finrem/notifications/config/**',
@@ -210,13 +214,9 @@ jacocoTestReport {
   executionData(test)
 
   reports {
-    xml {
-      enabled true
-    }
-
-    html {
-      enabled true
-    }
+    xml.enabled = true
+    csv.enabled = false
+    xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
   }
 }
 
