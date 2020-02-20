@@ -96,6 +96,7 @@ def versions = [
         junit                   : '4.12',
         lombok                  : '1.18.4',
         reformHealth            : '0.0.5',
+        reformAppinsights       : '5.1.1',
         reformJavaLogging       : '5.0.1',
         reformPropertiesVolume  : '0.0.4',
         restAssured             : '3.0.3',
@@ -146,7 +147,7 @@ dependencies {
   compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springBoot
   compile group: 'org.springframework.retry', name: 'spring-retry', version: versions.springRetry
   compile group: 'uk.gov.service.notify', name: 'notifications-java-client', version: versions.hmctsNotify
-  compile group: 'uk.gov.hmcts.reform', name: 'java-logging-appinsights', version: versions.reformJavaLogging
+  compile group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.reformAppinsights
   compile group: 'uk.gov.hmcts.reform', name: 'health-spring-boot-starter', version: versions.reformHealth
   compile group: 'uk.gov.hmcts.reform', name: 'properties-volume-spring-boot-starter', version: versions.reformPropertiesVolume
 
