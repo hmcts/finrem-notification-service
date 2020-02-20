@@ -42,4 +42,9 @@
         <cve>CVE-2015-2156</cve>
         <cve>CVE-2014-3488</cve>
     </suppress>
+    <suppress>
+        <notes>All versions of com.puppycrawl.tools:checkstyle before 8.29 are vulnerable to
+            XML External Entity (XXE) Injection due to an incomplete fix for CVE-2019-9658. </notes>
+        <cve>CVE-2019-10782</cve>
+    </suppress>
 </suppressions>
