@@ -22,7 +22,7 @@ public class EmailClientTest {
     private EmailClient emailClient;
 
     @Test
-    public void shouldHaveTheCorrectAPIKey() {
+    public void shouldHaveTheCorrectApiKey() {
         assertEquals(apiKey, emailClient.getApiKey());
     }
 }
