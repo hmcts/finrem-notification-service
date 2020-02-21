@@ -22,5 +22,4 @@ public class NotificationApplication {
         loggingFilter.setMaxPayloadLength(10240);
         return loggingFilter;
     }
-
 }
