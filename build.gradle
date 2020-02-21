@@ -13,7 +13,7 @@ plugins {
   id 'application'
   id 'checkstyle'
   id 'info.solidsoft.pitest' version '1.4.6'
-  id 'io.franzbecker.gradle-lombok' version '1.14'
+  id 'io.franzbecker.gradle-lombok' version '3.3.0'
   id 'io.spring.dependency-management' version '1.0.9.RELEASE'
   id 'jacoco'
   id 'net.ltgt.apt' version '0.10'
