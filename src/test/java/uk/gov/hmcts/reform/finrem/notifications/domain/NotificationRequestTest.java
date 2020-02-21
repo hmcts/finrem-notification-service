@@ -34,26 +34,24 @@ public class NotificationRequestTest {
     public void shouldSetAndGetHwfNotificationRequestData() {
         underTest = new NotificationRequest();
         setNotificationData();
-        assertNotifcationData();
+        assertNotificationData();
     }
 
-    private void assertNotifcationData() {
+    private void assertNotificationData() {
         assertEquals("case1234", underTest.getCaseReferenceNumber());
         assertEquals("123123", underTest.getSolicitorReferenceNumber());
         assertEquals("Prashanth", underTest.getName());
         assertEquals("test1@test1.com", underTest.getNotificationEmail());
     }
 
-
     @Test
     public void shouldSetAndGetHwfNotificationRequestDataForContested() {
         underTest = new NotificationRequest();
         setNotificationData();
         underTest.setSelectedCourt("nottingham");
-        assertNotifcationData();
+        assertNotificationData();
         assertEquals("nottingham", underTest.getSelectedCourt());
     }
-
 
     private void setNotificationData() {
         underTest.setName("Prashanth");
