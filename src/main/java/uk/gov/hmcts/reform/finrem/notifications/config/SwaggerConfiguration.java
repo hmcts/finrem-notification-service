@@ -34,8 +34,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Financial Remedy Notification Service")
-                .description("Given a notification request, This service will send notification emails"
-                        + " to the destination email address")
+                .description("Given a notification request, this service will send notification emails to the destination email address")
                 .build();
     }
 

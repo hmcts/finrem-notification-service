@@ -34,17 +34,15 @@ public class NotificationController {
     private EmailService emailService;
 
     @PostMapping(path = "/hwf-successful", consumes = APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "send e-mail for HWF Successful.")
+    @ApiOperation(value = "Send e-mail for HWF Successful.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "HWFSuccessful e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailHwfSuccessFul(
             @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
+            @ApiParam(value = "The fixtures contains case reference number, solicitorReferenceNumber and the email address that will receive "
                     + "the notification that the HWF is successful and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for HWFSuccessful. Notification request : {}",
-                 notificationRequest);
+        log.info("Received request for notification email for HWFSuccessful. Notification request : {}", notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_HWF_SUCCESSFUL);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -55,12 +53,10 @@ public class NotificationController {
             @ApiResponse(code = 204, message = "Assigned to Judge e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailAssignToJudge(
             @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
+            @ApiParam(value = "The fixtures contains case reference number, solicitorReferenceNumber and the email address that will receive "
                     + "the notification that a case is assigned to judge and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Case assigned to Judge Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Case assigned to Judge Notification request : {}", notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_ASSIGNED_TO_JUDGE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -71,12 +67,10 @@ public class NotificationController {
             @ApiResponse(code = 204, message = "Consent order made e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailConsentOrderApproved(
             @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
+            @ApiParam(value = "The fixtures contains case reference number, solicitorReferenceNumber and the email address that will receive "
                     + "the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for consent order made. Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for consent order made. Notification request : {}", notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_MADE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -87,8 +81,7 @@ public class NotificationController {
             @ApiResponse(code = 204, message = "Consent order not approved e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailConsentOrderNotApproved(
             @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
+            @ApiParam(value = "The fixtures contains case reference number, solicitorReferenceNumber and the email address that will receive "
                     + "the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for consent order not approved, Notification request : {}",
@@ -103,8 +96,7 @@ public class NotificationController {
             @ApiResponse(code = 204, message = "Consent order available e-mail notification sent successfully")})
     public ResponseEntity<Void> sendEmailConsentOrderAvailable(
             @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
+            @ApiParam(value = "The fixtures contains case reference number, solicitorReferenceNumber and the email address that will receive "
                     + "the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for consent order available Notification request : {}",
@@ -119,12 +111,10 @@ public class NotificationController {
             @ApiResponse(code = 204, message = "Contested Case HWFSuccessful e-mail sent successfully")})
     public ResponseEntity<Void> sendContestedEmailHwfSuccessFul(
             @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
+            @ApiParam(value = "The fixtures contains case reference number, solicitorReferenceNumber and the email address that will receive "
                     + "the notification that the HWF is successful and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for HWFSuccessful. Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for HWFSuccessful. Notification request : {}", notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -1,62 +1,47 @@
 package uk.gov.hmcts.reform.finrem.notifications.domain;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_ID;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_COURT;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
 
 public class NotificationRequestTest {
 
-    private NotificationRequest underTest;
+    private NotificationRequest notificationRequest;
 
-    @Test
-    public void shouldGetHwfNotificationRequestData() {
-        underTest = new NotificationRequest("123456",
-                "45623", "Padmaja", "test@test.com", "nottingham");
-        assertEquals("123456", underTest.getCaseReferenceNumber());
-        assertEquals("45623", underTest.getSolicitorReferenceNumber());
-        assertEquals("Padmaja", underTest.getName());
-        assertEquals("test@test.com", underTest.getNotificationEmail());
-        assertEquals("nottingham", underTest.getSelectedCourt());
-    }
+    @Before
+    public void setup() {
+        notificationRequest = new NotificationRequest();
 
-    @Test
-    public void shouldNotGetHwfNotificationRequestData() {
-        underTest = new NotificationRequest();
-        assertNull(underTest.getCaseReferenceNumber());
-        assertNull(underTest.getSolicitorReferenceNumber());
-        assertNull(underTest.getName());
-        assertNull(underTest.getNotificationEmail());
-        assertNull(underTest.getSelectedCourt());
+        notificationRequest.setCaseReferenceNumber(TEST_CASE_ID);
+        notificationRequest.setSolicitorReferenceNumber(TEST_SOLICITOR_REFERENCE);
+        notificationRequest.setName(TEST_SOLICITOR_NAME);
+        notificationRequest.setNotificationEmail(TEST_SOLICITOR_EMAIL);
     }
 
     @Test
     public void shouldSetAndGetHwfNotificationRequestData() {
-        underTest = new NotificationRequest();
-        setNotificationData();
-        assertNotificationData();
-    }
 
-    private void assertNotificationData() {
-        assertEquals("case1234", underTest.getCaseReferenceNumber());
-        assertEquals("123123", underTest.getSolicitorReferenceNumber());
-        assertEquals("Prashanth", underTest.getName());
-        assertEquals("test1@test1.com", underTest.getNotificationEmail());
+        assertEquals(TEST_CASE_ID, notificationRequest.getCaseReferenceNumber());
+        assertEquals(TEST_SOLICITOR_REFERENCE, notificationRequest.getSolicitorReferenceNumber());
+        assertEquals(TEST_SOLICITOR_NAME, notificationRequest.getName());
+        assertEquals(TEST_SOLICITOR_EMAIL, notificationRequest.getNotificationEmail());
     }
 
     @Test
     public void shouldSetAndGetHwfNotificationRequestDataForContested() {
-        underTest = new NotificationRequest();
-        setNotificationData();
-        underTest.setSelectedCourt("nottingham");
-        assertNotificationData();
-        assertEquals("nottingham", underTest.getSelectedCourt());
-    }
+        notificationRequest.setSelectedCourt(TEST_COURT);
 
-    private void setNotificationData() {
-        underTest.setName("Prashanth");
-        underTest.setSolicitorReferenceNumber("123123");
-        underTest.setCaseReferenceNumber("case1234");
-        underTest.setNotificationEmail("test1@test1.com");
+        assertEquals(TEST_CASE_ID, notificationRequest.getCaseReferenceNumber());
+        assertEquals(TEST_SOLICITOR_REFERENCE, notificationRequest.getSolicitorReferenceNumber());
+        assertEquals(TEST_SOLICITOR_NAME, notificationRequest.getName());
+        assertEquals(TEST_SOLICITOR_EMAIL, notificationRequest.getNotificationEmail());
+        assertEquals(TEST_COURT, notificationRequest.getSelectedCourt());
     }
 }

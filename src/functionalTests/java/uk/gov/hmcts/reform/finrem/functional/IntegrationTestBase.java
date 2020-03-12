@@ -14,7 +14,6 @@ import uk.gov.hmcts.reform.finrem.functional.util.FunctionalTestUtils;
 @ContextConfiguration(classes = uk.gov.hmcts.reform.finrem.functional.TestContextConfiguration.class)
 public abstract class IntegrationTestBase {
 
-
     @Rule
     public SpringIntegrationMethodRule springIntegration;
 
@@ -24,15 +23,12 @@ public abstract class IntegrationTestBase {
     @Value("${notification.uri}")
     private String notificationUrl;
 
-
     public IntegrationTestBase() {
         this.springIntegration = new SpringIntegrationMethodRule();
-
     }
 
     @Autowired
-    public void notificationUrl(@Value("${notification.uri}")
-                                                    String notificationUrl) {
+    public void notificationUrl(@Value("${notification.uri}") String notificationUrl) {
         this.notificationUrl = notificationUrl;
         RestAssured.baseURI = notificationUrl;
     }
