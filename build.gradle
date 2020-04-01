@@ -1,11 +1,8 @@
 buildscript {
-  ext {
-    springBootVersion = '2.2.4.RELEASE'
-  }
   dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.2.6.RELEASE'
     classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: '2.7.1'
-    classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.90")
+    classpath group: 'net.serenity-bdd', name: 'serenity-gradle-plugin', vresion: '2.0.90'
   }
 }
 
@@ -91,7 +88,6 @@ def versions = [
         serenity                : '2.0.91',
         serenityCucumber        : '1.9.50',
         serviceTokenGenerator   : '3.0.0',
-        springBoot              : '2.2.4.RELEASE',
         springfoxSwagger        : '2.9.2',
         springRetry             : '1.2.1.RELEASE',
         tomcat                  : '9.0.31',
@@ -120,7 +116,7 @@ dependencies {
   compile group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
   compile group: 'io.springfox', name: 'springfox-swagger-ui', version: versions.springfoxSwagger
   compile group: 'org.projectlombok', name: 'lombok', version: versions.lombok
-  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springBoot
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
   compile group: 'org.springframework.retry', name: 'spring-retry', version: versions.springRetry
   compile group: 'commons-beanutils', name: 'commons-beanutils', version: versions.commonsBeanUtils
 
