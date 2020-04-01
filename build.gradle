@@ -81,7 +81,6 @@ def versions = [
         commonsLang3            : '3.7',
         commonsIo               : '2.6',
         hmctsNotify             : '3.15.1-RELEASE',
-        jackson                 : '2.10.0',
         jsonAssert              : '1.2.3',
         junit                   : '4.12',
         lombok                  : '1.18.4',
@@ -95,32 +94,22 @@ def versions = [
         springBoot              : '2.2.4.RELEASE',
         springfoxSwagger        : '2.9.2',
         springRetry             : '1.2.1.RELEASE',
+        tomcat                  : '9.0.31',
         wiremockVersion         : '2.18.0',
 ]
 
 dependencyManagement {
   dependencies {
-    dependencySet(
-            group: 'com.fasterxml.jackson.core',
-            version: versions.jackson
-    ) {
-      entry 'jackson-core'
-      entry 'jackson-databind'
-    }
-    dependencySet(
-            group: 'com.fasterxml.jackson.datatype',
-            version: versions.jackson
-    ) {
-      entry 'jackson-datatype-jdk8'
-      entry 'jackson-datatype-jsr310'
-    }
-    dependencySet(
-            group: 'com.fasterxml.jackson.module',
-            version: versions.jackson
-    ) {
-      entry 'jackson-module-parameter-names'
-    }
+    // CVE-2019-10086
     dependency group: 'commons-beanutils', name: 'commons-beanutils', version: versions.commonsBeanUtils
+    // CVE-2019-17563
+    dependencySet(
+            group: 'org.apache.tomcat.embed', version: versions.tomcat
+    ) {
+      entry 'tomcat-embed-core'
+      entry 'tomcat-embed-el'
+      entry 'tomcat-embed-websocket'
+    }
   }
 }
 
