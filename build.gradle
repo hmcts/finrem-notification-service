@@ -136,8 +136,11 @@ dependencies {
   compile group: 'commons-beanutils', name: 'commons-beanutils', version: versions.commonsBeanUtils
 
   compile group: 'uk.gov.service.notify', name: 'notifications-java-client', version: versions.hmctsNotify
-  compile group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.reformLogging
   compile group: 'uk.gov.hmcts.reform', name: 'health-spring-boot-starter', version: versions.reformHealth
+  compile group: 'uk.gov.hmcts.reform', name: 'logging', version: versions.reformLogging
+  compile group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.reformLogging
+  compile group: 'uk.gov.hmcts.reform', name: 'logging-httpcomponents', version: versions.reformLogging
+  compile group: 'uk.gov.hmcts.reform', name: 'logging-spring', version: versions.reformLogging  
   compile group: 'uk.gov.hmcts.reform', name: 'properties-volume-spring-boot-starter', version: versions.reformPropertiesVolume
 
   testCompile('org.springframework.boot:spring-boot-starter-test')
@@ -164,6 +167,7 @@ dependencies {
   annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
   testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 }
+
 def sonarExclusions = [
         '**/uk/gov/hmcts/reform/finrem/notifications/config/**',
         '**/uk/gov/hmcts/reform/finrem/notifications/domain/**',
