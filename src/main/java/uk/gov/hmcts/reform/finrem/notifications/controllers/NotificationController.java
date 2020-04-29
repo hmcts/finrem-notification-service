@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
+import javax.validation.Valid;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
@@ -139,7 +141,7 @@ public class NotificationController {
         @ApiParam(value = "The fixtures contains case reference number, "
             + "solicitorReferenceNumber and the email address that will receive "
             + "the notification that the case is in the 'Prepare for a hearing' state")
-        final NotificationRequest notificationRequest) {
+        @Valid final NotificationRequest notificationRequest) {
         log.info("Received request to send email to Solicitor for 'Prepare for hearing' for Case ID: {}",
             notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING);

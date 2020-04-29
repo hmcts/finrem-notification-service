@@ -20,11 +20,15 @@ import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.AUTHORIZATION_HEADER;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.BEARER_AUTH_TOKEN;
@@ -40,6 +44,7 @@ public class NotificationControllerTest {
     private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/consent-order-not-approved";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_URL = "/notify/consent-order-available";
     private static final String NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL = "/notify/contested/hwf-successful";
+    private static final String NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL = "/notify/contested/prepare-for-hearing";
 
     @MockBean
     private EmailService emailService;
@@ -149,4 +154,47 @@ public class NotificationControllerTest {
         verify(emailService, times(1))
                 .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
     }
+
+    @Test
+    public void sendEmailForPrepareForHearing() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+            .getResource("/fixtures/prepareForHearing.json").toURI()));
+
+        mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
+            .content(request.toString())
+            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
+
+        verify(emailService, times(1))
+            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+    }
+
+    @Test
+    public void shouldNotSendEmailForPrepareForHearingWhenRequestIsEmpty() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+            .getResource("/fixtures/empty-casedata.json").toURI()));
+
+        mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
+            .content(request.toString())
+            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+            .contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldNotSendEmailForPrepareForHearingWhenRequestIsInvalid() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+            .getResource("/fixtures/prepareForHearingInvalid.json").toURI()));
+
+        mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
+            .content(request.toString())
+            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+            .contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isBadRequest());
+    }
+
 }
