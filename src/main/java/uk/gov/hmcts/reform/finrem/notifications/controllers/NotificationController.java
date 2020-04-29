@@ -143,7 +143,7 @@ public class NotificationController {
             + "the notification that the case is in the 'Prepare for a hearing' state")
         @Valid final NotificationRequest notificationRequest) {
         log.info("Received request to send email to Solicitor for 'Prepare for hearing' for Case ID: {}",
-            notificationRequest);
+            notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
