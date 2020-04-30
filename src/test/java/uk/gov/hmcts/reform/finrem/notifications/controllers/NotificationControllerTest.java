@@ -40,6 +40,7 @@ public class NotificationControllerTest {
     private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/consent-order-not-approved";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_URL = "/notify/consent-order-available";
     private static final String NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL = "/notify/contested/hwf-successful";
+    private static final String NOTIFY_CONTESTED_APPLICATION_ISSUED_URL = "/notify/contested/application-issued";
 
     @MockBean
     private EmailService emailService;
@@ -141,6 +142,22 @@ public class NotificationControllerTest {
                 .getResource("/fixtures/hwfSuccessfulEmail.json").toURI()));
 
         mvc.perform(post(NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL)
+                .content(request.toString())
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        verify(emailService, times(1))
+                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+    }
+
+    @Test
+    public void sendEmailForContestedApplicationIssued() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+                .getResource("/fixtures/hwfSuccessfulEmail.json").toURI()));
+
+        mvc.perform(post(NOTIFY_CONTESTED_APPLICATION_ISSUED_URL)
                 .content(request.toString())
                 .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
