@@ -21,6 +21,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
@@ -126,6 +127,22 @@ public class NotificationController {
         log.info("Received request for notification email for HWFSuccessful. Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/contested/application-issued", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Application Issued.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Application Issued e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailApplicationIssued(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive "
+                    + "the notification that the application has been issued and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Contested 'Application Issued'. Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_APPLICATION_ISSUED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
