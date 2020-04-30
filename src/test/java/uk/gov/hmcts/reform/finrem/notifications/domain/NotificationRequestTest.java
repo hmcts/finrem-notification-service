@@ -12,7 +12,7 @@ public class NotificationRequestTest {
     @Test
     public void shouldGetHwfNotificationRequestData() {
         underTest = new NotificationRequest("123456",
-                "45623", "Padmaja", "test@test.com", "nottingham");
+                "45623", "Padmaja", "test@test.com", "nottingham", "contested");
         assertEquals("123456", underTest.getCaseReferenceNumber());
         assertEquals("45623", underTest.getSolicitorReferenceNumber());
         assertEquals("Padmaja", underTest.getName());
