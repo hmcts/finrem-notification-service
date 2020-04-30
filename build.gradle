@@ -251,3 +251,5 @@ task functional(type: Test) {
   setClasspath(sourceSets.functional.runtimeClasspath)
   finalizedBy aggregate
 }
+
+project.tasks['sonarqube'].dependsOn test, jacocoTestReport

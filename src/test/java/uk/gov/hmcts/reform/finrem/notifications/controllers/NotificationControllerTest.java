@@ -15,19 +15,26 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
-import uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames;
 import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import java.io.File;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.AUTHORIZATION_HEADER;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.BEARER_AUTH_TOKEN;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(NotificationController.class)
@@ -40,6 +47,7 @@ public class NotificationControllerTest {
     private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/consent-order-not-approved";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_URL = "/notify/consent-order-available";
     private static final String NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL = "/notify/contested/hwf-successful";
+    private static final String NOTIFY_CONTESTED_APPLICATION_ISSUED_URL = "/notify/contested/application-issued";
 
     @MockBean
     private EmailService emailService;
@@ -67,7 +75,7 @@ public class NotificationControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+                .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_HWF_SUCCESSFUL));
     }
 
     @Test
@@ -83,7 +91,7 @@ public class NotificationControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+                .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_ASSIGNED_TO_JUDGE));
     }
 
     @Test
@@ -99,7 +107,7 @@ public class NotificationControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+                .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONSENT_ORDER_MADE));
     }
 
     @Test
@@ -115,7 +123,7 @@ public class NotificationControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+                .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONSENT_ORDER_NOT_APPROVED));
     }
 
     @Test
@@ -131,7 +139,7 @@ public class NotificationControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+                .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONSENT_ORDER_AVAILABLE));
     }
 
     @Test
@@ -147,6 +155,22 @@ public class NotificationControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+                .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONTESTED_HWF_SUCCESSFUL));
+    }
+
+    @Test
+    public void sendEmailForContestedApplicationIssued() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+                .getResource("/fixtures/contestedApplicationIssued.json").toURI()));
+
+        mvc.perform(post(NOTIFY_CONTESTED_APPLICATION_ISSUED_URL)
+                .content(request.toString())
+                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        verify(emailService, times(1))
+                .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONTESTED_APPLICATION_ISSUED));
     }
 }
