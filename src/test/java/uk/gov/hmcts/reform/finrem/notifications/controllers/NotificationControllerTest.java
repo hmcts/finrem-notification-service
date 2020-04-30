@@ -8,26 +8,35 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
-import uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames;
 import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import java.io.File;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.AUTHORIZATION_HEADER;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.BEARER_AUTH_TOKEN;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(NotificationController.class)
@@ -49,7 +58,6 @@ public class NotificationControllerTest {
     private WebApplicationContext webApplicationContext;
 
     private MockMvc mvc;
-    private ObjectMapper objectMapper;
 
     @Before
     public void setUp() {
@@ -57,7 +65,7 @@ public class NotificationControllerTest {
     }
 
     private String setupFile(String filename) throws Exception {
-        objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         JsonNode request = objectMapper.readTree(new File(getClass()
             .getResource("/fixtures/" + filename + ".json").toURI()));
         return request.toString();
@@ -68,11 +76,11 @@ public class NotificationControllerTest {
         mvc.perform(post(NOTIFY_HWF_SUCCESSFUL_URL)
             .content(setupFile("hwfSuccessfulEmail"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(MediaType.APPLICATION_JSON))
+            .contentType(APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+                .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_HWF_SUCCESSFUL));
     }
 
     @Test
@@ -80,11 +88,11 @@ public class NotificationControllerTest {
         mvc.perform(post(NOTIFY_ASSIGN_TO_JUDGE_URL)
             .content(setupFile("assignedToJudge"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(MediaType.APPLICATION_JSON))
+            .contentType(APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_ASSIGNED_TO_JUDGE));
     }
 
     @Test
@@ -92,11 +100,11 @@ public class NotificationControllerTest {
         mvc.perform(post(NOTIFY_CONSENT_ORDER_MADE_URL)
             .content(setupFile("consentOrderMade"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(MediaType.APPLICATION_JSON))
+            .contentType(APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONSENT_ORDER_MADE));
     }
 
     @Test
@@ -104,11 +112,11 @@ public class NotificationControllerTest {
         mvc.perform(post(NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL)
             .content(setupFile("consentOrderNotApproved"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(MediaType.APPLICATION_JSON))
+            .contentType(APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONSENT_ORDER_NOT_APPROVED));
     }
 
     @Test
@@ -116,11 +124,11 @@ public class NotificationControllerTest {
         mvc.perform(post(NOTIFY_CONSENT_ORDER_AVAILABLE_URL)
             .content(setupFile("consentOrderAvailable"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(MediaType.APPLICATION_JSON))
+            .contentType(APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONSENT_ORDER_AVAILABLE));
     }
 
     @Test
@@ -128,11 +136,11 @@ public class NotificationControllerTest {
         mvc.perform(post(NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL)
             .content(setupFile("hwfSuccessfulEmail"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(MediaType.APPLICATION_JSON))
+            .contentType(APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONTESTED_HWF_SUCCESSFUL));
     }
 
     @Test
@@ -140,11 +148,11 @@ public class NotificationControllerTest {
         mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
             .content(setupFile("prepareForHearing"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(MediaType.APPLICATION_JSON))
+            .contentType(APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONTESTED_PREPARE_FOR_HEARING));
     }
 
     @Test
@@ -152,8 +160,10 @@ public class NotificationControllerTest {
         mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
             .content(setupFile("emptyData"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(MediaType.APPLICATION_JSON_VALUE))
+            .contentType(APPLICATION_JSON_VALUE))
             .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(emailService);
     }
 
     @Test
@@ -161,8 +171,10 @@ public class NotificationControllerTest {
         mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
             .content((setupFile("prepareForHearingInvalid")))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(MediaType.APPLICATION_JSON_VALUE))
+            .contentType(APPLICATION_JSON_VALUE))
             .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(emailService);
     }
 
 }
