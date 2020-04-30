@@ -140,7 +140,7 @@ public class NotificationController {
                     + " solicitorReferenceNumber and the email address that will receive "
                     + "the notification that the application has been issued and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for ApplicationIssued. Notification request : {}",
+        log.info("Received request for notification email for Contested 'Application Issued'. Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_APPLICATION_ISSUED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
