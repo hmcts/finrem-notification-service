@@ -155,7 +155,7 @@ public class NotificationControllerTest {
     public void sendEmailForContestedApplicationIssued() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode request = objectMapper.readTree(new File(getClass()
-                .getResource("/fixtures/hwfSuccessfulEmail.json").toURI()));
+                .getResource("/fixtures/contestedApplicationIssued.json").toURI()));
 
         mvc.perform(post(NOTIFY_CONTESTED_APPLICATION_ISSUED_URL)
                 .content(request.toString())
