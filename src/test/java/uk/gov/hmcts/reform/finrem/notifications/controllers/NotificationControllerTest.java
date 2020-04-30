@@ -49,23 +49,27 @@ public class NotificationControllerTest {
     private WebApplicationContext webApplicationContext;
 
     private MockMvc mvc;
+    private ObjectMapper objectMapper;
 
     @Before
     public void setUp() {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
+    private String setupFile(String filename) throws Exception {
+        objectMapper = new ObjectMapper();
+        JsonNode request = objectMapper.readTree(new File(getClass()
+            .getResource("/fixtures/" + filename + ".json").toURI()));
+        return request.toString();
+    }
+
     @Test
     public void sendEmailForHwfSuccessFul() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-                .getResource("/fixtures/hwfSuccessfulEmail.json").toURI()));
-
         mvc.perform(post(NOTIFY_HWF_SUCCESSFUL_URL)
-                .content(request.toString())
-                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+            .content(setupFile("hwfSuccessfulEmail"))
+            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
                 .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
@@ -73,92 +77,68 @@ public class NotificationControllerTest {
 
     @Test
     public void sendEmailForAssignedToJudge() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-                .getResource("/fixtures/assignedToJudge.json").toURI()));
-
         mvc.perform(post(NOTIFY_ASSIGN_TO_JUDGE_URL)
-                .content(request.toString())
-                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+            .content(setupFile("assignedToJudge"))
+            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
     }
 
     @Test
     public void sendEmailForConsentOrderMade() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-                .getResource("/fixtures/consentOrderMade.json").toURI()));
-
         mvc.perform(post(NOTIFY_CONSENT_ORDER_MADE_URL)
-                .content(request.toString())
-                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+            .content(setupFile("consentOrderMade"))
+            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
     }
 
     @Test
     public void sendEmailForConsentOrderNotApproved() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-                .getResource("/fixtures/consentOrderNotApproved.json").toURI()));
-
         mvc.perform(post(NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL)
-                .content(request.toString())
-                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+            .content(setupFile("consentOrderNotApproved"))
+            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
     }
 
     @Test
     public void sendEmailForConsentOrderAvailable() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-                .getResource("/fixtures/consentOrderAvailable.json").toURI()));
-
         mvc.perform(post(NOTIFY_CONSENT_ORDER_AVAILABLE_URL)
-                .content(request.toString())
-                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+            .content(setupFile("consentOrderAvailable"))
+            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
     }
 
     @Test
     public void sendEmailForContestedHwfSuccessful() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-                .getResource("/fixtures/hwfSuccessfulEmail.json").toURI()));
-
         mvc.perform(post(NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL)
-                .content(request.toString())
-                .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+            .content(setupFile("hwfSuccessfulEmail"))
+            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-                .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
+            .sendConfirmationEmail(any(NotificationRequest.class), any(EmailTemplateNames.class));
     }
 
     @Test
     public void sendEmailForPrepareForHearing() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-            .getResource("/fixtures/prepareForHearing.json").toURI()));
-
         mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
-            .content(request.toString())
+            .content(setupFile("prepareForHearing"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
@@ -169,12 +149,8 @@ public class NotificationControllerTest {
 
     @Test
     public void shouldNotSendEmailForPrepareForHearingWhenRequestIsEmpty() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-            .getResource("/fixtures/empty-casedata.json").toURI()));
-
         mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
-            .content(request.toString())
+            .content(setupFile("emptyData"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
             .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isBadRequest());
@@ -182,12 +158,8 @@ public class NotificationControllerTest {
 
     @Test
     public void shouldNotSendEmailForPrepareForHearingWhenRequestIsInvalid() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode request = objectMapper.readTree(new File(getClass()
-            .getResource("/fixtures/prepareForHearingInvalid.json").toURI()));
-
         mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
-            .content(request.toString())
+            .content((setupFile("prepareForHearingInvalid")))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
             .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isBadRequest());
