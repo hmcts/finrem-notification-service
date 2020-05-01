@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONTESTED;
 
 public class NotificationRequestTest {
 
@@ -13,7 +12,7 @@ public class NotificationRequestTest {
     @Test
     public void shouldGetHwfNotificationRequestData() {
         underTest = new NotificationRequest("123456",
-                "45623", "Padmaja", "test@test.com", "nottingham", CONTESTED);
+                "45623", "Padmaja", "test@test.com", "nottingham");
         assertEquals("123456", underTest.getCaseReferenceNumber());
         assertEquals("45623", underTest.getSolicitorReferenceNumber());
         assertEquals("Padmaja", underTest.getName());
