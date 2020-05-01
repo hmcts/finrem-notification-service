@@ -32,8 +32,6 @@ public class EmailService {
     @Value("#{${uk.gov.notify.email.contestedContactEmails}}")
     private Map<String, Map<String, String>> contestedContactEmails;
 
-    private static final String CONTESTED = "contested";
-
     public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
         Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
         EmailToSend emailToSend = generateEmail(notificationRequest.getNotificationEmail(), template.name(),
@@ -41,21 +39,17 @@ public class EmailService {
         sendEmail(emailToSend, "send Confirmation email for " + template.name());
     }
 
-    protected Map<String, String> buildTemplateVars(NotificationRequest notificationRequest, String templateName) {
+    private Map<String, String> buildTemplateVars(NotificationRequest notificationRequest, String templateName) {
         Map<String, String> templateVars = new HashMap<>();
-
         templateVars.put("caseReferenceNumber", notificationRequest.getCaseReferenceNumber());
         templateVars.put("solicitorReferenceNumber", notificationRequest.getSolicitorReferenceNumber());
         templateVars.put("name", notificationRequest.getName());
-
-        //contested emails notifications require the court information, consented does not
-        if (CONTESTED.equals(notificationRequest.getCaseType()) && !isEmpty(notificationRequest.getSelectedCourt())) {
+        // contested email notifications
+        if (!isEmpty(notificationRequest.getSelectedCourt())) {
             Map<String, String> courtDetails = contestedContactEmails.get(notificationRequest.getSelectedCourt());
-
             templateVars.put("courtName", courtDetails.get("name"));
             templateVars.put("courtEmail", courtDetails.get("email"));
         }
-
         templateVars.putAll(emailTemplateVars.get(templateName));
         return templateVars;
     }
