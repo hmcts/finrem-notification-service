@@ -24,5 +24,4 @@ public class NotificationRequest {
 
     private String selectedCourt;
 
-    private String caseType;
 }
