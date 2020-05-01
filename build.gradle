@@ -9,7 +9,7 @@ buildscript {
 plugins {
   id 'application'
   id 'checkstyle'
-  id 'info.solidsoft.pitest' version '1.4.6'
+  id 'info.solidsoft.pitest' version '1.5.0'
   id 'io.franzbecker.gradle-lombok' version '1.14'
   id 'io.spring.dependency-management' version '1.0.9.RELEASE'
   id 'jacoco'
