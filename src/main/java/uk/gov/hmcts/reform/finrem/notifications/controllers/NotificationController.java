@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
-import javax.validation.Valid;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
@@ -135,16 +134,32 @@ public class NotificationController {
     @PostMapping(path = "/contested/prepare-for-hearing", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail for 'Prepare for hearing'.")
     @ApiResponses(value = {
-        @ApiResponse(code = 204, message = "Prepare for hearing e-mail sent successfully")})
-    public ResponseEntity<Void> sendPrepareForHearingEmail(
-        @RequestBody
-        @ApiParam(value = "The fixtures contains case reference number, "
-            + "solicitorReferenceNumber and the email address that will receive "
-            + "the notification that the case is in the 'Prepare for a hearing' state")
-        @Valid final NotificationRequest notificationRequest) {
-        log.info("Received request to send email to Solicitor for 'Prepare for hearing' for Case ID: {}",
-            notificationRequest.getCaseReferenceNumber());
+            @ApiResponse(code = 204, message = "Prepare for hearing e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailPrepareForHearing(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number, "
+                + "solicitorReferenceNumber and the email address that will receive "
+                + "the notification that the case is in the 'Prepare for a hearing' state")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for 'Prepare for hearing'. Notification request : {}",
+                notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/contested/application-issued", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for 'Application Issued'.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Application Issued e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailApplicationIssued(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number, "
+                    + "solicitorReferenceNumber and the email address that will receive "
+                    + "the notification that the application has been issued and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Contested 'Application Issued'. Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_APPLICATION_ISSUED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

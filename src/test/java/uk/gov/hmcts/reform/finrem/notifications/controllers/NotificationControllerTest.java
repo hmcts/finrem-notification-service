@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -34,6 +33,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
@@ -50,6 +50,7 @@ public class NotificationControllerTest {
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_URL = "/notify/consent-order-available";
     private static final String NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL = "/notify/contested/hwf-successful";
     private static final String NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL = "/notify/contested/prepare-for-hearing";
+    private static final String NOTIFY_CONTESTED_APPLICATION_ISSUED_URL = "/notify/contested/application-issued";
 
     @MockBean
     private EmailService emailService;
@@ -116,7 +117,7 @@ public class NotificationControllerTest {
             .andExpect(status().isNoContent());
 
         verify(emailService, times(1))
-            .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONSENT_ORDER_NOT_APPROVED));
+                .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONSENT_ORDER_NOT_APPROVED));
     }
 
     @Test
@@ -156,25 +157,14 @@ public class NotificationControllerTest {
     }
 
     @Test
-    public void shouldNotSendEmailForPrepareForHearingWhenRequestIsEmpty() throws Exception {
-        mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
-            .content(setupFile("emptyData"))
+    public void sendEmailForContestedApplicationIssued() throws Exception {
+        mvc.perform(post(NOTIFY_CONTESTED_APPLICATION_ISSUED_URL)
+            .content(setupFile("contestedApplicationIssued"))
             .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
             .contentType(APPLICATION_JSON_VALUE))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isNoContent());
 
-        verifyNoInteractions(emailService);
+        verify(emailService, times(1))
+            .sendConfirmationEmail(any(NotificationRequest.class), eq(FR_CONTESTED_APPLICATION_ISSUED));
     }
-
-    @Test
-    public void shouldNotSendEmailForPrepareForHearingWhenRequestIsInvalid() throws Exception {
-        mvc.perform(post(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL)
-            .content((setupFile("prepareForHearingInvalid")))
-            .header(AUTHORIZATION_HEADER, BEARER_AUTH_TOKEN)
-            .contentType(APPLICATION_JSON_VALUE))
-            .andExpect(status().isBadRequest());
-
-        verifyNoInteractions(emailService);
-    }
-
 }
