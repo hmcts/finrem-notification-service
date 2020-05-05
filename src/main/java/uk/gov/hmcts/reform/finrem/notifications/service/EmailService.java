@@ -70,7 +70,7 @@ public class EmailService {
 
     private void sendEmail(EmailToSend emailToSend, String emailDescription) {
         try {
-            log.debug("Attempting to send {} email. Reference ID: {}", emailDescription, emailToSend.getReferenceId());
+            log.info("Attempting to send {} email. Reference ID: {}", emailDescription, emailToSend.getReferenceId());
             emailClient.sendEmail(
                     emailToSend.getTemplateId(),
                     emailToSend.getEmailAddress(),
