@@ -42,6 +42,6 @@ withPipeline(type , product, component) {
         echo '${product}-${component} checked out'
     }
     enableSlackNotifications(channel)
-        
+ 
     disableLegacyDeployment()
 }
