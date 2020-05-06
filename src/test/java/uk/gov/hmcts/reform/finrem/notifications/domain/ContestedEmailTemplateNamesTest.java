@@ -9,7 +9,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
-public class EmailTemplateNamesTest {
+public class ContestedEmailTemplateNamesTest {
 
     @Test
     public void shouldReturnHWFSuccessful() {
