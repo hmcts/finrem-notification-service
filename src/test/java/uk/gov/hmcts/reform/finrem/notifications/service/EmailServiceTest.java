@@ -15,15 +15,17 @@ import uk.gov.hmcts.reform.finrem.notifications.client.EmailClient;
 import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
-import static org.springframework.util.StringUtils.isEmpty;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONSENTED;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONTESTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_FAMILY_MAN_ID;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
@@ -32,7 +34,9 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = NotificationApplication.class)
@@ -52,9 +56,6 @@ public class EmailServiceTest {
     @Value("#{${uk.gov.notify.email.template.vars}}")
     private Map<String, Map<String, String>> emailTemplateVars;
 
-    @Value("#{${uk.gov.notify.email.contestedContactEmails}}")
-    private Map<String, Map<String, String>> contestedContactEmails;
-
     private NotificationRequest notificationRequest;
 
     @Before
@@ -66,44 +67,59 @@ public class EmailServiceTest {
         notificationRequest.setName(TEST_SOLICITOR_NAME);
     }
 
-    @Test
-    public void sendHwfSuccessfulConfirmationEmailShouldCallTheEmailClientToSendAnEmail()
-            throws NotificationClientException {
-        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
-        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_HWF_SUCCESSFUL.name()));
-
-        emailService.sendConfirmationEmail(notificationRequest, FR_HWF_SUCCESSFUL);
-
-        verify(mockClient).sendEmail(
-                eq(emailTemplates.get(FR_HWF_SUCCESSFUL.name())),
-                eq(TEST_SOLICITOR_EMAIL),
-                eq(expectedEmailTemplateVars),
-                anyString());
-    }
-
-    @Test
-    public void sendHwfSuccessfulConfirmationEmailContested()
-            throws NotificationClientException {
-        setContestedData();
-        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
-        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_HWF_SUCCESSFUL.name()));
-
-        emailService.sendConfirmationEmail(notificationRequest, FR_HWF_SUCCESSFUL);
-
-        verify(mockClient).sendEmail(
-                eq(emailTemplates.get(FR_HWF_SUCCESSFUL.name())),
-                eq(TEST_SOLICITOR_EMAIL),
-                eq(expectedEmailTemplateVars),
-                anyString());
+    private void setConsentedData() {
+        notificationRequest.setCaseType(CONSENTED);
     }
 
     private void setContestedData() {
+        notificationRequest.setCaseType(CONTESTED);
         notificationRequest.setSelectedCourt("nottingham");
+    }
+
+    @Test
+    public void sendHwfSuccessfulConfirmationEmailConsented() throws NotificationClientException {
+        setConsentedData();
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_HWF_SUCCESSFUL.name());
+
+        assertNull(returnedTemplateVars.get("courtName"));
+        assertNull(returnedTemplateVars.get("courtEmail"));
+
+        returnedTemplateVars.putAll(emailTemplateVars.get(FR_HWF_SUCCESSFUL.name()));
+        emailService.sendConfirmationEmail(notificationRequest, FR_HWF_SUCCESSFUL);
+
+        verify(mockClient).sendEmail(
+                eq(emailTemplates.get(FR_HWF_SUCCESSFUL.name())),
+                eq(TEST_SOLICITOR_EMAIL),
+                eq(returnedTemplateVars),
+                anyString());
+    }
+
+    @Test
+    public void sendHwfSuccessfulConfirmationEmailContested() throws NotificationClientException {
+        setContestedData();
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL.name());
+
+        assertEquals(returnedTemplateVars.get("courtName"), "Nottingham FRC");
+        assertEquals(returnedTemplateVars.get("courtEmail"), "FRCNottingham@justice.gov.uk");
+        returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONTESTED_HWF_SUCCESSFUL.name()));
+
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL);
+
+        verify(mockClient).sendEmail(
+                eq(emailTemplates.get(FR_CONTESTED_HWF_SUCCESSFUL.name())),
+                eq(TEST_SOLICITOR_EMAIL),
+                eq(returnedTemplateVars),
+                anyString());
     }
 
     @Test
     public void sendHwfSuccessfulConfirmationEmailShouldNotPropagateNotificationClientException()
             throws NotificationClientException {
+        setConsentedData();
         doThrow(new NotificationClientException(new Exception("Exception inception")))
                 .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
 
@@ -115,23 +131,29 @@ public class EmailServiceTest {
     }
 
     @Test
-    public void sendAssignedToJudgeConfirmationEmailShouldCallTheEmailClientToSendAnEmail()
-            throws NotificationClientException {
-        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
-        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_ASSIGNED_TO_JUDGE.name()));
+    public void sendAssignedToJudgeConfirmationEmailConsented() throws NotificationClientException {
+        setConsentedData();
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_ASSIGNED_TO_JUDGE.name());
+
+        assertNull(returnedTemplateVars.get("courtName"));
+        assertNull(returnedTemplateVars.get("courtEmail"));
+        returnedTemplateVars.putAll(emailTemplateVars.get(FR_ASSIGNED_TO_JUDGE.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_ASSIGNED_TO_JUDGE);
 
         verify(mockClient).sendEmail(
                 eq(emailTemplates.get(FR_ASSIGNED_TO_JUDGE.name())),
                 eq(TEST_SOLICITOR_EMAIL),
-                eq(expectedEmailTemplateVars),
+                eq(returnedTemplateVars),
                 anyString());
     }
 
     @Test
     public void sendAssignedToJudgeConfirmationEmailShouldNotPropagateNotificationClientException()
             throws NotificationClientException {
+        setConsentedData();
         doThrow(new NotificationClientException(new Exception("Exception inception")))
                 .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
         try {
@@ -142,25 +164,28 @@ public class EmailServiceTest {
     }
 
     @Test
-    public void sendConsentOrderMadeConfirmationEmailShouldCallTheEmailClientToSendAnEmail()
-            throws NotificationClientException {
+    public void sendConsentOrderMadeConfirmationEmail() throws NotificationClientException {
+        setConsentedData();
 
-        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
-        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_MADE.name()));
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_MADE.name());
+
+        assertNull(returnedTemplateVars.get("courtName"));
+        assertNull(returnedTemplateVars.get("courtEmail"));
+        returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_MADE.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_MADE);
-
         verify(mockClient).sendEmail(
                 eq(emailTemplates.get(FR_CONSENT_ORDER_MADE.name())),
                 eq(TEST_SOLICITOR_EMAIL),
-                eq(expectedEmailTemplateVars),
+                eq(returnedTemplateVars),
                 anyString());
     }
 
     @Test
     public void sendConsentOrderMadeConfirmationEmailShouldNotPropagateNotificationClientException()
             throws NotificationClientException {
-
+        setConsentedData();
         doThrow(new NotificationClientException(new Exception("Exception inception")))
                 .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
         try {
@@ -171,25 +196,29 @@ public class EmailServiceTest {
     }
 
     @Test
-    public void sendConsentOrderNotApprovedEmailShouldCallTheEmailClientToSendAnEmail()
-            throws NotificationClientException {
+    public void sendConsentOrderNotApprovedEmail() throws NotificationClientException {
+        setConsentedData();
 
-        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
-        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_NOT_APPROVED.name()));
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED.name());
+
+        assertNull(returnedTemplateVars.get("courtName"));
+        assertNull(returnedTemplateVars.get("courtEmail"));
+        returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_NOT_APPROVED.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED);
 
         verify(mockClient).sendEmail(
                 eq(emailTemplates.get(FR_CONSENT_ORDER_NOT_APPROVED.name())),
                 eq(TEST_SOLICITOR_EMAIL),
-                eq(expectedEmailTemplateVars),
+                eq(returnedTemplateVars),
                 anyString());
     }
 
     @Test
     public void sendConsentOrderNotApprovedEmailShouldNotPropagateNotificationClientException()
             throws NotificationClientException {
-
+        setConsentedData();
         doThrow(new NotificationClientException(new Exception("Exception inception")))
                 .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
         try {
@@ -200,24 +229,27 @@ public class EmailServiceTest {
     }
 
     @Test
-    public void sendConsentOrderAvailableEmailShouldCallTheEmailClientToSendAnEmail()
-            throws NotificationClientException {
+    public void sendConsentOrderAvailableEmail() throws NotificationClientException {
+        setConsentedData();
 
-        Map<String, String> expectedEmailTemplateVars = getEmailTemplateVars();
-        expectedEmailTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_AVAILABLE.name()));
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_AVAILABLE.name());
+
+        returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_AVAILABLE.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE);
 
         verify(mockClient).sendEmail(
                 eq(emailTemplates.get(FR_CONSENT_ORDER_AVAILABLE.name())),
                 eq(TEST_SOLICITOR_EMAIL),
-                eq(expectedEmailTemplateVars),
+                eq(returnedTemplateVars),
                 anyString());
     }
 
     @Test
     public void sendConsentOrderAvailableEmailShouldNotPropagateNotificationClientException()
             throws NotificationClientException {
+        setConsentedData();
         doThrow(new NotificationClientException(new Exception("Exception inception")))
                 .when(mockClient).sendEmail(anyString(), anyString(), eq(null), anyString());
         try {
@@ -227,18 +259,25 @@ public class EmailServiceTest {
         }
     }
 
-    private Map<String, String> getEmailTemplateVars() {
-        Map<String, String> expectedEmailTemplateVars = new HashMap<>();
-        expectedEmailTemplateVars.put("caseReferenceNumber", notificationRequest.getCaseReferenceNumber());
-        expectedEmailTemplateVars.put("solicitorReferenceNumber", notificationRequest.getSolicitorReferenceNumber());
-        expectedEmailTemplateVars.put("name", notificationRequest.getName());
+    @Test
+    public void shouldBuildTemplateVarsForContested() {
+        setContestedData();
 
-        Map<String, String> courtDetails = contestedContactEmails.get(notificationRequest.getSelectedCourt());
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest,FR_CONTESTED_HWF_SUCCESSFUL.name());
 
-        if (!isEmpty(notificationRequest.getSelectedCourt())) {
-            expectedEmailTemplateVars.put("courtName", courtDetails.get("name"));
-            expectedEmailTemplateVars.put("courtEmail", courtDetails.get("email"));
-        }
-        return expectedEmailTemplateVars;
+        assertEquals(returnedTemplateVars.get("courtName"), "Nottingham FRC");
+        assertEquals(returnedTemplateVars.get("courtEmail"), "FRCNottingham@justice.gov.uk");
+    }
+
+    @Test
+    public void shouldBuildTemplateVarsForConsented() {
+        setConsentedData();
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_HWF_SUCCESSFUL.name());
+
+        assertNull(returnedTemplateVars.get("courtName"));
+        assertNull(returnedTemplateVars.get("courtEmail"));
     }
 }
