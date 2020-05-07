@@ -24,7 +24,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 @RestController
-@RequestMapping(path = "/notify/")
+@RequestMapping(path = "/notify")
 @Slf4j
 @Validated
 public class ConsentedNotificationController {
@@ -32,15 +32,15 @@ public class ConsentedNotificationController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping(path = "hwf-successful", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/hwf-successful", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail for HWF Successful.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "HWFSuccessful e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailHwfSuccessFul(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that the HWF is successful and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that the HWF is successful and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for HWFSuccessful. Notification request : {}",
                  notificationRequest);
@@ -48,15 +48,15 @@ public class ConsentedNotificationController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping(path = "assign-to-judge", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/assign-to-judge", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail for a case assigned to judge.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Assigned to Judge e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailAssignToJudge(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that a case is assigned to judge and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a case is assigned to judge and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for Case assigned to Judge Notification request : {}",
                 notificationRequest);
@@ -64,15 +64,15 @@ public class ConsentedNotificationController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping(path = "consent-order-made", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/consent-order-made", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail for Consent order Made.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Consent order made e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailConsentOrderApproved(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that a consent order is made and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for consent order made. Notification request : {}",
                 notificationRequest);
@@ -80,15 +80,15 @@ public class ConsentedNotificationController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping(path = "consent-order-not-approved", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/consent-order-not-approved", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail for Consent order Not Approved.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Consent order not approved e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailConsentOrderNotApproved(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that a consent order is made and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for consent order not approved, Notification request : {}",
                 notificationRequest);
@@ -96,15 +96,15 @@ public class ConsentedNotificationController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping(path = "consent-order-available", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/consent-order-available", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail for Consent order available.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Consent order available e-mail notification sent successfully")})
     public ResponseEntity<Void> sendEmailConsentOrderAvailable(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that a consent order is made and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for consent order available Notification request : {}",
                 notificationRequest);
