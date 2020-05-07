@@ -15,6 +15,9 @@ public class NotificationTests extends IntegrationTestBase {
     private static final String CONSENT_ORDER_MADE = "/notify/consent-order-made";
     private static final String CONSENT_ORDER_NOT_APPROVED = "/notify/consent-order-not-approved";
     private static final String HWF_SUCCESSFUL_API_URI = "/notify/hwf-successful";
+    private static final String CONTESTED_HWF_SUCCESSFUL = "/notify/contested/hwf-successful";
+    private static final String CONTESTED_APPLICATION_ISSUED = "/notify/hwf-successful";
+    private static final String CONTEST_ORDER_APPROVED = "/notify/hwf-successful";
 
     @Value("${notification.uri}")
     private String notificationUrl;
@@ -42,6 +45,21 @@ public class NotificationTests extends IntegrationTestBase {
     @Test
     public void verifyNotifyHwfSuccessfulTestIsOkay() {
         validatePostSuccessForNotification(HWF_SUCCESSFUL_API_URI, "hwfSuccessfulEmail.json");
+    }
+
+    @Test
+    public void verifyNotifyContestedHwfSuccessfulTestIsOkay() {
+        validatePostSuccessForNotification(CONTESTED_HWF_SUCCESSFUL, "contestedHwfSuccessful.json");
+    }
+
+    @Test
+    public void verifyNotifyContestedApplicationIssuedTestIsOkay() {
+        validatePostSuccessForNotification(CONTESTED_APPLICATION_ISSUED, "contestedApplicationIssued.json");
+    }
+
+    @Test
+    public void verifyNotifyContestOrderApprovedTestIsOkay() {
+        validatePostSuccessForNotification(CONTEST_ORDER_APPROVED, "contestOrderApproved.json");
     }
 
     private void validatePostSuccessForNotification(String url, String jsonFileName) {

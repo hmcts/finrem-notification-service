@@ -21,16 +21,13 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 @RestController
 @RequestMapping(path = "/notify")
 @Slf4j
 @Validated
-public class NotificationController {
+public class ConsentedNotificationController {
 
     @Autowired
     private EmailService emailService;
@@ -42,8 +39,8 @@ public class NotificationController {
     public ResponseEntity<Void> sendEmailHwfSuccessFul(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that the HWF is successful and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that the HWF is successful and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for HWFSuccessful. Notification request : {}",
                  notificationRequest);
@@ -58,8 +55,8 @@ public class NotificationController {
     public ResponseEntity<Void> sendEmailAssignToJudge(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that a case is assigned to judge and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a case is assigned to judge and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for Case assigned to Judge Notification request : {}",
                 notificationRequest);
@@ -74,8 +71,8 @@ public class NotificationController {
     public ResponseEntity<Void> sendEmailConsentOrderApproved(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that a consent order is made and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for consent order made. Notification request : {}",
                 notificationRequest);
@@ -90,8 +87,8 @@ public class NotificationController {
     public ResponseEntity<Void> sendEmailConsentOrderNotApproved(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that a consent order is made and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for consent order not approved, Notification request : {}",
                 notificationRequest);
@@ -106,60 +103,12 @@ public class NotificationController {
     public ResponseEntity<Void> sendEmailConsentOrderAvailable(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that a consent order is made and all are mandatory")
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for consent order available Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @PostMapping(path = "/contested/hwf-successful", consumes = APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "send e-mail for Contested Case HWF Successful.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Contested Case HWFSuccessful e-mail sent successfully")})
-    public ResponseEntity<Void> sendContestedEmailHwfSuccessFul(
-            @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that the HWF is successful and all are mandatory")
-            final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for HWFSuccessful. Notification request : {}",
-                notificationRequest);
-        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @PostMapping(path = "/contested/prepare-for-hearing", consumes = APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "send e-mail for 'Prepare for hearing'.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Prepare for hearing e-mail sent successfully")})
-    public ResponseEntity<Void> sendContestedEmailPrepareForHearing(
-            @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number, "
-                + "solicitorReferenceNumber and the email address that will receive "
-                + "the notification that the case is in the 'Prepare for a hearing' state")
-            final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for 'Prepare for hearing'. Notification request : {}",
-                notificationRequest);
-        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @PostMapping(path = "/contested/application-issued", consumes = APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "send e-mail for 'Application Issued'.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Application Issued e-mail sent successfully")})
-    public ResponseEntity<Void> sendContestedEmailApplicationIssued(
-            @RequestBody
-            @ApiParam(value = "The fixtures contains case reference number, "
-                    + "solicitorReferenceNumber and the email address that will receive "
-                    + "the notification that the application has been issued and all are mandatory")
-            final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Contested 'Application Issued'. Notification request : {}",
-                notificationRequest);
-        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_APPLICATION_ISSUED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
