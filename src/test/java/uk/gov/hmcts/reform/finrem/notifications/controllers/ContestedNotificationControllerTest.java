@@ -10,8 +10,8 @@ import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ContestedNotificationController.class)
@@ -46,6 +46,7 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
 
     @Test
     public void sendEmailForPrepareForHearingOrderSent() throws Exception {
-        sendEmailTest("/fixtures/prepareForHearingOrderSent.json", NOTIFY_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT_URL, FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT);
+        sendEmailTest("/fixtures/prepareForHearingOrderSent.json", NOTIFY_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT_URL,
+                FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT);
     }
 }
