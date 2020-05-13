@@ -21,6 +21,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
 
 @RestController
 @RequestMapping(path = "/notify/contested")
@@ -92,6 +93,22 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for 'Prepare for hearing'. Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/prepare-for-hearing-order-sent", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for 'Prepare for hearing' when an order has already been sent")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Prepare for hearing order sent e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailPrepareForHearingOrderSent(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that the case is in the 'Prepare for a hearing' state")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for 'Prepare for hearing order sent'. Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
