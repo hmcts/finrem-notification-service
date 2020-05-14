@@ -18,6 +18,7 @@ import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
@@ -109,6 +110,22 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for 'Prepare for hearing order sent'. Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/draft-order", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Solicitor to Draft Order")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Draft Order e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedDraftOrder(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive "
+                    + "the notification that the application has been issued and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Contested 'Draft Order'. Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_DRAFT_ORDER);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

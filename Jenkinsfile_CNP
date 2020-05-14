@@ -34,7 +34,6 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withPipeline(type , product, component) {
-    installCharts()
     enableAksStagingDeployment()
     loadVaultSecrets(secrets)
 
@@ -42,6 +41,6 @@ withPipeline(type , product, component) {
         echo '${product}-${component} checked out'
     }
     enableSlackNotifications(channel)
- 
+
     disableLegacyDeployment()
 }

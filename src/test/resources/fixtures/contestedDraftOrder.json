@@ -1,0 +1,8 @@
+{
+  "caseReferenceNumber" : "1234123412341234",
+  "solicitorReferenceNumber" : "0123456789",
+  "name" : "Harry Henry",
+  "notificationEmail" : "test@test.com",
+  "selectedCourt" : "kentfrc",
+  "caseType" : "contested"
+}
