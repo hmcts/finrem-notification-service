@@ -3,5 +3,6 @@
   "solicitorReferenceNumber" : "56789",
   "name" : "Preport H SentOn",
   "notificationEmail" : "test@test.com",
-  "selectedCourt" : "London"
+  "selectedCourt" : "London",
+  "caseType" : "contested"
 }
