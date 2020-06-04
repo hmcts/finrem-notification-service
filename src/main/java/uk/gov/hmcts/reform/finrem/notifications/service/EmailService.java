@@ -33,6 +33,7 @@ public class EmailService {
     private Map<String, Map<String, String>> contestedContactEmails;
 
     private static final String CONTESTED = "contested";
+    private static final String GENERAL_EMAIL = "FR_GENERAL_EMAIL";
 
     public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
         Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
@@ -49,11 +50,16 @@ public class EmailService {
         templateVars.put("name", notificationRequest.getName());
 
         //contested emails notifications require the court information, consented does not
-        if (CONTESTED.equals(notificationRequest.getCaseType()) && !isEmpty(notificationRequest.getSelectedCourt())) {
+        if ((CONTESTED.equals(notificationRequest.getCaseType()) || templateName.equals(GENERAL_EMAIL))
+                && !isEmpty(notificationRequest.getSelectedCourt())) {
             Map<String, String> courtDetails = contestedContactEmails.get(notificationRequest.getSelectedCourt());
 
             templateVars.put("courtName", courtDetails.get("name"));
             templateVars.put("courtEmail", courtDetails.get("email"));
+        }
+
+        if (templateName.equals(GENERAL_EMAIL)) {
+            templateVars.put("generalEmailBody", notificationRequest.getGeneralEmailBody());
         }
 
         templateVars.putAll(emailTemplateVars.get(templateName));
