@@ -32,13 +32,13 @@ import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICI
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = NotificationApplication.class)
@@ -284,15 +284,28 @@ public class EmailServiceTest {
     }
 
     @Test
-    public void shouldBuildTemplateVarsForGeneralEmail() {
+    public void shouldBuildTemplateVarsForGeneralEmailContested() {
         setContestedData();
         notificationRequest.setGeneralEmailBody("test email body");
 
         Map<String, String> returnedTemplateVars =
-                emailService.buildTemplateVars(notificationRequest, FR_GENERAL_EMAIL.name());
+                emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_GENERAL_EMAIL.name());
 
         assertNotNull(returnedTemplateVars.get("courtName"));
         assertNotNull(returnedTemplateVars.get("courtEmail"));
+        assertNotNull(returnedTemplateVars.get("generalEmailBody"));
+    }
+
+    @Test
+    public void shouldBuildTemplateVarsForGeneralEmailConsented() {
+        setConsentedData();
+        notificationRequest.setGeneralEmailBody("test email body");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONSENT_GENERAL_EMAIL.name());
+
+        assertNull(returnedTemplateVars.get("courtName"));
+        assertNull(returnedTemplateVars.get("courtEmail"));
         assertNotNull(returnedTemplateVars.get("generalEmailBody"));
     }
 

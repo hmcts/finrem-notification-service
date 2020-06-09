@@ -8,10 +8,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 @RunWith(SpringRunner.class)
@@ -53,6 +53,6 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
 
     @Test
     public void sendGeneralEmail() throws Exception {
-        sendEmailTest("/fixtures/generalEmail.json", NOTIFY_GENERAL_EMAIL_URL, FR_GENERAL_EMAIL);
+        sendEmailTest("/fixtures/generalEmail.json", NOTIFY_GENERAL_EMAIL_URL, FR_CONSENT_GENERAL_EMAIL);
     }
 }

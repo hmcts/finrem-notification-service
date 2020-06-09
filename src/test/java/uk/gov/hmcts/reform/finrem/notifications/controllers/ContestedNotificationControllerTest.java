@@ -9,6 +9,7 @@ import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
@@ -25,6 +26,7 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL = "/notify/contested/prepare-for-hearing";
     private static final String NOTIFY_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT_URL = "/notify/contested/prepare-for-hearing-order-sent";
     private static final String NOTIFY_CONTESTED_DRAFT_ORDER_URL = "/notify/contested/draft-order";
+    private static final String NOTIFY_CONTESTED_GENERAL_EMAIL_URL = "/notify/contested/general-email";
 
     @Test
     public void sendEmailForContestedHwfSuccessful() throws Exception {
@@ -55,6 +57,11 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void sendEmailForContestedDraftOrder() throws Exception {
         sendEmailTest("/fixtures/contestedDraftOrder.json", NOTIFY_CONTESTED_DRAFT_ORDER_URL, FR_CONTESTED_DRAFT_ORDER);
+    }
+
+    @Test
+    public void sendGeneralEmail() throws Exception {
+        sendEmailTest("/fixtures/generalEmail.json", NOTIFY_CONTESTED_GENERAL_EMAIL_URL, FR_CONTESTED_GENERAL_EMAIL);
     }
 
 }

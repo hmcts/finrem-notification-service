@@ -18,10 +18,10 @@ import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 
@@ -125,9 +125,9 @@ public class ConsentedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that a general email is sent and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for consent order available Notification request : {}",
+        log.info("Received request for notification email for consented general email Notification request : {}",
                 notificationRequest);
-        emailService.sendConfirmationEmail(notificationRequest, FR_GENERAL_EMAIL);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_GENERAL_EMAIL);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
