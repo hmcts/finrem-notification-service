@@ -219,10 +219,11 @@ jacocoTestCoverageVerification {
 }
 
 pitest {
-  targetClasses = ['uk.gov.hmcts.reform.finrem.notifications.*']
+  targetClasses = ['**uk.gov.hmcts.reform.finrem.notifications.*']
   excludedClasses = ['uk.gov.hmcts.reform.finrem.notifications.NotificationApplication',
                      'uk.gov.hmcts.reform.finrem.notifications.model.*',
-                     'uk.gov.hmcts.reform.finrem.notifications.config.*']
+                     'uk.gov.hmcts.reform.finrem.notifications.config.*',
+                     'uk.gov.hmcts.reform.finrem.notifications.domain.*']
   threads = 4
   outputFormats = ['XML', 'HTML']
   timestampedReports = false
