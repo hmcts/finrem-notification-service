@@ -219,7 +219,7 @@ jacocoTestCoverageVerification {
 }
 
 pitest {
-  targetClasses.set( ['**uk.gov.hmcts.reform.finrem.notifications.*'])
+  targetClasses.set( ['uk.gov.hmcts.reform.finrem.notifications.*'])
   excludedClasses.set( ['uk.gov.hmcts.reform.finrem.notifications.NotificationApplication',
                      'uk.gov.hmcts.reform.finrem.notifications.model.*',
                      'uk.gov.hmcts.reform.finrem.notifications.config.*',
