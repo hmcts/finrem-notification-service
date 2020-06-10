@@ -32,6 +32,14 @@ You can run the application by executing following command:
 
 The application will start locally on `http://localhost:8086`
 
+### Mutation tests
+
+To run all mutation tests execute the following command:
+
+```
+./gradlew pitest
+```
+
 ### API documentation
 
 API documentation is provided with Swagger:
