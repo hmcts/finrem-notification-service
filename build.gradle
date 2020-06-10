@@ -219,14 +219,15 @@ jacocoTestCoverageVerification {
 }
 
 pitest {
-  targetClasses = ['uk.gov.hmcts.reform.finrem.notifications.*']
-  excludedClasses = ['uk.gov.hmcts.reform.finrem.notifications.NotificationApplication',
+  targetClasses.set( ['uk.gov.hmcts.reform.finrem.notifications.*'])
+  excludedClasses.set( ['uk.gov.hmcts.reform.finrem.notifications.NotificationApplication',
                      'uk.gov.hmcts.reform.finrem.notifications.model.*',
-                     'uk.gov.hmcts.reform.finrem.notifications.config.*']
-  threads = 4
-  outputFormats = ['XML', 'HTML']
-  timestampedReports = false
-  mutationThreshold = 80
+                     'uk.gov.hmcts.reform.finrem.notifications.config.*',
+                     'uk.gov.hmcts.reform.finrem.notifications.domain.*'])
+  threads.set(4)
+  outputFormats.set(['XML', 'HTML'])
+  timestampedReports.set(false)
+  mutationThreshold.set(80)
 }
 
 compileJava.dependsOn(processResources)
