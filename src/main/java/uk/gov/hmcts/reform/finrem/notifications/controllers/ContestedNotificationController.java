@@ -137,7 +137,7 @@ public class ContestedNotificationController {
     public ResponseEntity<Void> sendGeneralEmail(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
-                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " generalEmailBody and the email address that will receive"
                     + " the notification that a general email is sent and all are mandatory")
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for contested general email Notification request : {}",
