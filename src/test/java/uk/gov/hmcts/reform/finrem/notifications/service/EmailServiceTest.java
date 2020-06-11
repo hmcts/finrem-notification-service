@@ -18,7 +18,6 @@ import uk.gov.service.notify.NotificationClientException;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -270,6 +269,7 @@ public class EmailServiceTest {
 
         assertEquals(returnedTemplateVars.get("courtName"), "Nottingham FRC");
         assertEquals(returnedTemplateVars.get("courtEmail"), "FRCNottingham@justice.gov.uk");
+        assertNull(returnedTemplateVars.get("generalEmailBody"));
     }
 
     @Test
@@ -281,6 +281,7 @@ public class EmailServiceTest {
 
         assertNull(returnedTemplateVars.get("courtName"));
         assertNull(returnedTemplateVars.get("courtEmail"));
+        assertNull(returnedTemplateVars.get("generalEmailBody"));
     }
 
     @Test
@@ -291,9 +292,9 @@ public class EmailServiceTest {
         Map<String, String> returnedTemplateVars =
                 emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_GENERAL_EMAIL.name());
 
-        assertNotNull(returnedTemplateVars.get("courtName"));
-        assertNotNull(returnedTemplateVars.get("courtEmail"));
-        assertNotNull(returnedTemplateVars.get("generalEmailBody"));
+        assertEquals(returnedTemplateVars.get("courtName"), "Nottingham FRC");
+        assertEquals(returnedTemplateVars.get("courtEmail"), "FRCNottingham@justice.gov.uk");
+        assertEquals(returnedTemplateVars.get("generalEmailBody"), "test email body");
     }
 
     @Test
@@ -306,7 +307,7 @@ public class EmailServiceTest {
 
         assertNull(returnedTemplateVars.get("courtName"));
         assertNull(returnedTemplateVars.get("courtEmail"));
-        assertNotNull(returnedTemplateVars.get("generalEmailBody"));
+        assertEquals(returnedTemplateVars.get("generalEmailBody"), "test email body");
     }
 
 }
