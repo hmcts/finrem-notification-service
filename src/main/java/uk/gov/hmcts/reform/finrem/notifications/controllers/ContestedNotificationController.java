@@ -23,6 +23,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
 
 @RestController
 @RequestMapping(path = "/notify/contested")
@@ -126,6 +127,22 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for Contested 'Draft Order'. Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_DRAFT_ORDER);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/order-not-approved", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Contest order Not Approved.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Contest order not approved e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailContestOrderNotApproved(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a contest order is made and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for contest order not approved, Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTEST_ORDER_NOT_APPROVED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

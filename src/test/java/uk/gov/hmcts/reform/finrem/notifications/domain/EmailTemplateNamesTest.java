@@ -12,6 +12,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 public class EmailTemplateNamesTest {
@@ -66,5 +67,10 @@ public class EmailTemplateNamesTest {
     @Test
     public void shouldReturnContestedOrderApproved() {
         assertEquals("FR_CONTEST_ORDER_APPROVED", FR_CONTEST_ORDER_APPROVED.name());
+    }
+
+    @Test
+    public void shouldReturnContestedOrderNotApproved() {
+        assertEquals("FR_CONTEST_ORDER_NOT_APPROVED", FR_CONTEST_ORDER_NOT_APPROVED.name());
     }
 }
