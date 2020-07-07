@@ -1,7 +1,7 @@
 buildscript {
   dependencies {
     classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.2.6.RELEASE'
-    classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: '2.7.1'
+    classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: '3.0'
     classpath group: 'net.serenity-bdd', name: 'serenity-gradle-plugin', version: '2.2.0'
   }
 }
@@ -11,12 +11,12 @@ plugins {
   id 'checkstyle'
   id 'com.github.ben-manes.versions' version '0.28.0'
   id 'info.solidsoft.pitest' version '1.5.1'
-  id 'io.franzbecker.gradle-lombok' version '1.14'
+  id "io.franzbecker.gradle-lombok" version "4.0.0"
   id 'io.spring.dependency-management' version '1.0.9.RELEASE'
   id 'jacoco'
   id 'net.ltgt.apt' version '0.21'
   id 'org.owasp.dependencycheck' version '5.3.2.1'
-  id 'org.sonarqube' version '2.8'
+  id 'org.sonarqube' version '3.0'
   id 'org.springframework.boot' version '2.2.6.RELEASE'
 }
 
@@ -32,8 +32,8 @@ apply plugin: 'net.serenity-bdd.aggregator'
 group = 'uk.gov.hmcts.reform.finrem'
 version = '0.0.1'
 mainClassName = 'uk.gov.hmcts.reform.finrem.notifications.NotificationApplication'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
   mavenLocal()
@@ -76,23 +76,23 @@ configurations {
 
 def versions = [
         commonsBeanUtils        : '1.9.4',
-        commonsLang3            : '3.7',
-        commonsIo               : '2.6',
+        commonsLang3            : '3.10',
+        commonsIo               : '2.7',
         hmctsNotify             : '3.15.1-RELEASE',
         jsonAssert              : '1.5.0',
         junit                   : '4.13',
         lombok                  : '1.18.12',
         reformHealth            : '0.0.5',
-        reformLogging           : '5.1.5',
+        reformLogging           : '5.1.6',
         reformPropertiesVolume  : '0.0.4',
         restAssured             : '3.0.3',
-        serenity                : '2.0.91',
+        serenity                : '2.2.10',
         serenityCucumber        : '1.9.51',
         serviceTokenGenerator   : '3.1.2',
         springfoxSwagger        : '2.9.2',
-        springRetry             : '1.2.1.RELEASE',
-        tomcat                  : '9.0.35',
-        wiremockVersion         : '2.26.3'
+        springRetry             : '1.3.0',
+        tomcat                  : '9.0.37',
+        wiremockVersion         : '2.27.1'
 ]
 
 dependencyManagement {
