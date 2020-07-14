@@ -11,6 +11,7 @@
   "90033_Loosely Scoped Cookie_http://finrem-ns-aat.service.core-compute-aat.internal/notify/assign-to-judge_POST": "ignore",
   "90033_Loosely Scoped Cookie_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-made_POST": "ignore",
   "90033_Loosely Scoped Cookie_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-not-approved_POST": "ignore",
+  "90033_Loosely Scoped Cookie_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available_POST": "ignore",
   "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available_POST": "ignore",
   "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/prepare-for-hearing-order-sent_POST": "ignore",
   "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/hwf-successful_POST": "ignore",
