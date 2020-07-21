@@ -13,6 +13,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ContestedNotificationController.class)
@@ -25,6 +26,7 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL = "/notify/contested/prepare-for-hearing";
     private static final String NOTIFY_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT_URL = "/notify/contested/prepare-for-hearing-order-sent";
     private static final String NOTIFY_CONTESTED_DRAFT_ORDER_URL = "/notify/contested/draft-order";
+    private static final String NOTIFY_CONTEST_ORDER_NOT_APPROVED_URL = "/notify/contested/order-not-approved";
 
     @Test
     public void sendEmailForContestedHwfSuccessful() throws Exception {
@@ -55,6 +57,11 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void sendEmailForContestedDraftOrder() throws Exception {
         sendEmailTest("/fixtures/contestedDraftOrder.json", NOTIFY_CONTESTED_DRAFT_ORDER_URL, FR_CONTESTED_DRAFT_ORDER);
+    }
+
+    @Test
+    public void sendEmailForContestOrderNotApproved() throws Exception {
+        sendEmailTest("/fixtures/contestOrderNotApproved.json", NOTIFY_CONTEST_ORDER_NOT_APPROVED_URL, FR_CONTEST_ORDER_NOT_APPROVED);
     }
 
 }
