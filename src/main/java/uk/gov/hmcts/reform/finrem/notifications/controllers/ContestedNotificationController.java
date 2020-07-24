@@ -19,6 +19,7 @@ import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
@@ -150,8 +151,8 @@ public class ContestedNotificationController {
     @PostMapping(path = "/consent-order-approved", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail for Consent order Approved.")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Consent order approved e-mail sent successfully")})
-    public ResponseEntity<Void> sendEmailContestedConsentOrderNotApproved(
+            @ApiResponse(code = 204, message = "Consent Order Approved e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailContestedConsentOrderApproved(
             @RequestBody
             @ApiParam(value = "The fixtures contains case reference number,"
                     + " solicitorReferenceNumber and the email address that will receive"
@@ -160,6 +161,22 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for consent order approved, Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_CONSENT_ORDER_APPROVED);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/consent-order-not-approved", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Consent Order Not Approved.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Consent order approved e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailContestedConsentOrderNotApproved(
+        @RequestBody
+        @ApiParam(value = "The fixtures contains case reference number,"
+            + " solicitorReferenceNumber and the email address that will receive"
+            + " the notification that a Contest Order is not approved and all are mandatory")
+        final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Consent Order Not Approved, Notification request : {}",
+            notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

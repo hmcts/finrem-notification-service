@@ -9,6 +9,7 @@ import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
@@ -29,6 +30,7 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTESTED_DRAFT_ORDER_URL = "/notify/contested/draft-order";
     private static final String NOTIFY_CONTEST_ORDER_NOT_APPROVED_URL = "/notify/contested/order-not-approved";
     private static final String NOTIFY_CONTESTED_CONSENT_ORDER_APPROVED_URL = "/notify/contested/consent-order-approved";
+    private static final String NOTIFY_CONTESTED_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/contested/consent-order-not-approved";
 
     @Test
     public void sendEmailForContestedHwfSuccessful() throws Exception {
@@ -67,8 +69,14 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     }
 
     @Test
-    public void sendEmailForConsentOrderNotApproved() throws Exception {
+    public void sendEmailForConsentOrderApproved() throws Exception {
         sendEmailTest("/fixtures/contestedConsentOrderApproved.json", NOTIFY_CONTESTED_CONSENT_ORDER_APPROVED_URL,
-                FR_CONTESTED_CONSENT_ORDER_APPROVED);
+            FR_CONTESTED_CONSENT_ORDER_APPROVED);
+    }
+
+    @Test
+    public void sendEmailForConsentOrderNotApproved() throws Exception {
+        sendEmailTest("/fixtures/contestedConsentOrderNotApproved.json", NOTIFY_CONTESTED_CONSENT_ORDER_NOT_APPROVED_URL,
+            FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED);
     }
 }
