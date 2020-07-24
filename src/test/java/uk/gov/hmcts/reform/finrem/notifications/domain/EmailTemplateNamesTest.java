@@ -8,6 +8,8 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
@@ -72,5 +74,15 @@ public class EmailTemplateNamesTest {
     @Test
     public void shouldReturnContestedOrderNotApproved() {
         assertEquals("FR_CONTEST_ORDER_NOT_APPROVED", FR_CONTEST_ORDER_NOT_APPROVED.name());
+    }
+
+    @Test
+    public void shouldReturnContestedConsentOrderApproved() {
+        assertEquals("FR_CONTESTED_CONSENT_ORDER_APPROVED", FR_CONTESTED_CONSENT_ORDER_APPROVED.name());
+    }
+
+    @Test
+    public void shouldReturnContestedConsentOrderNotApproved() {
+        assertEquals("FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED", FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED.name());
     }
 }
