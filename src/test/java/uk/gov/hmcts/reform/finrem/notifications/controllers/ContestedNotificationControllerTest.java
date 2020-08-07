@@ -11,6 +11,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
@@ -31,6 +32,7 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTEST_ORDER_NOT_APPROVED_URL = "/notify/contested/order-not-approved";
     private static final String NOTIFY_CONTESTED_CONSENT_ORDER_APPROVED_URL = "/notify/contested/consent-order-approved";
     private static final String NOTIFY_CONTESTED_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/contested/consent-order-not-approved";
+    private static final String NOTIFY_CONTESTED_GENERAL_ORDER_CONSENT_URL = "/notify/contested/general-order-consent";
 
     @Test
     public void sendEmailForContestedHwfSuccessful() throws Exception {
@@ -78,5 +80,11 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     public void sendEmailForConsentOrderNotApproved() throws Exception {
         sendEmailTest("/fixtures/contestedConsentOrderNotApproved.json", NOTIFY_CONTESTED_CONSENT_ORDER_NOT_APPROVED_URL,
             FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED);
+    }
+
+    @Test
+    public void sendEmailContestedGeneralOrderConsent() throws Exception {
+        sendEmailTest("/fixtures/contestedGeneralOrderConsent.json", NOTIFY_CONTESTED_GENERAL_ORDER_CONSENT_URL,
+                ContestedDraftOrderNotApprovedServiceTest                FR_CONTESTED_GENERAL_ORDER_CONSENT);
     }
 }
