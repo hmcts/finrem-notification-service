@@ -32,7 +32,7 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTEST_ORDER_NOT_APPROVED_URL = "/notify/contested/order-not-approved";
     private static final String NOTIFY_CONTESTED_CONSENT_ORDER_APPROVED_URL = "/notify/contested/consent-order-approved";
     private static final String NOTIFY_CONTESTED_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/contested/consent-order-not-approved";
-    private static final String NOTIFY_CONTESTED_GENERAL_ORDER_CONSENT_URL = "/notify/contested/general-order-consent";
+    private static final String NOTIFY_CONTESTED_GENERAL_ORDER_CONSENT_URL = "/notify/contested/consent-general-order";
 
     @Test
     public void sendEmailForContestedHwfSuccessful() throws Exception {
@@ -85,6 +85,6 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void sendEmailContestedGeneralOrderConsent() throws Exception {
         sendEmailTest("/fixtures/contestedGeneralOrderConsent.json", NOTIFY_CONTESTED_GENERAL_ORDER_CONSENT_URL,
-                ContestedDraftOrderNotApprovedServiceTest                FR_CONTESTED_GENERAL_ORDER_CONSENT);
+                FR_CONTESTED_GENERAL_ORDER_CONSENT);
     }
 }

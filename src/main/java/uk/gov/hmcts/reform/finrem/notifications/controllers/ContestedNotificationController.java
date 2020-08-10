@@ -181,7 +181,7 @@ public class ContestedNotificationController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping(path = "/general-order-consent", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/consent-general-order", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail for Contested general order (consent).")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Contested general order (consent) e-mail sent successfully")})
