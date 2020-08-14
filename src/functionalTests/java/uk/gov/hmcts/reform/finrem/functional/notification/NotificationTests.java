@@ -12,6 +12,7 @@ public class NotificationTests extends IntegrationTestBase {
 
     private static final String NOTIFY_ASSIGN_TO_JUDGE = "/notify/assign-to-judge";
     private static final String CONSENT_ORDER_AVAILABLE = "/notify/consent-order-available";
+    private static final String CONSENT_ORDER_AVAILABLE_CTSC = "/notify/consent-order-available-ctsc";
     private static final String CONSENT_ORDER_MADE = "/notify/consent-order-made";
     private static final String CONSENT_ORDER_NOT_APPROVED = "/notify/consent-order-not-approved";
     private static final String HWF_SUCCESSFUL_API_URI = "/notify/hwf-successful";
@@ -30,6 +31,11 @@ public class NotificationTests extends IntegrationTestBase {
     @Test
     public void verifyNotifyConsentOrderAvailableTestIsOkay() {
         validatePostSuccessForNotification(CONSENT_ORDER_AVAILABLE, "consentOrderAvailable.json");
+    }
+
+    @Test
+    public void verifyNotifyConsentOrderAvailableCtscTestIsOkay() {
+        validatePostSuccessForNotification(CONSENT_ORDER_AVAILABLE_CTSC, "consentOrderAvailableCtsc.json");
     }
 
     @Test
