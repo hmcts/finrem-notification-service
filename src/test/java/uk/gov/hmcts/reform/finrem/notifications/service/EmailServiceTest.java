@@ -27,6 +27,7 @@ import static org.mockito.Mockito.verify;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONSENTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONTESTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_FAMILY_MAN_ID;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_DIVORCE_CASE_NUMBER;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
@@ -64,6 +65,7 @@ public class EmailServiceTest {
         notificationRequest.setNotificationEmail(TEST_SOLICITOR_EMAIL);
         notificationRequest.setCaseReferenceNumber(TEST_CASE_FAMILY_MAN_ID);
         notificationRequest.setSolicitorReferenceNumber(TEST_SOLICITOR_REFERENCE);
+        notificationRequest.setDivorceCaseNumber(TEST_DIVORCE_CASE_NUMBER);
         notificationRequest.setName(TEST_SOLICITOR_NAME);
     }
 

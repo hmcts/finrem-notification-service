@@ -13,9 +13,10 @@ public class NotificationRequestTest {
     @Test
     public void shouldGetHwfNotificationRequestData() {
         underTest = new NotificationRequest("123456",
-                "45623", "Padmaja", "test@test.com", "nottingham", CONTESTED);
+                "45623", "D123", "Padmaja", "test@test.com", "nottingham", CONTESTED);
         assertEquals("123456", underTest.getCaseReferenceNumber());
         assertEquals("45623", underTest.getSolicitorReferenceNumber());
+        assertEquals("D123", underTest.getDivorceCaseNumber());
         assertEquals("Padmaja", underTest.getName());
         assertEquals("test@test.com", underTest.getNotificationEmail());
         assertEquals("nottingham", underTest.getSelectedCourt());
@@ -26,6 +27,7 @@ public class NotificationRequestTest {
         underTest = new NotificationRequest();
         assertNull(underTest.getCaseReferenceNumber());
         assertNull(underTest.getSolicitorReferenceNumber());
+        assertNull(underTest.getDivorceCaseNumber());
         assertNull(underTest.getName());
         assertNull(underTest.getNotificationEmail());
         assertNull(underTest.getSelectedCourt());
@@ -41,6 +43,7 @@ public class NotificationRequestTest {
     private void assertNotificationData() {
         assertEquals("case1234", underTest.getCaseReferenceNumber());
         assertEquals("123123", underTest.getSolicitorReferenceNumber());
+        assertEquals("D456", underTest.getDivorceCaseNumber());
         assertEquals("Prashanth", underTest.getName());
         assertEquals("test1@test1.com", underTest.getNotificationEmail());
     }
@@ -57,6 +60,7 @@ public class NotificationRequestTest {
     private void setNotificationData() {
         underTest.setName("Prashanth");
         underTest.setSolicitorReferenceNumber("123123");
+        underTest.setDivorceCaseNumber("D456");
         underTest.setCaseReferenceNumber("case1234");
         underTest.setNotificationEmail("test1@test1.com");
     }
