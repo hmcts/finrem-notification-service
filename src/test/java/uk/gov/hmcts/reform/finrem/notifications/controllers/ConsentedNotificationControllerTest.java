@@ -9,6 +9,7 @@ import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
@@ -23,6 +24,7 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONSENT_ORDER_MADE_URL = "/notify/consent-order-made";
     private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/consent-order-not-approved";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_URL = "/notify/consent-order-available";
+    private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_CTSC_URL = "/notify/consent-order-available-ctsc";
 
     @Test
     public void sendEmailForHwfSuccessFul() throws Exception {
@@ -47,5 +49,10 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void sendEmailForConsentOrderAvailable() throws Exception {
         sendEmailTest("/fixtures/consentOrderAvailable.json", NOTIFY_CONSENT_ORDER_AVAILABLE_URL, FR_CONSENT_ORDER_AVAILABLE);
+    }
+
+    @Test
+    public void sendEmailForConsentOrderAvailableCtsc() throws Exception {
+        sendEmailTest("/fixtures/consentOrderAvailableCtsc.json", NOTIFY_CONSENT_ORDER_AVAILABLE_CTSC_URL, FR_CONSENT_ORDER_AVAILABLE_CTSC);
     }
 }
