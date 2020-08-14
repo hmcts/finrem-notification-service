@@ -18,6 +18,8 @@ public class NotificationRequest {
     @NotNull
     private String solicitorReferenceNumber;
     @NotNull
+    private String divorceCaseNumber;
+    @NotNull
     private String name;
     @Email
     private String notificationEmail;
