@@ -21,6 +21,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
@@ -177,6 +178,22 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for Consent Order Not Approved, Notification request : {}",
             notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/consent-general-order", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Contested general order (consent).")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Contested general order (consent) e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailContestedGeneralOrderConsent(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a Contest Order is not approved and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Contested general order (consent), Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_ORDER_CONSENT);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
