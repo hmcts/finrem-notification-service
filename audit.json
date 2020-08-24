@@ -14,6 +14,10 @@
   "90033_Loosely Scoped Cookie_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available_POST": "ignore",
   "90033_Loosely Scoped Cookie_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-order-approved_POST": "ignore",
   "90033_Loosely Scoped Cookie_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available-ctsc_POST": "ignore",
+  "90033_Loosely Scoped Cookie_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-order-not-approved_POST":"ignore",
+  "90033_Loosely Scoped Cookie_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-general-order_POST": "ignore",
+  "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-order-not-approved_POST": "ignore",
+  "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-general-order_POST": "ignore",
   "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available_POST": "ignore",
   "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/prepare-for-hearing-order-sent_POST": "ignore",
   "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/hwf-successful_POST": "ignore",
@@ -41,5 +45,7 @@
   "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/prepare-for-hearing_POST": "ignore",
   "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/hwf-successful_POST": "ignore",
   "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-order-approved_POST": "ignore",
-  "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available-ctsc_POST": "ignore"
+  "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available-ctsc_POST": "ignore",
+  "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-order-not-approved_POST": "ignore",
+  "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-general-order_POST": "ignore"
 }
