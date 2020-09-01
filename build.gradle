@@ -12,7 +12,7 @@ plugins {
   id 'com.github.ben-manes.versions' version '0.28.0'
   id 'info.solidsoft.pitest' version '1.5.1'
   id "io.franzbecker.gradle-lombok" version "4.0.0"
-  id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+  id 'io.spring.dependency-management' version '1.0.10.RELEASE'
   id 'jacoco'
   id 'net.ltgt.apt' version '0.21'
   id 'org.owasp.dependencycheck' version '5.3.2.1'
