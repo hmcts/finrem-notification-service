@@ -11,6 +11,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_OUTCOME;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
@@ -90,5 +91,10 @@ public class EmailTemplateNamesTest {
     @Test
     public void shouldReturnContestedGeneralOrderConsent() {
         assertEquals("FR_CONTESTED_GENERAL_ORDER_CONSENT", FR_CONTESTED_GENERAL_ORDER_CONSENT.name());
+    }
+
+    @Test
+    public void shouldReturnContestedGeneralApplicationOutcome() {
+        assertEquals("FR_CONTESTED_GENERAL_APPLICATION_OUTCOME", FR_CONTESTED_GENERAL_APPLICATION_OUTCOME.name());
     }
 }
