@@ -18,6 +18,7 @@ import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
@@ -126,6 +127,22 @@ public class ConsentedNotificationController {
         log.info("Received request for notification email for CTSC consent order available Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE_CTSC);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/general-order", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Consented general order.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Consented general order e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailConsentedGeneralOrder(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Consented general order, Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENTED_GENERAL_ORDER);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
