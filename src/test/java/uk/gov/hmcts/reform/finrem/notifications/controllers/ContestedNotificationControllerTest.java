@@ -11,6 +11,8 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_OUTCOME;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
@@ -33,6 +35,8 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTESTED_CONSENT_ORDER_APPROVED_URL = "/notify/contested/consent-order-approved";
     private static final String NOTIFY_CONTESTED_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/contested/consent-order-not-approved";
     private static final String NOTIFY_CONTESTED_GENERAL_ORDER_CONSENT_URL = "/notify/contested/consent-general-order";
+    private static final String NOTIFY_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE_URL = "/notify/contested/general-application-refer-to-judge";
+    private static final String NOTIFY_CONTESTED_GENERAL_APPLICATION_OUTCOME_URL = "/notify/contested/general-application-outcome";
 
     @Test
     public void sendEmailForContestedHwfSuccessful() throws Exception {
@@ -86,5 +90,17 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     public void sendEmailContestedGeneralOrderConsent() throws Exception {
         sendEmailTest("/fixtures/contestedGeneralOrderConsent.json", NOTIFY_CONTESTED_GENERAL_ORDER_CONSENT_URL,
                 FR_CONTESTED_GENERAL_ORDER_CONSENT);
+    }
+
+    @Test
+    public void sendEmailContestedGeneralApplicationReferToJudge() throws Exception {
+        sendEmailTest("/fixtures/contestedGeneralApplicationReferToJudge.json", NOTIFY_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE_URL,
+                FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE);
+    }
+
+    @Test
+    public void sendEmailContestedGeneralApplicationOutcome() throws Exception {
+        sendEmailTest("/fixtures/contestedGeneralApplicationOutcome.json", NOTIFY_CONTESTED_GENERAL_APPLICATION_OUTCOME_URL,
+                FR_CONTESTED_GENERAL_APPLICATION_OUTCOME);
     }
 }

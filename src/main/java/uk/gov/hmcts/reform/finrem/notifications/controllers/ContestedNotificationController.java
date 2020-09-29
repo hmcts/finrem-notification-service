@@ -21,6 +21,8 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_OUTCOME;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
@@ -168,15 +170,15 @@ public class ContestedNotificationController {
     @PostMapping(path = "/consent-order-not-approved", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail for Consent Order Not Approved.")
     @ApiResponses(value = {
-        @ApiResponse(code = 204, message = "Consent order approved e-mail sent successfully")})
+            @ApiResponse(code = 204, message = "Consent order approved e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailContestedConsentOrderNotApproved(
-        @RequestBody
-        @ApiParam(value = "The fixtures contains case reference number,"
-            + " solicitorReferenceNumber and the email address that will receive"
-            + " the notification that a Contest Order is not approved and all are mandatory")
-        final NotificationRequest notificationRequest) {
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a Contest Order is not approved and all are mandatory")
+            final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for Consent Order Not Approved, Notification request : {}",
-            notificationRequest);
+                notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -194,6 +196,34 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for Contested general order (consent), Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_ORDER_CONSENT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/general-application-refer-to-judge", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Contested general application refer to judge.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Contested general application refer to judge e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailContestedGeneralApplicationReferToJudge(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " solicitorReferenceNumber and the email address that will receive"
+                    + " the notification that a Contest Order is not approved and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Contested general application refer to judge, Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/general-application-outcome", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Contested General Application Outcome")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Contested General Application Outcome e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailContestedGeneralApplicationOutcome(
+            @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Contested General Application Outcome, Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_APPLICATION_OUTCOME);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
