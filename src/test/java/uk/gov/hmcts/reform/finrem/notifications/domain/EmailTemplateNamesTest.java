@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
@@ -12,6 +13,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_OUTCOME;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
@@ -40,6 +42,11 @@ public class EmailTemplateNamesTest {
     @Test
     public void shouldReturnConsentOrderNotApproved() {
         assertEquals("FR_CONSENT_ORDER_NOT_APPROVED", FR_CONSENT_ORDER_NOT_APPROVED.name());
+    }
+
+    @Test
+    public void shouldReturnConsentedGeneralOrder() {
+        assertEquals("FR_CONSENTED_GENERAL_ORDER", FR_CONSENTED_GENERAL_ORDER.name());
     }
 
     //contested
@@ -96,5 +103,10 @@ public class EmailTemplateNamesTest {
     @Test
     public void shouldReturnContestedGeneralApplicationOutcome() {
         assertEquals("FR_CONTESTED_GENERAL_APPLICATION_OUTCOME", FR_CONTESTED_GENERAL_APPLICATION_OUTCOME.name());
+    }
+
+    @Test
+    public void shouldReturnContestedGeneralOrder() {
+        assertEquals("FR_CONTESTED_GENERAL_ORDER", FR_CONTESTED_GENERAL_ORDER.name());
     }
 }

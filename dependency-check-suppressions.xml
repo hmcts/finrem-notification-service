@@ -19,4 +19,10 @@
         <packageUrl regex="true">^pkg:maven/org.yaml/snakeyaml@.*$</packageUrl>
         <cve>CVE-2017-18640</cve>
     </suppress>
+    <suppress>
+        <notes>
+            <![CDATA[CVE is a browser vulnerability]]>
+        </notes>
+        <cve>CVE-2020-5421</cve>
+    </suppress>
 </suppressions>
