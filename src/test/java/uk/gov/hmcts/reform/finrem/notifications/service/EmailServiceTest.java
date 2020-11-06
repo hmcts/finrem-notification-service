@@ -27,6 +27,8 @@ import static org.mockito.Mockito.verify;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONSENTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONTESTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_FAMILY_MAN_ID;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_COURT_EMAIL;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_COURT_NAME;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_DIVORCE_CASE_NUMBER;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
@@ -76,7 +78,8 @@ public class EmailServiceTest {
 
     private void setContestedData() {
         notificationRequest.setCaseType(CONTESTED);
-        notificationRequest.setSelectedCourt("nottingham");
+        notificationRequest.setSelectedCourtName(TEST_COURT_NAME);
+        notificationRequest.setSelectedCourtEmail(TEST_COURT_EMAIL);
     }
 
     @Test
@@ -106,8 +109,8 @@ public class EmailServiceTest {
         Map<String, String> returnedTemplateVars =
                 emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL.name());
 
-        assertEquals(returnedTemplateVars.get("courtName"), "Nottingham FRC");
-        assertEquals(returnedTemplateVars.get("courtEmail"), "FRCNottingham@justice.gov.uk");
+        assertEquals(returnedTemplateVars.get("courtName"), TEST_COURT_NAME);
+        assertEquals(returnedTemplateVars.get("courtEmail"), TEST_COURT_EMAIL);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONTESTED_HWF_SUCCESSFUL.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL);
@@ -285,10 +288,10 @@ public class EmailServiceTest {
         setContestedData();
 
         Map<String, String> returnedTemplateVars =
-                emailService.buildTemplateVars(notificationRequest,FR_CONTESTED_HWF_SUCCESSFUL.name());
+                emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL.name());
 
-        assertEquals(returnedTemplateVars.get("courtName"), "Nottingham FRC");
-        assertEquals(returnedTemplateVars.get("courtEmail"), "FRCNottingham@justice.gov.uk");
+        assertEquals(returnedTemplateVars.get("courtName"), TEST_COURT_NAME);
+        assertEquals(returnedTemplateVars.get("courtEmail"), TEST_COURT_EMAIL);
     }
 
     @Test

@@ -5,6 +5,13 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONTESTED;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_REFERENCE_NUMBER;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_COURT_EMAIL;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_COURT_NAME;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_DIVORCE_CASE_NUMBER;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
 
 public class NotificationRequestTest {
 
@@ -12,14 +19,15 @@ public class NotificationRequestTest {
 
     @Test
     public void shouldGetHwfNotificationRequestData() {
-        underTest = new NotificationRequest("123456",
-                "45623", "D123", "Padmaja", "test@test.com", "nottingham", CONTESTED);
-        assertEquals("123456", underTest.getCaseReferenceNumber());
-        assertEquals("45623", underTest.getSolicitorReferenceNumber());
-        assertEquals("D123", underTest.getDivorceCaseNumber());
-        assertEquals("Padmaja", underTest.getName());
-        assertEquals("test@test.com", underTest.getNotificationEmail());
-        assertEquals("nottingham", underTest.getSelectedCourt());
+        underTest = new NotificationRequest(TEST_CASE_REFERENCE_NUMBER, TEST_SOLICITOR_REFERENCE, TEST_DIVORCE_CASE_NUMBER,
+                TEST_SOLICITOR_NAME, TEST_SOLICITOR_EMAIL, TEST_COURT_NAME, TEST_COURT_EMAIL, CONTESTED);
+        assertEquals(TEST_CASE_REFERENCE_NUMBER, underTest.getCaseReferenceNumber());
+        assertEquals(TEST_SOLICITOR_REFERENCE, underTest.getSolicitorReferenceNumber());
+        assertEquals(TEST_DIVORCE_CASE_NUMBER, underTest.getDivorceCaseNumber());
+        assertEquals(TEST_SOLICITOR_NAME, underTest.getName());
+        assertEquals(TEST_SOLICITOR_EMAIL, underTest.getNotificationEmail());
+        assertEquals(TEST_COURT_NAME, underTest.getSelectedCourtName());
+        assertEquals(TEST_COURT_EMAIL, underTest.getSelectedCourtEmail());
     }
 
     @Test
@@ -30,7 +38,8 @@ public class NotificationRequestTest {
         assertNull(underTest.getDivorceCaseNumber());
         assertNull(underTest.getName());
         assertNull(underTest.getNotificationEmail());
-        assertNull(underTest.getSelectedCourt());
+        assertNull(underTest.getSelectedCourtName());
+        assertNull(underTest.getSelectedCourtEmail());
     }
 
     @Test
@@ -52,9 +61,11 @@ public class NotificationRequestTest {
     public void shouldSetAndGetHwfNotificationRequestDataForContested() {
         underTest = new NotificationRequest();
         setNotificationData();
-        underTest.setSelectedCourt("nottingham");
+        underTest.setSelectedCourtName(TEST_COURT_NAME);
+        underTest.setSelectedCourtEmail(TEST_COURT_EMAIL);
         assertNotificationData();
-        assertEquals("nottingham", underTest.getSelectedCourt());
+        assertEquals(TEST_COURT_NAME, underTest.getSelectedCourtName());
+        assertEquals(TEST_COURT_EMAIL, underTest.getSelectedCourtEmail());
     }
 
     private void setNotificationData() {
