@@ -120,6 +120,27 @@ public class EmailServiceTest {
     }
 
     @Test
+    public void sendHwfSuccessfulConfirmationEmailContestedForNewFRc() throws NotificationClientException {
+        notificationRequest.setCaseType(CONTESTED);
+        notificationRequest.setSelectedCourt("dorset");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL.name());
+
+        assertEquals(returnedTemplateVars.get("courtName"), "Dorset and Hampshire FRC");
+        assertEquals(returnedTemplateVars.get("courtEmail"), "BournemouthFRC.bournemouth.countycourt@justice.gov.uk");
+        returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONTESTED_HWF_SUCCESSFUL.name()));
+
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL);
+
+        verify(mockClient).sendEmail(
+                eq(emailTemplates.get(FR_CONTESTED_HWF_SUCCESSFUL.name())),
+                eq(TEST_SOLICITOR_EMAIL),
+                eq(returnedTemplateVars),
+                anyString());
+    }
+
+    @Test
     public void sendHwfSuccessfulConfirmationEmailShouldNotPropagateNotificationClientException()
             throws NotificationClientException {
         setConsentedData();
