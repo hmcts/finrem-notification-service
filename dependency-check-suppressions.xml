@@ -6,6 +6,11 @@
         <cpe>cpe:/a:google:guava</cpe>
     </suppress>
     <suppress>
+        <notes>not using directly in project, so suppressing</notes>
+        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
+        <vulnerabilityName>CVE-2018-10237</vulnerabilityName>
+    </suppress>
+    <suppress>
         <notes>only affects log appender over SMTP</notes>
         <cve>CVE-2020-9488</cve>
     </suppress>
