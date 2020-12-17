@@ -2,8 +2,8 @@
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
     <suppress>
         <notes>last present in 24.1; fixed in 24.1.1 and 25.0</notes>
-        <cpe>cpe:2.3:a:google:guava:*:*:*:*:*:*:*:*</cpe>
-        <cve>CVE-2018-10237</cve>
+        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
+        <cpe>cpe:/a:google:guava</cpe>
     </suppress>
     <suppress>
         <notes>only affects log appender over SMTP</notes>
