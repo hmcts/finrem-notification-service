@@ -107,6 +107,9 @@ dependencyManagement {
       entry 'tomcat-embed-el'
       entry 'tomcat-embed-websocket'
     }
+    // CVE-2020-8908
+    dependency group: 'com.google.guava', name: 'guava', version: '30.1-jre'
+
   }
 }
 
