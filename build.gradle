@@ -189,7 +189,7 @@ dependencyCheck {
   }
 }
 
-checkstyle.toolVersion = '8.32'
+checkstyle.toolVersion = '8.39'
 checkstyle.configFile = new File(rootDir, "checkstyle.xml")
 
 // make build fail on Checkstyle issues (https://github.com/gradle/gradle/issues/881)
