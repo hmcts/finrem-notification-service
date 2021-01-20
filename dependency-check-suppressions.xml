@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
     <suppress>
-        <notes><![CDATA[file name: spring-security-crypto-5.2.2.RELEASE.jar]]></notes>
+        <notes>[!CDATA[False positive - see https://github.com/jeremylong/DependencyCheck/issues/2952]]</notes>
         <packageUrl regex="true">^pkg:maven/org\.springframework\.security/spring\-security\-crypto@.*$</packageUrl>
-        <cpe>cpe:/a:pivotal_software:spring_security</cpe>
+        <cve>CVE-2018-1258</cve>
     </suppress>
 </suppressions>

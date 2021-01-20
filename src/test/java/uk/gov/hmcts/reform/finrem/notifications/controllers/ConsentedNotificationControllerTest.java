@@ -13,6 +13,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 @RunWith(SpringRunner.class)
@@ -24,43 +25,48 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_ASSIGN_TO_JUDGE_URL = "/notify/assign-to-judge";
     private static final String NOTIFY_CONSENT_ORDER_MADE_URL = "/notify/consent-order-made";
     private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/consent-order-not-approved";
+    private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_SENT_URL = "/notify/consent-order-not-approved-sent";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_URL = "/notify/consent-order-available";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_CTSC_URL = "/notify/consent-order-available-ctsc";
     private static final String NOTIFY_CONSENTED_GENERAL_ORDER_URL = "/notify/general-order";
 
     @Test
     public void sendEmailForHwfSuccessFul() throws Exception {
-        sendEmailTest("/fixtures/hwfSuccessfulEmail.json", NOTIFY_HWF_SUCCESSFUL_URL, FR_HWF_SUCCESSFUL);
+        performPostRequestWithMockContent(NOTIFY_HWF_SUCCESSFUL_URL, FR_HWF_SUCCESSFUL);
     }
 
     @Test
     public void sendEmailForAssignedToJudge() throws Exception {
-        sendEmailTest("/fixtures/assignedToJudge.json", NOTIFY_ASSIGN_TO_JUDGE_URL, FR_ASSIGNED_TO_JUDGE);
+        performPostRequestWithMockContent(NOTIFY_ASSIGN_TO_JUDGE_URL, FR_ASSIGNED_TO_JUDGE);
     }
 
     @Test
     public void sendEmailForConsentOrderMade() throws Exception {
-        sendEmailTest("/fixtures/consentOrderMade.json", NOTIFY_CONSENT_ORDER_MADE_URL, FR_CONSENT_ORDER_MADE);
+        performPostRequestWithMockContent(NOTIFY_CONSENT_ORDER_MADE_URL, FR_CONSENT_ORDER_MADE);
     }
 
     @Test
     public void sendEmailForConsentOrderNotApproved() throws Exception {
-        sendEmailTest("/fixtures/consentOrderNotApproved.json", NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL, FR_CONSENT_ORDER_NOT_APPROVED);
+        performPostRequestWithMockContent(NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL, FR_CONSENT_ORDER_NOT_APPROVED);
+    }
+
+    @Test
+    public void sendEmailForConsentOrderNotApprovedSent() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_CONSENT_ORDER_NOT_APPROVED_SENT_URL, FR_CONSENT_ORDER_NOT_APPROVED_SENT);
     }
 
     @Test
     public void sendEmailForConsentOrderAvailable() throws Exception {
-        sendEmailTest("/fixtures/consentOrderAvailable.json", NOTIFY_CONSENT_ORDER_AVAILABLE_URL, FR_CONSENT_ORDER_AVAILABLE);
+        performPostRequestWithMockContent(NOTIFY_CONSENT_ORDER_AVAILABLE_URL, FR_CONSENT_ORDER_AVAILABLE);
     }
 
     @Test
     public void sendEmailForConsentOrderAvailableCtsc() throws Exception {
-        sendEmailTest("/fixtures/consentOrderAvailableCtsc.json", NOTIFY_CONSENT_ORDER_AVAILABLE_CTSC_URL, FR_CONSENT_ORDER_AVAILABLE_CTSC);
+        performPostRequestWithMockContent(NOTIFY_CONSENT_ORDER_AVAILABLE_CTSC_URL, FR_CONSENT_ORDER_AVAILABLE_CTSC);
     }
 
     @Test
     public void sendEmailConsentedGeneralOrder() throws Exception {
-        sendEmailTest("/fixtures/consentedGeneralOrder.json", NOTIFY_CONSENTED_GENERAL_ORDER_URL,
-                FR_CONSENTED_GENERAL_ORDER);
+        performPostRequestWithMockContent(NOTIFY_CONSENTED_GENERAL_ORDER_URL, FR_CONSENTED_GENERAL_ORDER);
     }
 }
