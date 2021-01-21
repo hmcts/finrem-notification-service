@@ -42,73 +42,66 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
 
     @Test
     public void sendEmailForContestedHwfSuccessful() throws Exception {
-        sendEmailTest("/fixtures/hwfSuccessfulEmail.json", NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL, FR_CONTESTED_HWF_SUCCESSFUL);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_HWF_SUCCESSFUL_URL, FR_CONTESTED_HWF_SUCCESSFUL);
     }
 
     @Test
     public void sendEmailForContestedApplicationIssued() throws Exception {
-        sendEmailTest("/fixtures/contestedApplicationIssued.json", NOTIFY_CONTESTED_APPLICATION_ISSUED_URL, FR_CONTESTED_APPLICATION_ISSUED);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_APPLICATION_ISSUED_URL, FR_CONTESTED_APPLICATION_ISSUED);
     }
 
     @Test
     public void sendEmailForContestOrderApproved() throws Exception {
-        sendEmailTest("/fixtures/contestOrderApproved.json", NOTIFY_CONTEST_ORDER_APPROVED_URL, FR_CONTEST_ORDER_APPROVED);
+        performPostRequestWithMockContent(NOTIFY_CONTEST_ORDER_APPROVED_URL, FR_CONTEST_ORDER_APPROVED);
     }
 
     @Test
     public void sendEmailForPrepareForHearing() throws Exception {
-        sendEmailTest("/fixtures/prepareForHearing.json", NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL, FR_CONTESTED_PREPARE_FOR_HEARING);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_URL, FR_CONTESTED_PREPARE_FOR_HEARING);
     }
 
     @Test
     public void sendEmailForPrepareForHearingOrderSent() throws Exception {
-        sendEmailTest("/fixtures/prepareForHearingOrderSent.json", NOTIFY_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT_URL,
-                FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT_URL, FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT);
     }
 
     @Test
     public void sendEmailForContestedDraftOrder() throws Exception {
-        sendEmailTest("/fixtures/contestedDraftOrder.json", NOTIFY_CONTESTED_DRAFT_ORDER_URL, FR_CONTESTED_DRAFT_ORDER);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_DRAFT_ORDER_URL, FR_CONTESTED_DRAFT_ORDER);
     }
 
     @Test
     public void sendEmailForContestOrderNotApproved() throws Exception {
-        sendEmailTest("/fixtures/contestOrderNotApproved.json", NOTIFY_CONTEST_ORDER_NOT_APPROVED_URL, FR_CONTEST_ORDER_NOT_APPROVED);
+        performPostRequestWithMockContent(NOTIFY_CONTEST_ORDER_NOT_APPROVED_URL, FR_CONTEST_ORDER_NOT_APPROVED);
     }
 
     @Test
     public void sendEmailForConsentOrderApproved() throws Exception {
-        sendEmailTest("/fixtures/contestedConsentOrderApproved.json", NOTIFY_CONTESTED_CONSENT_ORDER_APPROVED_URL,
-            FR_CONTESTED_CONSENT_ORDER_APPROVED);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_CONSENT_ORDER_APPROVED_URL, FR_CONTESTED_CONSENT_ORDER_APPROVED);
     }
 
     @Test
     public void sendEmailForConsentOrderNotApproved() throws Exception {
-        sendEmailTest("/fixtures/contestedConsentOrderNotApproved.json", NOTIFY_CONTESTED_CONSENT_ORDER_NOT_APPROVED_URL,
-            FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_CONSENT_ORDER_NOT_APPROVED_URL, FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED);
     }
 
     @Test
     public void sendEmailContestedGeneralOrderConsent() throws Exception {
-        sendEmailTest("/fixtures/contestedGeneralOrderConsent.json", NOTIFY_CONTESTED_GENERAL_ORDER_CONSENT_URL,
-                FR_CONTESTED_GENERAL_ORDER_CONSENT);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_GENERAL_ORDER_CONSENT_URL, FR_CONTESTED_GENERAL_ORDER_CONSENT);
     }
 
     @Test
     public void sendEmailContestedGeneralOrder() throws Exception {
-        sendEmailTest("/fixtures/contestedGeneralOrder.json", NOTIFY_CONTESTED_GENERAL_ORDER_URL,
-                FR_CONTESTED_GENERAL_ORDER);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_GENERAL_ORDER_URL, FR_CONTESTED_GENERAL_ORDER);
     }
 
     @Test
     public void sendEmailContestedGeneralApplicationReferToJudge() throws Exception {
-        sendEmailTest("/fixtures/contestedGeneralApplicationReferToJudge.json", NOTIFY_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE_URL,
-                FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE_URL, FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE);
     }
 
     @Test
     public void sendEmailContestedGeneralApplicationOutcome() throws Exception {
-        sendEmailTest("/fixtures/contestedGeneralApplicationOutcome.json", NOTIFY_CONTESTED_GENERAL_APPLICATION_OUTCOME_URL,
-                FR_CONTESTED_GENERAL_APPLICATION_OUTCOME);
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_GENERAL_APPLICATION_OUTCOME_URL, FR_CONTESTED_GENERAL_APPLICATION_OUTCOME);
     }
 }

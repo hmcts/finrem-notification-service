@@ -1,13 +1,16 @@
 package uk.gov.hmcts.reform.finrem.notifications.domain;
 
+import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
@@ -23,90 +26,31 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 
 public class EmailTemplateNamesTest {
 
-    //consented
     @Test
-    public void shouldReturnHWFSuccessful() {
-        assertEquals("FR_HWF_SUCCESSFUL", FR_HWF_SUCCESSFUL.name());
-    }
-
-    @Test
-    public void shouldReturnAssignToJudge() {
-        assertEquals("FR_ASSIGNED_TO_JUDGE", FR_ASSIGNED_TO_JUDGE.name());
-    }
-
-    @Test
-    public void shouldReturnConsentOrderMade() {
-        assertEquals("FR_CONSENT_ORDER_MADE", FR_CONSENT_ORDER_MADE.name());
-    }
-
-    @Test
-    public void shouldReturnConsentOrderNotApproved() {
-        assertEquals("FR_CONSENT_ORDER_NOT_APPROVED", FR_CONSENT_ORDER_NOT_APPROVED.name());
-    }
-
-    @Test
-    public void shouldReturnConsentedGeneralOrder() {
-        assertEquals("FR_CONSENTED_GENERAL_ORDER", FR_CONSENTED_GENERAL_ORDER.name());
-    }
-
-    //contested
-    @Test
-    public void shouldReturnConsentOrderAvailable() {
-        assertEquals("FR_CONSENT_ORDER_AVAILABLE", FR_CONSENT_ORDER_AVAILABLE.name());
-    }
-
-    @Test
-    public void shouldReturnContestedDraftOrder() {
-        assertEquals("FR_CONTESTED_DRAFT_ORDER", FR_CONTESTED_DRAFT_ORDER.name());
-    }
-
-    @Test
-    public void shouldReturnContestedHWFSuccessful() {
-        assertEquals("FR_CONTESTED_HWF_SUCCESSFUL", FR_CONTESTED_HWF_SUCCESSFUL.name());
-    }
-
-    @Test
-    public void shouldReturnContestedApplicationIssued() {
-        assertEquals("FR_CONTESTED_APPLICATION_ISSUED", FR_CONTESTED_APPLICATION_ISSUED.name());
-    }
-
-    @Test
-    public void shouldReturnContestedPrepareForHearing() {
-        assertEquals("FR_CONTESTED_PREPARE_FOR_HEARING", FR_CONTESTED_PREPARE_FOR_HEARING.name());
-    }
-
-    @Test
-    public void shouldReturnContestedOrderApproved() {
-        assertEquals("FR_CONTEST_ORDER_APPROVED", FR_CONTEST_ORDER_APPROVED.name());
-    }
-
-    @Test
-    public void shouldReturnContestedOrderNotApproved() {
-        assertEquals("FR_CONTEST_ORDER_NOT_APPROVED", FR_CONTEST_ORDER_NOT_APPROVED.name());
-    }
-
-    @Test
-    public void shouldReturnContestedConsentOrderApproved() {
-        assertEquals("FR_CONTESTED_CONSENT_ORDER_APPROVED", FR_CONTESTED_CONSENT_ORDER_APPROVED.name());
-    }
-
-    @Test
-    public void shouldReturnContestedConsentOrderNotApproved() {
-        assertEquals("FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED", FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED.name());
-    }
-
-    @Test
-    public void shouldReturnContestedGeneralOrderConsent() {
-        assertEquals("FR_CONTESTED_GENERAL_ORDER_CONSENT", FR_CONTESTED_GENERAL_ORDER_CONSENT.name());
-    }
-
-    @Test
-    public void shouldReturnContestedGeneralApplicationOutcome() {
-        assertEquals("FR_CONTESTED_GENERAL_APPLICATION_OUTCOME", FR_CONTESTED_GENERAL_APPLICATION_OUTCOME.name());
-    }
-
-    @Test
-    public void shouldReturnContestedGeneralOrder() {
-        assertEquals("FR_CONTESTED_GENERAL_ORDER", FR_CONTESTED_GENERAL_ORDER.name());
+    public void givenJvmIsWorkingAccordingToSpecification_whenEnumNameInvoked_thenItReturnsSameStringAsEnumName() {
+        ImmutableMap.<Enum, String>builder()
+            // consented
+            .put(FR_HWF_SUCCESSFUL, "FR_HWF_SUCCESSFUL")
+            .put(FR_ASSIGNED_TO_JUDGE, "FR_ASSIGNED_TO_JUDGE")
+            .put(FR_CONSENT_ORDER_MADE, "FR_CONSENT_ORDER_MADE")
+            .put(FR_CONSENT_ORDER_NOT_APPROVED, "FR_CONSENT_ORDER_NOT_APPROVED")
+            .put(FR_CONSENT_ORDER_NOT_APPROVED_SENT, "FR_CONSENT_ORDER_NOT_APPROVED_SENT")
+            .put(FR_CONSENTED_GENERAL_ORDER, "FR_CONSENTED_GENERAL_ORDER")
+            // contested
+            .put(FR_CONSENT_ORDER_AVAILABLE, "FR_CONSENT_ORDER_AVAILABLE")
+            .put(FR_CONTESTED_DRAFT_ORDER, "FR_CONTESTED_DRAFT_ORDER")
+            .put(FR_CONTESTED_HWF_SUCCESSFUL, "FR_CONTESTED_HWF_SUCCESSFUL")
+            .put(FR_CONTESTED_APPLICATION_ISSUED, "FR_CONTESTED_APPLICATION_ISSUED")
+            .put(FR_CONTESTED_PREPARE_FOR_HEARING, "FR_CONTESTED_PREPARE_FOR_HEARING")
+            .put(FR_CONTEST_ORDER_APPROVED, "FR_CONTEST_ORDER_APPROVED")
+            .put(FR_CONTEST_ORDER_NOT_APPROVED, "FR_CONTEST_ORDER_NOT_APPROVED")
+            .put(FR_CONTESTED_CONSENT_ORDER_APPROVED, "FR_CONTESTED_CONSENT_ORDER_APPROVED")
+            .put(FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED, "FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED")
+            .put(FR_CONTESTED_GENERAL_ORDER_CONSENT, "FR_CONTESTED_GENERAL_ORDER_CONSENT")
+            .put(FR_CONTESTED_GENERAL_APPLICATION_OUTCOME, "FR_CONTESTED_GENERAL_APPLICATION_OUTCOME")
+            .put(FR_CONTESTED_GENERAL_ORDER, "FR_CONTESTED_GENERAL_ORDER")
+            .build()
+            .entrySet().stream()
+            .forEach(enumAndName -> assertThat(enumAndName.getKey().name(), is(enumAndName.getValue())));
     }
 }

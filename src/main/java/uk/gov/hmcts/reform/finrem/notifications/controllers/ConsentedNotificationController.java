@@ -23,6 +23,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
 @RestController
@@ -92,9 +93,27 @@ public class ConsentedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for consent order not approved, Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for consent order not approved, Notification request : {}", notificationRequest);
+
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/consent-order-not-approved-sent", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Consent order Not Approved Sent.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Consent order not approved sent e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailConsentOrderNotApprovedSent(
+        @RequestBody
+        @ApiParam(value = "The fixtures contains case reference number,"
+            + " solicitorReferenceNumber and the email address that will receive"
+            + " the notification that a consent order is made and all are mandatory")
+        final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for consent order not approved sent, Notification request : {}", notificationRequest);
+
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED_SENT);
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
