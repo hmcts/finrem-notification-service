@@ -50,8 +50,8 @@ public class ContestedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that the HWF is successful and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for HWFSuccessful. Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for HWFSuccessful. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -66,8 +66,8 @@ public class ContestedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that the application has been issued and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Contested 'Application Issued'. Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Contested 'Application Issued'. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_APPLICATION_ISSUED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -82,8 +82,8 @@ public class ContestedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that the contest order has been approved and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for 'Contest Order Approved'. Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for 'Contest Order Approved'. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTEST_ORDER_APPROVED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -98,8 +98,8 @@ public class ContestedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that the case is in the 'Prepare for a hearing' state")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for 'Prepare for hearing'. Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for 'Prepare for hearing'. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -110,8 +110,8 @@ public class ContestedNotificationController {
             @ApiResponse(code = 204, message = "Prepare for hearing order sent e-mail sent successfully")})
     public ResponseEntity<Void> sendContestedEmailPrepareForHearingOrderSent(
             @RequestBody final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for 'Prepare for hearing order sent'. Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for 'Prepare for hearing order sent'. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -122,8 +122,8 @@ public class ContestedNotificationController {
             @ApiResponse(code = 204, message = "Draft Order e-mail sent successfully")})
     public ResponseEntity<Void> sendContestedDraftOrder(
             @RequestBody final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Contested 'Draft Order'. Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Contested 'Draft Order'. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_DRAFT_ORDER);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -134,8 +134,8 @@ public class ContestedNotificationController {
             @ApiResponse(code = 204, message = "Contest order not approved e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailContestOrderNotApproved(
             @RequestBody final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for contest order not approved, Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for contest order not approved, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTEST_ORDER_NOT_APPROVED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -150,8 +150,8 @@ public class ContestedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that a contest order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for consent order approved, Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for consent order approved, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_CONSENT_ORDER_APPROVED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -166,8 +166,8 @@ public class ContestedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that a Contest Order is not approved and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Consent Order Not Approved, Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Consent Order Not Approved, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -178,8 +178,8 @@ public class ContestedNotificationController {
             @ApiResponse(code = 204, message = "Contested general order (consent) e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailContestedGeneralOrderConsent(
             @RequestBody final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Contested general order (consent), Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Contested general order (consent), Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_ORDER_CONSENT);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -190,8 +190,8 @@ public class ContestedNotificationController {
             @ApiResponse(code = 204, message = "Contested general order e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailContestedGeneralOrder(
             @RequestBody final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Contested general order, Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Contested general order, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_ORDER);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -202,8 +202,8 @@ public class ContestedNotificationController {
             @ApiResponse(code = 204, message = "Contested general application refer to judge e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailContestedGeneralApplicationReferToJudge(
             @RequestBody final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Contested general application refer to judge, Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Contested general application refer to judge, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -214,8 +214,8 @@ public class ContestedNotificationController {
             @ApiResponse(code = 204, message = "Contested General Application Outcome e-mail sent successfully")})
     public ResponseEntity<Void> sendEmailContestedGeneralApplicationOutcome(
             @RequestBody final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Contested General Application Outcome, Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Contested General Application Outcome, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_APPLICATION_OUTCOME);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

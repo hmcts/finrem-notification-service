@@ -45,8 +45,8 @@ public class ConsentedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that the HWF is successful and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for HWFSuccessful. Notification request : {}",
-                 notificationRequest);
+        log.info("Received request for notification email for HWFSuccessful. Case ID : {}",
+                 notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_HWF_SUCCESSFUL);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -61,8 +61,8 @@ public class ConsentedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that a case is assigned to judge and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Case assigned to Judge Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Case assigned to Judge Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_ASSIGNED_TO_JUDGE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -77,8 +77,8 @@ public class ConsentedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for consent order made. Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for consent order made. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_MADE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -93,7 +93,8 @@ public class ConsentedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for consent order not approved, Notification request : {}", notificationRequest);
+        log.info("Received request for notification email for consent order not approved, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED);
 
@@ -110,7 +111,8 @@ public class ConsentedNotificationController {
             + " solicitorReferenceNumber and the email address that will receive"
             + " the notification that a consent order is made and all are mandatory")
         final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for consent order not approved sent, Notification request : {}", notificationRequest);
+        log.info("Received request for notification email for consent order not approved sent, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED_SENT);
 
@@ -127,8 +129,8 @@ public class ConsentedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for consent order available Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for consent order available Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -143,8 +145,8 @@ public class ConsentedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification to CTSC that a consent order is made and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for CTSC consent order available Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for CTSC consent order available Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE_CTSC);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -159,8 +161,8 @@ public class ConsentedNotificationController {
                     + " solicitorReferenceNumber and the email address that will receive"
                     + " the notification and all are mandatory")
             final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for Consented general order, Notification request : {}",
-                notificationRequest);
+        log.info("Received request for notification email for Consented general order, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENTED_GENERAL_ORDER);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
