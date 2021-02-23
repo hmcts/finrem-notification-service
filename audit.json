@@ -43,7 +43,7 @@
   "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/general-application-refer-to-judge_POST": "ignore",
   "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/general-application-outcome_POST": "ignore",
   "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/general-order_POST": "ignore",
-  "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-not-approved-sent_POST": "ignore",
+  "10010_Cookie No HttpOnly Flag_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-not-approved-sent_POST": "ignorex",
   "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-not-approved-sent_POST": "ignore",
   "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/general-order_POST": "ignore",
   "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/general-order_POST": "ignore",
@@ -65,5 +65,17 @@
   "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-order-approved_POST": "ignore",
   "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available-ctsc_POST": "ignore",
   "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-order-not-approved_POST": "ignore",
-  "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-general-order_POST": "ignore"
+  "10054_Cookie Without SameSite Attribute_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-general-order_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/draft-order_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-not-approved-sent_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/assign-to-judge_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/v2/api-docs_GET": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-general-order_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-order-approved_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-available-ctsc_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-not-approved_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/application-issued_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/contested/consent-order-not-approved_POST": "ignore",
+  "10096_Timestamp Disclosure - Unix_http://finrem-ns-aat.service.core-compute-aat.internal/notify/consent-order-made_POST": "ignore"
 }
