@@ -5,4 +5,5 @@ spring:
       prefixed: true
       paths: /mnt/secrets/finrem
       aliases:
+        finrem.AppInsightsInstrumentationKey: azure.application-insights.instrumentation-key
         finrem.gov-uk-notification-key: UK_GOV_NOTIFY_API_KEY
