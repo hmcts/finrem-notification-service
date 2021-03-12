@@ -11,6 +11,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_HEARING_REQUEST;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
@@ -27,6 +28,7 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_URL = "/notify/consent-order-not-approved";
     private static final String NOTIFY_CONSENT_ORDER_NOT_APPROVED_SENT_URL = "/notify/consent-order-not-approved-sent";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_URL = "/notify/consent-order-available";
+    private static final String NOTIFY_CONSENT_ORDER_HEARING_REQUEST_URL = "/notify/consent-order-hearing-request";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_CTSC_URL = "/notify/consent-order-available-ctsc";
     private static final String NOTIFY_CONSENTED_GENERAL_ORDER_URL = "/notify/general-order";
 
@@ -58,6 +60,11 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void sendEmailForConsentOrderAvailable() throws Exception {
         performPostRequestWithMockContent(NOTIFY_CONSENT_ORDER_AVAILABLE_URL, FR_CONSENT_ORDER_AVAILABLE);
+    }
+
+    @Test
+    public void sendEmailForConsentOrderHearingRequest() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_CONSENT_ORDER_HEARING_REQUEST_URL, FR_CONSENT_ORDER_HEARING_REQUEST);
     }
 
     @Test

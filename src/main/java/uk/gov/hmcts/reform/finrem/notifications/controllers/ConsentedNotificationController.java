@@ -21,6 +21,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_HEARING_REQUEST;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
@@ -148,6 +149,23 @@ public class ConsentedNotificationController {
         log.info("Received request for notification email for CTSC consent order available Case ID : {}",
                 notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_AVAILABLE_CTSC);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+    @PostMapping(path = "/consent-order-hearing-request", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for Consent order hearing request.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Consent order hearing request e-mail sent successfully")})
+    public ResponseEntity<Void> sendEmailConsentOrderHearingRequest(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " divorce case number and the email address that will receive"
+                    + " the notification and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Consent order hearing request, Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_HEARING_REQUEST);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

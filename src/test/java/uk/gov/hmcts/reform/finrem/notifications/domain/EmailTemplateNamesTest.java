@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.is;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_HEARING_REQUEST;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
@@ -49,6 +50,7 @@ public class EmailTemplateNamesTest {
             .put(FR_CONTESTED_GENERAL_ORDER_CONSENT, "FR_CONTESTED_GENERAL_ORDER_CONSENT")
             .put(FR_CONTESTED_GENERAL_APPLICATION_OUTCOME, "FR_CONTESTED_GENERAL_APPLICATION_OUTCOME")
             .put(FR_CONTESTED_GENERAL_ORDER, "FR_CONTESTED_GENERAL_ORDER")
+            .put(FR_CONSENT_ORDER_HEARING_REQUEST, "FR_CONSENT_ORDER_HEARING_REQUEST")
             .build()
             .entrySet().stream()
             .forEach(enumAndName -> assertThat(enumAndName.getKey().name(), is(enumAndName.getValue())));
