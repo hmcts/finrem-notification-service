@@ -32,11 +32,13 @@ import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICI
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 
@@ -317,6 +319,7 @@ public class EmailServiceTest {
 
         assertEquals(returnedTemplateVars.get("courtName"), "Nottingham FRC");
         assertEquals(returnedTemplateVars.get("courtEmail"), "FRCNottingham@justice.gov.uk");
+        assertNull(returnedTemplateVars.get("generalEmailBody"));
     }
 
     @Test
@@ -328,8 +331,35 @@ public class EmailServiceTest {
         assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
     }
 
+    @Test
+    public void shouldBuildTemplateVarsForGeneralEmailContested() {
+        setContestedData();
+        notificationRequest.setGeneralEmailBody("test email body");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_GENERAL_EMAIL.name());
+
+        assertEquals(returnedTemplateVars.get("courtName"), "Nottingham FRC");
+        assertEquals(returnedTemplateVars.get("courtEmail"), "FRCNottingham@justice.gov.uk");
+        assertEquals(returnedTemplateVars.get("generalEmailBody"), "test email body");
+    }
+
+    @Test
+    public void shouldBuildTemplateVarsForGeneralEmailConsented() {
+        setConsentedData();
+        notificationRequest.setGeneralEmailBody("test email body");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONSENT_GENERAL_EMAIL.name());
+
+        assertNull(returnedTemplateVars.get("courtName"));
+        assertNull(returnedTemplateVars.get("courtEmail"));
+        assertEquals(returnedTemplateVars.get("generalEmailBody"), "test email body");
+    }
+
     private void assertContestedTemplateVariablesAreAbsent(Map<String, String> returnedTemplateVars) {
         assertNull(returnedTemplateVars.get("courtName"));
         assertNull(returnedTemplateVars.get("courtEmail"));
+        assertNull(returnedTemplateVars.get("generalEmailBody"));
     }
 }

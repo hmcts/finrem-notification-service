@@ -9,6 +9,7 @@ import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
@@ -29,6 +30,8 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_URL = "/notify/consent-order-available";
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_CTSC_URL = "/notify/consent-order-available-ctsc";
     private static final String NOTIFY_CONSENTED_GENERAL_ORDER_URL = "/notify/general-order";
+    private static final String NOTIFY_GENERAL_EMAIL_URL = "/notify/general-email";
+
 
     @Test
     public void sendEmailForHwfSuccessFul() throws Exception {
@@ -68,5 +71,10 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void sendEmailConsentedGeneralOrder() throws Exception {
         performPostRequestWithMockContent(NOTIFY_CONSENTED_GENERAL_ORDER_URL, FR_CONSENTED_GENERAL_ORDER);
+    }
+
+    @Test
+    public void sendGeneralEmail() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_GENERAL_EMAIL_URL, FR_CONSENT_GENERAL_EMAIL);
     }
 }

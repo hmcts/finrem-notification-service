@@ -13,13 +13,14 @@ public class NotificationRequestTest {
     @Test
     public void shouldGetHwfNotificationRequestData() {
         underTest = new NotificationRequest("123456",
-                "45623", "D123", "Padmaja", "test@test.com", "nottingham", CONTESTED);
+                "45623", "D123", "Padmaja", "test@test.com", "nottingham", CONTESTED, "body");
         assertEquals("123456", underTest.getCaseReferenceNumber());
         assertEquals("45623", underTest.getSolicitorReferenceNumber());
         assertEquals("D123", underTest.getDivorceCaseNumber());
         assertEquals("Padmaja", underTest.getName());
         assertEquals("test@test.com", underTest.getNotificationEmail());
         assertEquals("nottingham", underTest.getSelectedCourt());
+        assertEquals("body", underTest.getGeneralEmailBody());
     }
 
     @Test
@@ -31,6 +32,7 @@ public class NotificationRequestTest {
         assertNull(underTest.getName());
         assertNull(underTest.getNotificationEmail());
         assertNull(underTest.getSelectedCourt());
+        assertNull(underTest.getGeneralEmailBody());
     }
 
     @Test
