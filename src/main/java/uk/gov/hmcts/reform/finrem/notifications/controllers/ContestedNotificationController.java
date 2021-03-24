@@ -23,6 +23,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_DRAFT_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_OUTCOME;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
@@ -217,6 +218,22 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for Contested General Application Outcome, Case ID : {}",
                 notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_APPLICATION_OUTCOME);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/general-email", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send a general email")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "General e-mail notification sent successfully")})
+    public ResponseEntity<Void> sendGeneralEmail(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " generalEmailBody and the email address that will receive"
+                    + " the notification that a general email is sent and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for contested general email Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_EMAIL);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
