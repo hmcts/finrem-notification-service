@@ -19,6 +19,7 @@ import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
@@ -164,6 +165,22 @@ public class ConsentedNotificationController {
         log.info("Received request for notification email for Consented general order, Case ID : {}",
                 notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENTED_GENERAL_ORDER);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/general-email", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send a general email")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "General e-mail notification sent successfully")})
+    public ResponseEntity<Void> sendGeneralEmail(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " generalEmailBody and the email address that will receive"
+                    + " the notification that a general email is sent and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for consented general email Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_GENERAL_EMAIL);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
