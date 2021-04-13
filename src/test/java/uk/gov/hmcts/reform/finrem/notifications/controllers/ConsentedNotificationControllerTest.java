@@ -16,6 +16,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_TRANSFER_TO_LOCAL_COURT;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ConsentedNotificationController.class)
@@ -31,6 +32,7 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONSENT_ORDER_AVAILABLE_CTSC_URL = "/notify/consent-order-available-ctsc";
     private static final String NOTIFY_CONSENTED_GENERAL_ORDER_URL = "/notify/general-order";
     private static final String NOTIFY_GENERAL_EMAIL_URL = "/notify/general-email";
+    private static final String NOTIFY_TRANSFER_TO_LOCAL_COURT_URL = "/notify/transfer-to-local-court";
 
 
     @Test
@@ -76,5 +78,10 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void sendGeneralEmail() throws Exception {
         performPostRequestWithMockContent(NOTIFY_GENERAL_EMAIL_URL, FR_CONSENT_GENERAL_EMAIL);
+    }
+
+    @Test
+    public void sendTransferToLocalCourtEmail() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_TRANSFER_TO_LOCAL_COURT_URL, FR_TRANSFER_TO_LOCAL_COURT);
     }
 }
