@@ -41,6 +41,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_TRANSFER_TO_LOCAL_COURT;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -355,6 +356,21 @@ public class EmailServiceTest {
         assertNull(returnedTemplateVars.get("courtName"));
         assertNull(returnedTemplateVars.get("courtEmail"));
         assertEquals(returnedTemplateVars.get("generalEmailBody"), "test email body");
+    }
+
+    @Test
+    public void shouldBuildTemplateVarsForTransferToLocalCourt() {
+        setConsentedData();
+        notificationRequest.setCaseReferenceNumber("123456789");
+        notificationRequest.setNotificationEmail("TestCourtEmail@Test.com");
+        notificationRequest.setGeneralEmailBody("Additional instructions for the court");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_TRANSFER_TO_LOCAL_COURT.name());
+
+        assertEquals(returnedTemplateVars.get("caseReferenceNumber"), "123456789");
+        assertEquals(returnedTemplateVars.get("notificationEmail"), "TestCourtEmail@Test.com");
+        assertEquals(returnedTemplateVars.get("generalEmailBody"), "Additional instructions for the court");
     }
 
     private void assertContestedTemplateVariablesAreAbsent(Map<String, String> returnedTemplateVars) {

@@ -26,6 +26,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_TRANSFER_TO_LOCAL_COURT;
 
 @RestController
 @RequestMapping(path = "/notify")
@@ -181,6 +182,22 @@ public class ConsentedNotificationController {
         log.info("Received request for notification email for consented general email Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_GENERAL_EMAIL);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/transfer-to-local-court", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send a transfer to local court email")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Transfer to local court e-mail notification sent successfully")})
+    public ResponseEntity<Void> sendTransferToLocalCourtEmail(
+            @RequestBody
+            @ApiParam(value = "The fixtures contains case reference number,"
+                    + " generalEmailBody and the email address that will receive"
+                    + " the notification that a transfer to local court email is sent and all are mandatory")
+            final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for consented transfer to local court email Notification request : {}",
+                notificationRequest);
+        emailService.sendConfirmationEmail(notificationRequest, FR_TRANSFER_TO_LOCAL_COURT);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
