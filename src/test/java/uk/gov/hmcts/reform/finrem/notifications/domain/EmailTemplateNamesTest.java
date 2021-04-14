@@ -25,6 +25,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_TRANSFER_TO_LOCAL_COURT;
 
 public class EmailTemplateNamesTest {
 
@@ -39,6 +40,7 @@ public class EmailTemplateNamesTest {
             .put(FR_CONSENT_ORDER_NOT_APPROVED_SENT, "FR_CONSENT_ORDER_NOT_APPROVED_SENT")
             .put(FR_CONSENTED_GENERAL_ORDER, "FR_CONSENTED_GENERAL_ORDER")
             .put(FR_CONSENT_GENERAL_EMAIL, "FR_CONSENT_GENERAL_EMAIL")
+            .put(FR_TRANSFER_TO_LOCAL_COURT, "FR_TRANSFER_TO_LOCAL_COURT")
             // contested
             .put(FR_CONSENT_ORDER_AVAILABLE, "FR_CONSENT_ORDER_AVAILABLE")
             .put(FR_CONTESTED_DRAFT_ORDER, "FR_CONTESTED_DRAFT_ORDER")
