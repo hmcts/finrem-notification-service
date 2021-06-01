@@ -1,6 +1,6 @@
 buildscript {
   dependencies {
-    classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.3.4.RELEASE'
+    classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.5.0'
     classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: '3.1.1'
     classpath group: 'net.serenity-bdd', name: 'serenity-gradle-plugin', version: '2.2.0'
   }
