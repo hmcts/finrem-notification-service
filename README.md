@@ -14,7 +14,7 @@ The project uses [Gradle](https://gradle.org) as a build tool. It already contai
 To build the project execute the following command:
 
 ```bash
-  ./gradlew build
+./gradlew build
 ```
 
 To get the project to build in IntelliJ IDEA, you have to:
@@ -27,7 +27,7 @@ To get the project to build in IntelliJ IDEA, you have to:
 You can run the application by executing following command:
 
 ```bash
-    ./gradlew bootRun
+./gradlew bootRun
 ```
 
 The application will start locally on `http://localhost:8086`
@@ -36,7 +36,7 @@ The application will start locally on `http://localhost:8086`
 
 To run all mutation tests execute the following command:
 
-```
+```bash
 ./gradlew pitest
 ```
 
