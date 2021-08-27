@@ -36,9 +36,8 @@ sourceCompatibility = 11
 targetCompatibility = 11
 
 repositories {
-  mavenLocal()
-  mavenCentral()
-  maven { url "https://dl.bintray.com/hmcts/hmcts-maven" }
+  jcenter()
+  maven { url "https://jitpack.io" }
 }
 
 sourceSets {
