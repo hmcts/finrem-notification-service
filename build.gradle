@@ -36,9 +36,8 @@ sourceCompatibility = 11
 targetCompatibility = 11
 
 repositories {
-  mavenLocal()
-  mavenCentral()
-  maven { url "https://dl.bintray.com/hmcts/hmcts-maven" }
+  jcenter()
+  maven { url "https://jitpack.io" }
 }
 
 sourceSets {
@@ -142,6 +141,8 @@ dependencies {
   testSmokeImplementation group: 'io.rest-assured', name: 'rest-assured', version: versions.restAssured
   testSmokeImplementation sourceSets.main.runtimeClasspath
   testSmokeImplementation sourceSets.test.runtimeClasspath
+
+  testCompile('com.github.hmcts:fortify-client:1.2.0:all')
 
   functionalImplementation group: 'io.rest-assured', name: 'rest-assured', version: versions.restAssured
   functionalImplementation group: 'junit', name: 'junit', version: versions.junit
@@ -262,3 +263,9 @@ task functional(type: Test) {
 }
 
 project.tasks['sonarqube'].dependsOn test, jacocoTestReport
+
+task fortifyScan(type: JavaExec)  {
+  main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
+  classpath += sourceSets.test.runtimeClasspath
+  jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
+}
