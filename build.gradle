@@ -14,7 +14,6 @@ plugins {
   id "io.franzbecker.gradle-lombok" version "4.0.0"
   id 'io.spring.dependency-management' version '1.0.11.RELEASE'
   id 'jacoco'
-  //id 'net.ltgt.apt' version '0.21'
   id 'org.owasp.dependencycheck' version '6.2.0'
   id 'org.sonarqube' version '3.1.1'
   id 'org.springframework.boot' version '2.3.4.RELEASE'
