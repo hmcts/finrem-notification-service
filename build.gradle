@@ -148,11 +148,11 @@ dependencies {
 
   implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: versions.hmctsNotify
 
-  implementation group: 'com.github.hmcts.java-logging', name: 'java-logging', version: versions.reformLogging
-  implementation group: 'com.github.hmcts.java-logging', name: 'java-logging-appinsights', version: versions.reformLogging
-  implementation group: 'com.github.hmcts.java-logging', name: 'java-logging-spring', version: versions.reformLogging
+  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
+  implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.reformLogging
+  implementation group: 'com.github.hmcts.java-logging', name: 'logging-spring', version: versions.reformLogging
   implementation group: 'com.github.hmcts', name: 'properties-volume-spring-boot-starter', version: versions.reformPropertiesVolume
-  implementation group: 'com.github.hmcts.java-logging', name: 'java-logging-httpcomponents', version: versions.reformLogging
+  implementation group: 'com.github.hmcts.java-logging', name: 'logging-httpcomponents', version: versions.reformLogging
 
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: versions.apacheLogging
   implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: versions.apacheLogging
