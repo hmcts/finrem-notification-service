@@ -17,6 +17,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_INTERIM_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
@@ -41,6 +42,8 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE_URL = "/notify/contested/general-application-refer-to-judge";
     private static final String NOTIFY_CONTESTED_GENERAL_APPLICATION_OUTCOME_URL = "/notify/contested/general-application-outcome";
     private static final String NOTIFY_CONTESTED_GENERAL_EMAIL_URL = "/notify/contested/general-email";
+    private static final String NOTIFY_CONTESTED_INTERIM_HEARING_URL = "/notify/contested/prepare-for-interim-hearing-sent";
+
 
     @Test
     public void sendEmailForContestedHwfSuccessful() throws Exception {
@@ -110,5 +113,10 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void sendGeneralEmail() throws Exception {
         performPostRequestWithMockContent(NOTIFY_CONTESTED_GENERAL_EMAIL_URL, FR_CONTESTED_GENERAL_EMAIL);
+    }
+
+    @Test
+    public void sendEmailForPrepareForInterimHearingSent() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_INTERIM_HEARING_URL, FR_CONTESTED_INTERIM_HEARING);
     }
 }
