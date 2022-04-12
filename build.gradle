@@ -114,8 +114,8 @@ dependencyManagement {
       entry 'spring-security-crypto'
     }
 
-    //CVE-2021-22060
-    dependencySet(group: 'org.springframework', version: '5.2.19.RELEASE') {
+    //CVE-2022-22965
+    dependencySet(group: 'org.springframework', version: '5.2.20.RELEASE') {
       entry 'spring-aop'
       entry 'spring-beans'
       entry 'spring-context'
