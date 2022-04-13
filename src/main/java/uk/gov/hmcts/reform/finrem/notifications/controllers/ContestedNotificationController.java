@@ -27,6 +27,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_INTERIM_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
@@ -234,6 +235,18 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for contested general email Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_GENERAL_EMAIL);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/prepare-for-interim-hearing-sent", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for 'Prepare for interim hearing'")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Prepare for interim hearing sent e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailPrepareForInterimHearingSent(
+            @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for 'Prepare for interim hearing sent'. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_INTERIM_HEARING);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

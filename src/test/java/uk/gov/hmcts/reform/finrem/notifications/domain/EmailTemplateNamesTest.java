@@ -21,6 +21,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_INTERIM_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
@@ -55,6 +56,7 @@ public class EmailTemplateNamesTest {
             .put(FR_CONTESTED_GENERAL_APPLICATION_OUTCOME, "FR_CONTESTED_GENERAL_APPLICATION_OUTCOME")
             .put(FR_CONTESTED_GENERAL_ORDER, "FR_CONTESTED_GENERAL_ORDER")
             .put(FR_CONTESTED_GENERAL_EMAIL, "FR_CONTESTED_GENERAL_EMAIL")
+            .put(FR_CONTESTED_INTERIM_HEARING, "FR_CONTESTED_INTERIM_HEARING")
             .build()
             .entrySet().stream()
             .forEach(enumAndName -> assertThat(enumAndName.getKey().name(), is(enumAndName.getValue())));
