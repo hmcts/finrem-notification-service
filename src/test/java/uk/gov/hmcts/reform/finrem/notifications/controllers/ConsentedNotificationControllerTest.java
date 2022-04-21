@@ -9,6 +9,7 @@ import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_NOTICE_OF_CHANGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
@@ -33,6 +34,7 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONSENTED_GENERAL_ORDER_URL = "/notify/general-order";
     private static final String NOTIFY_GENERAL_EMAIL_URL = "/notify/general-email";
     private static final String NOTIFY_TRANSFER_TO_LOCAL_COURT_URL = "/notify/transfer-to-local-court";
+    private static final String NOTIFY_NOTICE_OF_CHANGE = "/notify/notice-of-change";
 
 
     @Test
@@ -83,5 +85,10 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void sendTransferToLocalCourtEmail() throws Exception {
         performPostRequestWithMockContent(NOTIFY_TRANSFER_TO_LOCAL_COURT_URL, FR_TRANSFER_TO_LOCAL_COURT);
+    }
+
+    @Test
+    public void sendNoticeOfChange() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_NOTICE_OF_CHANGE, FR_CONSENTED_NOTICE_OF_CHANGE);
     }
 }

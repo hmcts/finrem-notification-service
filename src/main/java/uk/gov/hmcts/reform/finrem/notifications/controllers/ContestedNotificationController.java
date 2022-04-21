@@ -28,6 +28,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_INTERIM_HEARING;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_NOTICE_OF_CHANGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
@@ -247,6 +248,18 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for 'Prepare for interim hearing sent'. Case ID : {}",
                 notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_INTERIM_HEARING);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/notice-of-change", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail to Solicitors whom have been granted access to the case")
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Notice of Change sent e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailNoticeOfChange(
+        @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for 'Notice of Change'. Case ID : {}",
+            notificationRequest.getCaseReferenceNumber());
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_NOTICE_OF_CHANGE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
