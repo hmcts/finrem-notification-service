@@ -113,19 +113,6 @@ dependencyManagement {
       entry 'spring-security-crypto'
     }
 
-    //CVE-2022-22965
-    dependencySet(group: 'org.springframework', version: '5.2.20.RELEASE') {
-      entry 'spring-aop'
-      entry 'spring-beans'
-      entry 'spring-context'
-      entry 'spring-context-support'
-      entry 'spring-core'
-      entry 'spring-expression'
-      entry 'spring-jcl'
-      entry 'spring-web'
-      entry 'spring-webmvc'
-    }
-
     //CVE-2021-42550
     dependencySet(group: 'ch.qos.logback', version: '1.2.10') {
       entry 'logback-classic'
