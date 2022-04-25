@@ -3,17 +3,14 @@ package uk.gov.hmcts.reform.finrem.notification.smoketests;
 import io.restassured.RestAssured;
 import io.restassured.config.HttpClientConfig;
 import io.restassured.config.RestAssuredConfig;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static io.restassured.RestAssured.given;
 
-@RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {SmokeTestConfiguration.class})
 public class NotificationSmokeTests {
 
@@ -31,7 +28,7 @@ public class NotificationSmokeTests {
 
     private RestAssuredConfig config;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         RestAssured.useRelaxedHTTPSValidation();
         config = RestAssured.config()

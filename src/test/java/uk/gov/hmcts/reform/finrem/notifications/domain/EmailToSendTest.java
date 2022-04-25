@@ -1,18 +1,17 @@
 package uk.gov.hmcts.reform.finrem.notifications.domain;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmailToSendTest {
     private EmailToSend emailToSend;
     private Map<String, String> templateVars;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         templateVars = new HashMap<>();
         templateVars.put("abc", "123");

@@ -1,6 +1,6 @@
 package uk.gov.hmcts.reform.finrem.notifications.controllers;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -29,7 +29,7 @@ public class BaseNotificationTest {
 
     private MockMvc mvc;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
