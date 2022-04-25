@@ -1,8 +1,10 @@
 package uk.gov.hmcts.reform.finrem.notifications.controllers;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
@@ -22,6 +24,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
 
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(ContestedNotificationController.class)
 @ContextConfiguration(classes = NotificationApplication.class)
 public class ContestedNotificationControllerTest extends BaseNotificationTest {

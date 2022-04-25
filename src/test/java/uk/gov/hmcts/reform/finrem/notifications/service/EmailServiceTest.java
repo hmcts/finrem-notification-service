@@ -3,11 +3,13 @@ package uk.gov.hmcts.reform.finrem.notifications.service;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 import uk.gov.hmcts.reform.finrem.notifications.client.EmailClient;
 import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
@@ -41,6 +43,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_TRANSFER_TO_LOCAL_COURT;
 
 
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = NotificationApplication.class)
 @TestPropertySource(locations = "/application.properties")
 @Slf4j

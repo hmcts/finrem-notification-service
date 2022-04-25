@@ -1,9 +1,10 @@
 package uk.gov.hmcts.reform.finrem.notifications.controllers;
 
-
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
@@ -18,6 +19,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_TRANSFER_TO_LOCAL_COURT;
 
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(ConsentedNotificationController.class)
 @ContextConfiguration(classes = NotificationApplication.class)
 public class ConsentedNotificationControllerTest extends BaseNotificationTest {

@@ -1,8 +1,8 @@
 package uk.gov.hmcts.reform.finrem.notifications.integrationtest;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,6 +12,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 import uk.gov.hmcts.reform.finrem.notifications.client.EmailClient;
@@ -31,6 +32,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICI
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
 import static uk.gov.hmcts.reform.finrem.notifications.testutil.ObjectMapperTestUtil.convertObjectToJsonString;
 
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = NotificationApplication.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @PropertySource(value = "/application.properties")
