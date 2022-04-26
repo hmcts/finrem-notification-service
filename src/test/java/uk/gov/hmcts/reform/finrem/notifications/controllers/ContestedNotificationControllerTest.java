@@ -123,7 +123,7 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     }
 
     @Test
-    public void givenNoticeOfChangeRequestWhenContestedCaseThenConfirmationEmailIsSent() throws Exception {
+    public void givenContestedCaseWhenNoticeOfChangeRequestThenContestedNoticeOfChangeConfirmationEmailIsSent() throws Exception {
         performPostRequestWithMockContent(NOTIFY_CONTESTED_NOTICE_OF_CHANGE, FR_CONTESTED_NOTICE_OF_CHANGE);
     }
 }
