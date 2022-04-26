@@ -88,7 +88,7 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     }
 
     @Test
-    public void sendNoticeOfChange() throws Exception {
+    public void givenNoticeOfChangeRequestWhenConsentedCaseThenConfirmationEmailIsSent() throws Exception {
         performPostRequestWithMockContent(NOTIFY_NOTICE_OF_CHANGE, FR_CONSENTED_NOTICE_OF_CHANGE);
     }
 }
