@@ -19,6 +19,8 @@ public class NotificationTests extends IntegrationTestBase {
     private static final String CONTESTED_HWF_SUCCESSFUL = "/notify/contested/hwf-successful";
     private static final String CONTESTED_APPLICATION_ISSUED = "/notify/hwf-successful";
     private static final String CONTEST_ORDER_APPROVED = "/notify/hwf-successful";
+    private static final String CONTESTED_NOTICE_OF_CHANGE = "/notify/contested/notice-of-change";
+    private static final String CONSENTED_NOTICE_OF_CHANGE = "/notify/notice-of-change";
 
     @Value("${notification.uri}")
     private String notificationUrl;
@@ -66,6 +68,16 @@ public class NotificationTests extends IntegrationTestBase {
     @Test
     public void verifyNotifyContestOrderApprovedTestIsOkay() {
         validatePostSuccessForNotification(CONTEST_ORDER_APPROVED, "contestOrderApproved.json");
+    }
+
+    @Test
+    public void verifyNotifyContestedNoticeOfChangeTestIsOkay() {
+        validatePostSuccessForNotification(CONTESTED_NOTICE_OF_CHANGE, "contestedNoticeOfChange.json");
+    }
+
+    @Test
+    public void verifyNotifyConsentedNoticeOfChangeTestIsOkay() {
+        validatePostSuccessForNotification(CONSENTED_NOTICE_OF_CHANGE, "consentedNoticeOfChange.json");
     }
 
     private void validatePostSuccessForNotification(String url, String jsonFileName) {
