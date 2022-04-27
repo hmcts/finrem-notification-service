@@ -259,7 +259,7 @@ public class ContestedNotificationController {
         @RequestBody final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for 'Notice of Change'. Case ID : {}",
             notificationRequest.getCaseReferenceNumber());
-        //emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_NOTICE_OF_CHANGE);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_NOTICE_OF_CHANGE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
