@@ -210,7 +210,7 @@ public class ConsentedNotificationController {
         @RequestBody final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for 'Notice of Change'. Case ID : {}",
             notificationRequest.getCaseReferenceNumber());
-        //emailService.sendConfirmationEmail(notificationRequest, FR_CONSENTED_NOTICE_OF_CHANGE);
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENTED_NOTICE_OF_CHANGE);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
