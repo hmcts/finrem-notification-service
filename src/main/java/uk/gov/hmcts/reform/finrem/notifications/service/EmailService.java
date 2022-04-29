@@ -40,7 +40,7 @@ public class EmailService {
     public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
         Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
         EmailToSend emailToSend = generateEmail(notificationRequest.getNotificationEmail(), template.name(),
-                templateVars);
+            templateVars);
         sendEmail(emailToSend, "send Confirmation email for " + template.name());
     }
 
@@ -80,17 +80,19 @@ public class EmailService {
     }
 
     private void sendEmail(EmailToSend emailToSend, String emailDescription) {
+        String templateId = emailToSend.getTemplateId();
+        String referenceId = emailToSend.getReferenceId();
         try {
-            log.info("Attempting to send {} email. Reference ID: {}", emailDescription, emailToSend.getReferenceId());
+            log.info("Attempting to send {} email with template {}. Reference ID: {}", emailDescription, templateId, referenceId);
             emailClient.sendEmail(
-                    emailToSend.getTemplateId(),
-                    emailToSend.getEmailAddress(),
-                    emailToSend.getTemplateFields(),
-                    emailToSend.getReferenceId()
+                templateId,
+                emailToSend.getEmailAddress(),
+                emailToSend.getTemplateFields(),
+                referenceId
             );
-            log.info("Sending email success. Reference ID: {}", emailToSend.getReferenceId());
+            log.info("Sending email success. Reference ID: {}", referenceId);
         } catch (NotificationClientException e) {
-            log.warn("Failed to send email. Reference ID: {}. Reason:", emailToSend.getReferenceId(), e);
+            log.warn("Failed to send email. Reference ID: {}. Reason:", referenceId, e);
         }
     }
 }
