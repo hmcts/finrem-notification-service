@@ -30,6 +30,8 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_INTERIM_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_UPDATE_FRC_COURT;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_UPDATE_FRC_SOLICITOR;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
 
@@ -249,4 +251,27 @@ public class ContestedNotificationController {
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_INTERIM_HEARING);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PostMapping(path = "/update-frc-information", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send email for Update FRC Information event")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Update FRC Information e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailUpdateFrcInfo(
+            @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for 'Update FRC Information event'");
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_UPDATE_FRC_SOLICITOR);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/update-frc-information/court", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send email for Update FRC Information event")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Update FRC Information e-mail sent successfully")})
+    public ResponseEntity<Void> sendCourtContestedEmailUpdateFrcDetails(
+            @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email to court for 'Update FRC Information event'");
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_UPDATE_FRC_COURT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }
