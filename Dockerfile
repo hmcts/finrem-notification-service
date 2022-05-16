@@ -1,6 +1,6 @@
 ARG APP_INSIGHTS_AGENT_VERSION=2.5.1
 ARG PLATFORM=""
-FROM hmctspublic.azurecr.io/base/java${PLATFORM}:17-distroless
+FROM hmctspublic.azurecr.io/base/java${PLATFORM}:11-distroless
 
 # Mandatory!
 ENV APP finrem-notification-service.jar
