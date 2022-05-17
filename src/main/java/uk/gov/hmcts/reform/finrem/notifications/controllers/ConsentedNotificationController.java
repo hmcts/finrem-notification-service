@@ -19,6 +19,8 @@ import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_NOC_CASEWORKER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_NOTICE_OF_CHANGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE_CTSC;
@@ -198,6 +200,30 @@ public class ConsentedNotificationController {
         log.info("Received request for notification email for consented transfer to local court email Notification request : {}",
                 notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_TRANSFER_TO_LOCAL_COURT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/notice-of-change", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail to Solicitors whom have been granted access to the case")
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Notice of Change sent e-mail sent successfully")})
+    public ResponseEntity<Void> sendConsentedEmailNoticeOfChange(
+        @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for 'Notice of Change'. Case ID : {}",
+            notificationRequest.getCaseReferenceNumber());
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENTED_NOTICE_OF_CHANGE);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/notice-of-change/caseworker", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail to Solicitors whom have been granted access to the case")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Notice of Change sent e-mail sent successfully")})
+    public ResponseEntity<Void> sendConsentedEmailNoticeOfChangeCaseworker(
+            @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for caseworker-invoked 'Notice of Change'. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENTED_NOC_CASEWORKER);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
