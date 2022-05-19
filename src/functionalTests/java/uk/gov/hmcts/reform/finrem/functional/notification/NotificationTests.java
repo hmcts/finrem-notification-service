@@ -21,6 +21,10 @@ public class NotificationTests extends IntegrationTestBase {
     private static final String CONTEST_ORDER_APPROVED = "/notify/hwf-successful";
     private static final String UPDATE_FRC_INFORMATION_SOL = "/notify/contested/update-frc-information";
     private static final String UPDATE_FRC_INFORMATION_COURT = "/notify/contested/update-frc-information/court";
+    private static final String CONTESTED_NOTICE_OF_CHANGE = "/notify/contested/notice-of-change";
+    private static final String CONSENTED_NOTICE_OF_CHANGE = "/notify/notice-of-change";
+    private static final String CONTESTED_NOC_CASEWORKER = "/notify/contested/notice-of-change/caseworker";
+    private static final String CONSENTED_NOC_CASEWORKER = "/notify/notice-of-change/caseworker";
 
     @Value("${notification.uri}")
     private String notificationUrl;
@@ -78,6 +82,26 @@ public class NotificationTests extends IntegrationTestBase {
     @Test
     public void verifyNotifyUpdateFrcInformationCourtTestIsOkay() {
         validatePostSuccessForNotification(UPDATE_FRC_INFORMATION_COURT, "update-frc-info-court.json");
+    }
+  
+    @Test
+    public void verifyNotifyContestedNoticeOfChangeTestIsOkay() {
+        validatePostSuccessForNotification(CONTESTED_NOTICE_OF_CHANGE, "contestedNoticeOfChange.json");
+    }
+
+    @Test
+    public void verifyNotifyConsentedNoticeOfChangeTestIsOkay() {
+        validatePostSuccessForNotification(CONSENTED_NOTICE_OF_CHANGE, "consentedNoticeOfChange.json");
+    }
+
+    @Test
+    public void verifyNotifyContestedNoCAsCaseworkerTestIsOkay() {
+        validatePostSuccessForNotification(CONTESTED_NOC_CASEWORKER, "contestedNoticeOfChange.json");
+    }
+
+    @Test
+    public void verifyNotifyConsentedNoCAsCaseworkerTestIsOkay() {
+        validatePostSuccessForNotification(CONSENTED_NOC_CASEWORKER, "consentedNoticeOfChange.json");
     }
 
     private void validatePostSuccessForNotification(String url, String jsonFileName) {

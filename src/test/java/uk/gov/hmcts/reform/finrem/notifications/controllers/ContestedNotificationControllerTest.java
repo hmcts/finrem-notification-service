@@ -18,6 +18,8 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_ORDER_CONSENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_INTERIM_HEARING;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_NOC_CASEWORKER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_NOTICE_OF_CHANGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_UPDATE_FRC_COURT;
@@ -47,6 +49,8 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTESTED_INTERIM_HEARING_URL = "/notify/contested/prepare-for-interim-hearing-sent";
     private static final String NOTIFY_CONTESTED_UPDATE_FRC_INFO = "/notify/contested/update-frc-information";
     private static final String NOTIFY_CONTESTED_UPDATE_FRC_COURT = "/notify/contested/update-frc-information/court";
+    private static final String NOTIFY_CONTESTED_NOTICE_OF_CHANGE = "/notify/contested/notice-of-change";
+    private static final String NOTIFY_CONTESTED_NOC_CASEWORKER = "/notify/contested/notice-of-change/caseworker";
 
 
     @Test
@@ -132,5 +136,15 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void givenContestedCase_whenUpdateFrcInformation_thenCourtNotificationEmailSent() throws Exception {
         performPostRequestWithMockContent(NOTIFY_CONTESTED_UPDATE_FRC_COURT, FR_CONTESTED_UPDATE_FRC_COURT);
+    }
+  
+    @Test
+    public void givenContestedCaseWhenNoticeOfChangeRequestThenContestedNoticeOfChangeConfirmationEmailIsSent() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_NOTICE_OF_CHANGE, FR_CONTESTED_NOTICE_OF_CHANGE);
+    }
+
+    @Test
+    public void givenContestedCase_whenNocRequestAsCaseworker_thenContestedNocEmailSent() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_NOC_CASEWORKER, FR_CONTESTED_NOC_CASEWORKER);
     }
 }
