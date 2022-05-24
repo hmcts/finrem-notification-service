@@ -19,6 +19,8 @@ public class NotificationTests extends IntegrationTestBase {
     private static final String CONTESTED_HWF_SUCCESSFUL = "/notify/contested/hwf-successful";
     private static final String CONTESTED_APPLICATION_ISSUED = "/notify/hwf-successful";
     private static final String CONTEST_ORDER_APPROVED = "/notify/hwf-successful";
+    private static final String UPDATE_FRC_INFORMATION_SOL = "/notify/contested/update-frc-information";
+    private static final String UPDATE_FRC_INFORMATION_COURT = "/notify/contested/update-frc-information/court";
     private static final String CONTESTED_NOTICE_OF_CHANGE = "/notify/contested/notice-of-change";
     private static final String CONSENTED_NOTICE_OF_CHANGE = "/notify/notice-of-change";
     private static final String CONTESTED_NOC_CASEWORKER = "/notify/contested/notice-of-change/caseworker";
@@ -72,6 +74,16 @@ public class NotificationTests extends IntegrationTestBase {
         validatePostSuccessForNotification(CONTEST_ORDER_APPROVED, "contestOrderApproved.json");
     }
 
+    @Test
+    public void verifyNotifyUpdateFrcInformationTestIsOkay() {
+        validatePostSuccessForNotification(UPDATE_FRC_INFORMATION_SOL, "update-frc-info-sol.json");
+    }
+
+    @Test
+    public void verifyNotifyUpdateFrcInformationCourtTestIsOkay() {
+        validatePostSuccessForNotification(UPDATE_FRC_INFORMATION_COURT, "update-frc-info-court.json");
+    }
+  
     @Test
     public void verifyNotifyContestedNoticeOfChangeTestIsOkay() {
         validatePostSuccessForNotification(CONTESTED_NOTICE_OF_CHANGE, "contestedNoticeOfChange.json");
