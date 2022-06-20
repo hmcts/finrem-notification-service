@@ -36,6 +36,7 @@ public class EmailService {
     private static final String CONTESTED_GENERAL_EMAIL = "FR_CONTESTED_GENERAL_EMAIL";
     private static final String CONSENT_GENERAL_EMAIL = "FR_CONSENT_GENERAL_EMAIL";
     private static final String TRANSFER_TO_LOCAL_COURT = "FR_TRANSFER_TO_LOCAL_COURT";
+    public static final String HWF_SUCCESSFUL_EMAIL = "FR_HWF_SUCCESSFUL";
 
     public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
         Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
@@ -65,6 +66,10 @@ public class EmailService {
         if (CONSENT_GENERAL_EMAIL.equals(templateName) || CONTESTED_GENERAL_EMAIL.equals(templateName)
             || TRANSFER_TO_LOCAL_COURT.equals(templateName)) {
             templateVars.put("generalEmailBody", notificationRequest.getGeneralEmailBody());
+        }
+
+        if (HWF_SUCCESSFUL_EMAIL.equals(templateName)) {
+            templateVars.put("phoneOpeningHours", notificationRequest.getPhoneOpeningHours());
         }
 
         templateVars.putAll(emailTemplateVars.get(templateName));
