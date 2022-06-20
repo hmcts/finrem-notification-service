@@ -24,6 +24,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.PHONE_OPENING_HOURS;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONSENTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONTESTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_FAMILY_MAN_ID;
@@ -72,6 +73,7 @@ public class EmailServiceTest {
         notificationRequest.setSolicitorReferenceNumber(TEST_SOLICITOR_REFERENCE);
         notificationRequest.setDivorceCaseNumber(TEST_DIVORCE_CASE_NUMBER);
         notificationRequest.setName(TEST_SOLICITOR_NAME);
+        notificationRequest.setPhoneOpeningHours(PHONE_OPENING_HOURS);
     }
 
     private void setConsentedData() {

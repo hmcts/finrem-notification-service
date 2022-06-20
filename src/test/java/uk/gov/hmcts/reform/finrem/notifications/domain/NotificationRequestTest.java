@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.PHONE_OPENING_HOURS;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONTESTED;
 
 public class NotificationRequestTest {
@@ -13,7 +14,8 @@ public class NotificationRequestTest {
     @Test
     public void shouldGetHwfNotificationRequestData() {
         underTest = new NotificationRequest("123456",
-                "45623", "D123", "Padmaja", "test@test.com", "nottingham", CONTESTED, "body");
+                "45623", "D123", "Padmaja", "test@test.com",
+                "nottingham", CONTESTED, "body", PHONE_OPENING_HOURS);
         assertEquals("123456", underTest.getCaseReferenceNumber());
         assertEquals("45623", underTest.getSolicitorReferenceNumber());
         assertEquals("D123", underTest.getDivorceCaseNumber());
@@ -21,6 +23,7 @@ public class NotificationRequestTest {
         assertEquals("test@test.com", underTest.getNotificationEmail());
         assertEquals("nottingham", underTest.getSelectedCourt());
         assertEquals("body", underTest.getGeneralEmailBody());
+        assertEquals(PHONE_OPENING_HOURS, underTest.getPhoneOpeningHours());
     }
 
     @Test
@@ -33,6 +36,7 @@ public class NotificationRequestTest {
         assertNull(underTest.getNotificationEmail());
         assertNull(underTest.getSelectedCourt());
         assertNull(underTest.getGeneralEmailBody());
+        assertNull(underTest.getPhoneOpeningHours());
     }
 
     @Test
@@ -48,6 +52,7 @@ public class NotificationRequestTest {
         assertEquals("D456", underTest.getDivorceCaseNumber());
         assertEquals("Prashanth", underTest.getName());
         assertEquals("test1@test1.com", underTest.getNotificationEmail());
+        assertEquals(PHONE_OPENING_HOURS, underTest.getPhoneOpeningHours());
     }
 
     @Test
@@ -65,5 +70,6 @@ public class NotificationRequestTest {
         underTest.setDivorceCaseNumber("D456");
         underTest.setCaseReferenceNumber("case1234");
         underTest.setNotificationEmail("test1@test1.com");
+        underTest.setPhoneOpeningHours(PHONE_OPENING_HOURS);
     }
 }
