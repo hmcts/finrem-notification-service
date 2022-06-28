@@ -29,4 +29,6 @@ public class NotificationRequest {
     private String caseType;
 
     private String generalEmailBody;
+
+    private String phoneOpeningHours;
 }
