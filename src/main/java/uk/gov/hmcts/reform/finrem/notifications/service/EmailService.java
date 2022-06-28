@@ -33,9 +33,11 @@ public class EmailService {
     private Map<String, Map<String, String>> contestedContactEmails;
 
     private static final String CONTESTED = "contested";
+    private static final String CONSENTED = "consented";
     private static final String CONTESTED_GENERAL_EMAIL = "FR_CONTESTED_GENERAL_EMAIL";
     private static final String CONSENT_GENERAL_EMAIL = "FR_CONSENT_GENERAL_EMAIL";
     private static final String TRANSFER_TO_LOCAL_COURT = "FR_TRANSFER_TO_LOCAL_COURT";
+    public static final String FR_CONSENT_ORDER_AVAILABLE_CTSC = "FR_CONSENT_ORDER_AVAILABLE_CTSC";
 
     public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
         Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
@@ -65,6 +67,10 @@ public class EmailService {
         if (CONSENT_GENERAL_EMAIL.equals(templateName) || CONTESTED_GENERAL_EMAIL.equals(templateName)
             || TRANSFER_TO_LOCAL_COURT.equals(templateName)) {
             templateVars.put("generalEmailBody", notificationRequest.getGeneralEmailBody());
+        }
+
+        if (CONSENTED.equals(notificationRequest.getCaseType()) && !FR_CONSENT_ORDER_AVAILABLE_CTSC.equals(templateName)) {
+            templateVars.put("phoneOpeningHours", notificationRequest.getPhoneOpeningHours());
         }
 
         templateVars.putAll(emailTemplateVars.get(templateName));
