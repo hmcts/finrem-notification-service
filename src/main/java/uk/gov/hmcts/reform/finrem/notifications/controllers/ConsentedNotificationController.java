@@ -51,7 +51,6 @@ public class ConsentedNotificationController {
             final NotificationRequest notificationRequest) {
         log.info("Received request for notification email for HWFSuccessful. Case ID : {}",
                  notificationRequest.getCaseReferenceNumber());
-        log.info("Notification request for caseID {}: {}", notificationRequest.getCaseReferenceNumber(), notificationRequest);
         emailService.sendConfirmationEmail(notificationRequest, FR_HWF_SUCCESSFUL);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
