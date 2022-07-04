@@ -71,4 +71,11 @@
         <packageUrl regex="true">^pkg:maven/org\.apache\.logging\.log4j/log4j\-to\-slf4j@.*$</packageUrl>
         <cve>CVE-2022-33915</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: spring-core-5.3.20.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.springframework/spring\-core@.*$</packageUrl>
+        <cve>CVE-2016-1000027</cve>
+    </suppress>
 </suppressions>
