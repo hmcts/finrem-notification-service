@@ -73,6 +73,11 @@ public class EmailService {
             templateVars.put("phoneOpeningHours", notificationRequest.getPhoneOpeningHours());
         }
 
+        if (CONSENTED.equals(notificationRequest.getCaseType())) {
+            templateVars.put("caseOrderType", notificationRequest.getCaseOrderType());
+            templateVars.put("camelCaseOrderType", notificationRequest.getCamelCaseOrderType());
+        }
+
         templateVars.putAll(emailTemplateVars.get(templateName));
         return templateVars;
     }
