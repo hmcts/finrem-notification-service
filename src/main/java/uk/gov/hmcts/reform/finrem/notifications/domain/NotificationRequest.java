@@ -23,12 +23,10 @@ public class NotificationRequest {
     private String name;
     @Email
     private String notificationEmail;
-
     private String selectedCourt;
-
     private String caseType;
-
     private String generalEmailBody;
-
     private String phoneOpeningHours;
+    private String caseOrderType;
+    private String camelCaseOrderType;
 }
