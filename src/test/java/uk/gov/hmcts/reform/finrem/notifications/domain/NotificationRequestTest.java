@@ -15,7 +15,9 @@ public class NotificationRequestTest {
     public void shouldGetHwfNotificationRequestData() {
         underTest = new NotificationRequest("123456",
                 "45623", "D123", "Padmaja", "test@test.com",
-                "nottingham", CONTESTED, "body", PHONE_OPENING_HOURS, "consent", "Consent");
+                "nottingham", CONTESTED, "body", PHONE_OPENING_HOURS, "consent",
+                "Consent",
+                "rejectedReason");
         assertEquals("123456", underTest.getCaseReferenceNumber());
         assertEquals("45623", underTest.getSolicitorReferenceNumber());
         assertEquals("D123", underTest.getDivorceCaseNumber());
@@ -24,6 +26,7 @@ public class NotificationRequestTest {
         assertEquals("nottingham", underTest.getSelectedCourt());
         assertEquals("body", underTest.getGeneralEmailBody());
         assertEquals(PHONE_OPENING_HOURS, underTest.getPhoneOpeningHours());
+        assertEquals("rejectedReason", underTest.getGeneralApplicationRejectionReason());
     }
 
     @Test

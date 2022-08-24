@@ -42,6 +42,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_REJECT_GENERAL_APPLICATION;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_TRANSFER_TO_LOCAL_COURT;
 
 
@@ -392,6 +393,28 @@ public class EmailServiceTest {
         assertEquals("123456789", returnedTemplateVars.get("caseReferenceNumber"));
         assertEquals("TestCourtEmail@Test.com", returnedTemplateVars.get("notificationEmail"));
         assertEquals("Additional instructions for the court", returnedTemplateVars.get("generalEmailBody"));
+    }
+
+    @Test
+    public void givenRejectGeneralApplicationTemplate_whenPopulateTemplateVars_thenAddRejectionReasonToTemplateVars() {
+        setContestedData();
+        notificationRequest.setGeneralApplicationRejectionReason("Test Rejection Reason");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_REJECT_GENERAL_APPLICATION.name());
+
+        assertEquals("Test Rejection Reason", returnedTemplateVars.get("generalApplicationRejectionReason"));
+    }
+
+    @Test
+    public void givenNotRejectGeneralApplication_whenPopulateTemplateVars_thenNotAddRejectionReasonToTemplateVars() {
+        setContestedData();
+        notificationRequest.setGeneralApplicationRejectionReason("Test Rejection Reason");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_GENERAL_EMAIL.name());
+
+        assertNull(returnedTemplateVars.get("generalApplicationRejectionReason"));
     }
 
     private void assertContestedTemplateVariablesAreAbsent(Map<String, String> returnedTemplateVars) {

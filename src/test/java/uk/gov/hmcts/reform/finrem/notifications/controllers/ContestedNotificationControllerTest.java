@@ -26,6 +26,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_UPDATE_FRC_SOL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_REJECT_GENERAL_APPLICATION;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ContestedNotificationController.class)
@@ -51,6 +52,7 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTESTED_UPDATE_FRC_COURT = "/notify/contested/update-frc-information/court";
     private static final String NOTIFY_CONTESTED_NOTICE_OF_CHANGE = "/notify/contested/notice-of-change";
     private static final String NOTIFY_CONTESTED_NOC_CASEWORKER = "/notify/contested/notice-of-change/caseworker";
+    private static final String NOTIFY_CONTESTED_REJECTED_GENERAL_APPLICATION = "/notify/contested/general-application-rejected";
 
 
     @Test
@@ -137,7 +139,7 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     public void givenContestedCase_whenUpdateFrcInformation_thenCourtNotificationEmailSent() throws Exception {
         performPostRequestWithMockContent(NOTIFY_CONTESTED_UPDATE_FRC_COURT, FR_CONTESTED_UPDATE_FRC_COURT);
     }
-  
+
     @Test
     public void givenContestedCaseWhenNoticeOfChangeRequestThenContestedNoticeOfChangeConfirmationEmailIsSent() throws Exception {
         performPostRequestWithMockContent(NOTIFY_CONTESTED_NOTICE_OF_CHANGE, FR_CONTESTED_NOTICE_OF_CHANGE);
@@ -146,5 +148,10 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void givenContestedCase_whenNocRequestAsCaseworker_thenContestedNocEmailSent() throws Exception {
         performPostRequestWithMockContent(NOTIFY_CONTESTED_NOC_CASEWORKER, FR_CONTESTED_NOC_CASEWORKER);
+    }
+
+    @Test
+    public void givenContestedCase_whenRejectedGeneralApplication_thenEmailSent() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_REJECTED_GENERAL_APPLICATION, FR_REJECT_GENERAL_APPLICATION);
     }
 }
