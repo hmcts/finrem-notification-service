@@ -302,12 +302,12 @@ public class ContestedNotificationController {
     }
 
     @PostMapping(path = "/general-application-rejected", consumes = APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "send e-mail to Solicitors whom have been granted access to the case")
+    @ApiOperation(value = "send e-mail to Solicitors for General Application Rejected Event")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Notice of Change sent e-mail sent successfully")})
+            @ApiResponse(code = 204, message = "General Application Rejected e-mail sent successfully")})
     public ResponseEntity<Void> sendContestedEmailRejectGeneralApplication(
             @RequestBody final NotificationRequest notificationRequest) {
-        log.info("Received request for notification email for caseworker-invoked 'Notice of Change'. Case ID : {}",
+        log.info("Received request for notification email for General Application Rejected event. Case ID : {}",
                 notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_REJECT_GENERAL_APPLICATION);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
