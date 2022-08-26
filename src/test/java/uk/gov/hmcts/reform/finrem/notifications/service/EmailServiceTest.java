@@ -25,8 +25,10 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.PHONE_OPENING_HOURS;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.APPLICANT_NAME;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONSENTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONTESTED;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.RESPONDENT_NAME;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_CASE_FAMILY_MAN_ID;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_DIVORCE_CASE_NUMBER;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
@@ -74,6 +76,8 @@ public class EmailServiceTest {
         notificationRequest.setDivorceCaseNumber(TEST_DIVORCE_CASE_NUMBER);
         notificationRequest.setName(TEST_SOLICITOR_NAME);
         notificationRequest.setPhoneOpeningHours(PHONE_OPENING_HOURS);
+        notificationRequest.setApplicantName(APPLICANT_NAME);
+        notificationRequest.setRespondentName(RESPONDENT_NAME);
     }
 
     private void setConsentedData() {
@@ -92,6 +96,8 @@ public class EmailServiceTest {
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_HWF_SUCCESSFUL.name());
 
         assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertEquals(APPLICANT_NAME, returnedTemplateVars.get("applicantName"));
+        assertEquals(RESPONDENT_NAME, returnedTemplateVars.get("respondentName"));
 
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_HWF_SUCCESSFUL.name()));
         emailService.sendConfirmationEmail(notificationRequest, FR_HWF_SUCCESSFUL);
@@ -111,6 +117,8 @@ public class EmailServiceTest {
 
         assertEquals("Nottingham FRC", returnedTemplateVars.get("courtName"));
         assertEquals("FRCNottingham@justice.gov.uk", returnedTemplateVars.get("courtEmail"));
+        assertEquals(APPLICANT_NAME, returnedTemplateVars.get("applicantName"));
+        assertEquals(RESPONDENT_NAME, returnedTemplateVars.get("respondentName"));
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONTESTED_HWF_SUCCESSFUL.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL);
@@ -131,6 +139,8 @@ public class EmailServiceTest {
 
         assertEquals("Dorset and Hampshire FRC", returnedTemplateVars.get("courtName"));
         assertEquals("BournemouthFRC.bournemouth.countycourt@justice.gov.uk", returnedTemplateVars.get("courtEmail"));
+        assertEquals(APPLICANT_NAME, returnedTemplateVars.get("applicantName"));
+        assertEquals(RESPONDENT_NAME, returnedTemplateVars.get("respondentName"));
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONTESTED_HWF_SUCCESSFUL.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_HWF_SUCCESSFUL);

@@ -9,4 +9,6 @@ public class TestConstants {
     public static final String BEARER_AUTH_TOKEN = "Bearer test.auth.token";
     public static final String CONTESTED = "contested";
     public static final String CONSENTED = "consented";
+    public static final String APPLICANT_NAME = "Applicant Name";
+    public static final String RESPONDENT_NAME = "Respondent Name";
 }
