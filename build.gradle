@@ -142,7 +142,6 @@ dependencyManagement {
     dependencySet(group: 'org.yaml', version: '1.31') {
       entry 'snakeyaml'
     }
-
   }
 }
 
