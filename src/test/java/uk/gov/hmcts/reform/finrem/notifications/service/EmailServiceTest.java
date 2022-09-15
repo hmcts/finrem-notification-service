@@ -367,6 +367,19 @@ public class EmailServiceTest {
     }
 
     @Test
+    public void shouldBuildTemplateVarsForGeneralApplicationReferToJudge() {
+        setContestedData();
+        notificationRequest.setGeneralEmailBody("test email body");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE.name());
+
+        assertEquals("Nottingham FRC", returnedTemplateVars.get("courtName"));
+        assertEquals("FRCNottingham@justice.gov.uk", returnedTemplateVars.get("courtEmail"));
+        assertEquals("test email body", returnedTemplateVars.get("generalEmailBody"));
+    }
+
+    @Test
     public void shouldBuildTemplateVarsForGeneralEmailConsented() {
         setConsentedData();
         notificationRequest.setGeneralEmailBody("test email body");
