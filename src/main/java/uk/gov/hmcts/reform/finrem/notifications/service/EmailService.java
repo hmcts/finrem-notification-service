@@ -37,7 +37,9 @@ public class EmailService {
     private static final String CONTESTED_GENERAL_EMAIL = "FR_CONTESTED_GENERAL_EMAIL";
     private static final String CONSENT_GENERAL_EMAIL = "FR_CONSENT_GENERAL_EMAIL";
     private static final String TRANSFER_TO_LOCAL_COURT = "FR_TRANSFER_TO_LOCAL_COURT";
+    private static final String GENERAL_APPLICATION_REFER_TO_JUDGE = "FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE";
     public static final String FR_CONSENT_ORDER_AVAILABLE_CTSC = "FR_CONSENT_ORDER_AVAILABLE_CTSC";
+    public static final String GENERAL_APPLICATION_REJECTED = "FR_REJECT_GENERAL_APPLICATION";
 
     public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
         Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
@@ -66,8 +68,10 @@ public class EmailService {
         }
 
         //general emails and transfer to local court emails are the only templates that require the generalEmailBody
-        if (CONSENT_GENERAL_EMAIL.equals(templateName) || CONTESTED_GENERAL_EMAIL.equals(templateName)
-            || TRANSFER_TO_LOCAL_COURT.equals(templateName)) {
+        if (CONSENT_GENERAL_EMAIL.equals(templateName)
+                || CONTESTED_GENERAL_EMAIL.equals(templateName)
+                || TRANSFER_TO_LOCAL_COURT.equals(templateName)
+                || GENERAL_APPLICATION_REFER_TO_JUDGE.equals(templateName)) {
             templateVars.put("generalEmailBody", notificationRequest.getGeneralEmailBody());
         }
 
@@ -78,6 +82,10 @@ public class EmailService {
         if (CONSENTED.equals(notificationRequest.getCaseType())) {
             templateVars.put("caseOrderType", notificationRequest.getCaseOrderType());
             templateVars.put("camelCaseOrderType", notificationRequest.getCamelCaseOrderType());
+        }
+
+        if (GENERAL_APPLICATION_REJECTED.equals(templateName)) {
+            templateVars.put("generalApplicationRejectionReason", notificationRequest.getGeneralApplicationRejectionReason());
         }
 
         templateVars.putAll(emailTemplateVars.get(templateName));

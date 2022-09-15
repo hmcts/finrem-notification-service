@@ -29,6 +29,7 @@ public class NotificationRequest {
     private String phoneOpeningHours;
     private String caseOrderType;
     private String camelCaseOrderType;
+    private String generalApplicationRejectionReason;
     private String applicantName;
     private String respondentName;
 }

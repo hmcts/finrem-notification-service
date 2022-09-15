@@ -36,6 +36,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_UPDATE_FRC_SOL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_REJECT_GENERAL_APPLICATION;
 
 @RestController
 @RequestMapping(path = "/notify/contested")
@@ -275,7 +276,7 @@ public class ContestedNotificationController {
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_UPDATE_FRC_COURT);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-      
+
     @PostMapping(path = "/notice-of-change", consumes = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "send e-mail to Solicitors whom have been granted access to the case")
     @ApiResponses(value = {
@@ -297,6 +298,18 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for caseworker-invoked 'Notice of Change'. Case ID : {}",
                 notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_NOC_CASEWORKER);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/general-application-rejected", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail to Solicitors for General Application Rejected Event")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "General Application Rejected e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailRejectGeneralApplication(
+            @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for General Application Rejected event. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
+        emailService.sendConfirmationEmail(notificationRequest, FR_REJECT_GENERAL_APPLICATION);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
