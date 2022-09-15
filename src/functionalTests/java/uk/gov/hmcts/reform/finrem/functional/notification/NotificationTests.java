@@ -25,6 +25,7 @@ public class NotificationTests extends IntegrationTestBase {
     private static final String CONSENTED_NOTICE_OF_CHANGE = "/notify/notice-of-change";
     private static final String CONTESTED_NOC_CASEWORKER = "/notify/contested/notice-of-change/caseworker";
     private static final String CONSENTED_NOC_CASEWORKER = "/notify/notice-of-change/caseworker";
+    public static final String CONTESTED_REJECT_GENERAL_APPLICATION = "/notify/contested/general-application-rejected";
 
     @Value("${notification.uri}")
     private String notificationUrl;
@@ -83,7 +84,7 @@ public class NotificationTests extends IntegrationTestBase {
     public void verifyNotifyUpdateFrcInformationCourtTestIsOkay() {
         validatePostSuccessForNotification(UPDATE_FRC_INFORMATION_COURT, "update-frc-info-court.json");
     }
-  
+
     @Test
     public void verifyNotifyContestedNoticeOfChangeTestIsOkay() {
         validatePostSuccessForNotification(CONTESTED_NOTICE_OF_CHANGE, "contestedNoticeOfChange.json");
@@ -102,6 +103,11 @@ public class NotificationTests extends IntegrationTestBase {
     @Test
     public void verifyNotifyConsentedNoCAsCaseworkerTestIsOkay() {
         validatePostSuccessForNotification(CONSENTED_NOC_CASEWORKER, "consentedNoticeOfChange.json");
+    }
+
+    @Test
+    public void verifyNotifyContestedRejectGeneralApplicationTestIsOkay() {
+        validatePostSuccessForNotification(CONTESTED_REJECT_GENERAL_APPLICATION, "reject-general-application.json");
     }
 
     private void validatePostSuccessForNotification(String url, String jsonFileName) {
