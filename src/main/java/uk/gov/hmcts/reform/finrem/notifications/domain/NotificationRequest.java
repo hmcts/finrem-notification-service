@@ -30,4 +30,6 @@ public class NotificationRequest {
     private String caseOrderType;
     private String camelCaseOrderType;
     private String generalApplicationRejectionReason;
+    private String applicantName;
+    private String respondentName;
 }

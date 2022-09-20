@@ -56,6 +56,8 @@ public class EmailService {
         templateVars.put("divorceCaseNumber", notificationRequest.getDivorceCaseNumber());
         templateVars.put("notificationEmail", notificationRequest.getNotificationEmail());
         templateVars.put("name", notificationRequest.getName());
+        templateVars.put("applicantName", notificationRequest.getApplicantName());
+        templateVars.put("respondentName", notificationRequest.getRespondentName());
 
         //contested emails notifications require the court information, consented does not
         if (CONTESTED.equals(notificationRequest.getCaseType()) && !isEmpty(notificationRequest.getSelectedCourt())) {
