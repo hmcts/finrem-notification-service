@@ -40,6 +40,8 @@ public class EmailService {
     private static final String GENERAL_APPLICATION_REFER_TO_JUDGE = "FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE";
     public static final String FR_CONSENT_ORDER_AVAILABLE_CTSC = "FR_CONSENT_ORDER_AVAILABLE_CTSC";
     public static final String GENERAL_APPLICATION_REJECTED = "FR_REJECT_GENERAL_APPLICATION";
+    public static final String BARRISTER_ACCESS_ADDED = "FR_BARRISTER_ACCESS_ADDED";
+    public static final String BARRISTER_ACCESS_REMOVED = "FR_BARRISTER_ACCESS_REMOVED";
 
     public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
         Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
@@ -86,6 +88,10 @@ public class EmailService {
 
         if (GENERAL_APPLICATION_REJECTED.equals(templateName)) {
             templateVars.put("generalApplicationRejectionReason", notificationRequest.getGeneralApplicationRejectionReason());
+        }
+
+        if(BARRISTER_ACCESS_ADDED.equals(templateName) || BARRISTER_ACCESS_REMOVED.equals(templateName)) {
+            templateVars.put("BarristerReferenceNumber", notificationRequest.getBarristerReferenceNumber());
         }
 
         templateVars.putAll(emailTemplateVars.get(templateName));

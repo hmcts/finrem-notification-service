@@ -34,18 +34,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_DIVORC
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_NOT_APPROVED_SENT;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_EMAIL;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_REJECT_GENERAL_APPLICATION;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_TRANSFER_TO_LOCAL_COURT;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -439,6 +428,29 @@ public class EmailServiceTest {
 
         assertNull(returnedTemplateVars.get("generalApplicationRejectionReason"));
     }
+
+    @Test
+    public void givenBarristerAccessAddedTemplate_whenPopulateTemplateVars_thenAddBarristerReferenceNumberToTemplateVars() {
+        setContestedData();
+        notificationRequest.setBarristerReferenceNumber("1234567890");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_BARRISTER_ACCESS_ADDED.name());
+
+        assertEquals("1234567890", returnedTemplateVars.get("barristerReferenceNumber"));
+    }
+
+    @Test
+    public void givenBarristerAccessRemovedTemplate_whenPopulateTemplateVars_thenAddBarristerReferenceNumberToTemplateVars() {
+        setContestedData();
+        notificationRequest.setBarristerReferenceNumber("1234567890");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_BARRISTER_ACCESS_REMOVED.name());
+
+        assertEquals("1234567890", returnedTemplateVars.get("barristerReferenceNumber"));
+    }
+
 
     private void assertContestedTemplateVariablesAreAbsent(Map<String, String> returnedTemplateVars) {
         assertNull(returnedTemplateVars.get("courtName"));
