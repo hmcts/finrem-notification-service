@@ -43,6 +43,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_HWF_SUCCESSFUL;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_HWF_SUCCESSFUL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_REJECT_GENERAL_APPLICATION;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_TRANSFER_TO_LOCAL_COURT;
@@ -180,6 +181,27 @@ public class EmailServiceTest {
 
         verify(mockClient).sendEmail(
                 eq(emailTemplates.get(FR_ASSIGNED_TO_JUDGE.name())),
+                eq(TEST_SOLICITOR_EMAIL),
+                eq(returnedTemplateVars),
+                anyString());
+    }
+
+    @Test
+    public void sendPrepareForHearingConfirmationEmailContested() throws NotificationClientException {
+        setContestedData();
+        notificationRequest.setHearingType("First Directions Appointment (FDA)");
+        Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING.name());
+
+        assertEquals("Nottingham FRC", returnedTemplateVars.get("courtName"));
+        assertEquals("FRCNottingham@justice.gov.uk", returnedTemplateVars.get("courtEmail"));
+        assertNull(returnedTemplateVars.get("generalEmailBody"));
+        assertEquals("First Directions Appointment (FDA)", returnedTemplateVars.get("hearingType"));
+        returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONTESTED_PREPARE_FOR_HEARING.name()));
+
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONTESTED_PREPARE_FOR_HEARING);
+
+        verify(mockClient).sendEmail(
+                eq(emailTemplates.get(FR_CONTESTED_PREPARE_FOR_HEARING.name())),
                 eq(TEST_SOLICITOR_EMAIL),
                 eq(returnedTemplateVars),
                 anyString());
