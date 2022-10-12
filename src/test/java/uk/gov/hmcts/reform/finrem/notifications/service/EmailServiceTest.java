@@ -26,6 +26,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static uk.gov.hmcts.reform.finrem.notifications.NotificationConstants.PHONE_OPENING_HOURS;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.APPLICANT_NAME;
+import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.BARRISTER_REFERENCE_NUMBER;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONSENTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.CONTESTED;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.RESPONDENT_NAME;
@@ -80,6 +81,7 @@ public class EmailServiceTest {
         notificationRequest.setPhoneOpeningHours(PHONE_OPENING_HOURS);
         notificationRequest.setApplicantName(APPLICANT_NAME);
         notificationRequest.setRespondentName(RESPONDENT_NAME);
+        notificationRequest.setBarristerReferenceNumber(BARRISTER_REFERENCE_NUMBER);
     }
 
     private void setConsentedData() {
