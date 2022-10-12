@@ -17,6 +17,8 @@ import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_BARRISTER_ACCESS_ADDED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_BARRISTER_ACCESS_REMOVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
@@ -34,8 +36,6 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_PREPARE_FOR_HEARING_ORDER_SENT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_UPDATE_FRC_COURT;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_UPDATE_FRC_SOL;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_BARRISTER_ACCESS_ADDED;
-import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_BARRISTER_ACCESS_REMOVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_REJECT_GENERAL_APPLICATION;
