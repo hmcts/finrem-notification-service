@@ -90,7 +90,7 @@ public class EmailService {
             templateVars.put("generalApplicationRejectionReason", notificationRequest.getGeneralApplicationRejectionReason());
         }
 
-        if(BARRISTER_ACCESS_ADDED.equals(templateName) || BARRISTER_ACCESS_REMOVED.equals(templateName)) {
+        if (BARRISTER_ACCESS_ADDED.equals(templateName) || BARRISTER_ACCESS_REMOVED.equals(templateName)) {
             templateVars.put("BarristerReferenceNumber", notificationRequest.getBarristerReferenceNumber());
         }
 
