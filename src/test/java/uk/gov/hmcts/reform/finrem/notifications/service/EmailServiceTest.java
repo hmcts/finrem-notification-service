@@ -35,6 +35,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICI
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_NAME;
 import static uk.gov.hmcts.reform.finrem.notifications.TestConstants.TEST_SOLICITOR_REFERENCE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_LIST_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
@@ -96,7 +97,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_HWF_SUCCESSFUL.name());
 
-        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertTemplateVariablesAreAbsent(returnedTemplateVars);
         assertEquals(APPLICANT_NAME, returnedTemplateVars.get("applicantName"));
         assertEquals(RESPONDENT_NAME, returnedTemplateVars.get("respondentName"));
 
@@ -173,7 +174,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_ASSIGNED_TO_JUDGE.name());
 
-        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_ASSIGNED_TO_JUDGE.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_ASSIGNED_TO_JUDGE);
@@ -204,7 +205,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_MADE.name());
 
-        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_MADE.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_MADE);
@@ -223,7 +224,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_MADE.name());
 
-        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_MADE.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_MADE);
@@ -253,7 +254,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED.name());
 
-        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_NOT_APPROVED.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED);
@@ -271,7 +272,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED_SENT.name());
 
-        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_NOT_APPROVED_SENT.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED_SENT);
@@ -361,7 +362,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_HWF_SUCCESSFUL.name());
 
-        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertTemplateVariablesAreAbsent(returnedTemplateVars);
     }
 
     @Test
@@ -440,7 +441,19 @@ public class EmailServiceTest {
         assertNull(returnedTemplateVars.get("generalApplicationRejectionReason"));
     }
 
-    private void assertContestedTemplateVariablesAreAbsent(Map<String, String> returnedTemplateVars) {
+    @Test
+    public void shouldBuildTemplateVarsForHearingEmailConsented() {
+        setConsentedData();
+        notificationRequest.setSelectedCourt("nottingham");
+
+        Map<String, String> returnedTemplateVars =
+                emailService.buildTemplateVars(notificationRequest, FR_CONSENTED_LIST_FOR_HEARING.name());
+
+        assertEquals("Nottingham FRC", returnedTemplateVars.get("courtName"));
+        assertEquals("FRCNottingham@justice.gov.uk", returnedTemplateVars.get("courtEmail"));
+    }
+
+    private void assertTemplateVariablesAreAbsent(Map<String, String> returnedTemplateVars) {
         assertNull(returnedTemplateVars.get("courtName"));
         assertNull(returnedTemplateVars.get("courtEmail"));
         assertNull(returnedTemplateVars.get("generalEmailBody"));
