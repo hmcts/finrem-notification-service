@@ -100,7 +100,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_HWF_SUCCESSFUL.name());
 
-        assertTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
         assertEquals(APPLICANT_NAME, returnedTemplateVars.get("applicantName"));
         assertEquals(RESPONDENT_NAME, returnedTemplateVars.get("respondentName"));
 
@@ -177,7 +177,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_ASSIGNED_TO_JUDGE.name());
 
-        assertTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_ASSIGNED_TO_JUDGE.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_ASSIGNED_TO_JUDGE);
@@ -208,7 +208,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_MADE.name());
 
-        assertTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_MADE.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_MADE);
@@ -227,7 +227,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_MADE.name());
 
-        assertTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_MADE.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_MADE);
@@ -257,7 +257,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED.name());
 
-        assertTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_NOT_APPROVED.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED);
@@ -275,7 +275,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED_SENT.name());
 
-        assertTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
         returnedTemplateVars.putAll(emailTemplateVars.get(FR_CONSENT_ORDER_NOT_APPROVED_SENT.name()));
 
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENT_ORDER_NOT_APPROVED_SENT);
@@ -365,7 +365,7 @@ public class EmailServiceTest {
 
         Map<String, String> returnedTemplateVars = emailService.buildTemplateVars(notificationRequest, FR_HWF_SUCCESSFUL.name());
 
-        assertTemplateVariablesAreAbsent(returnedTemplateVars);
+        assertContestedTemplateVariablesAreAbsent(returnedTemplateVars);
     }
 
     @Test
