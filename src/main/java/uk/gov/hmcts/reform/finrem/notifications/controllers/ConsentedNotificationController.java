@@ -19,6 +19,7 @@ import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_LIST_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_NOC_CASEWORKER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_NOTICE_OF_CHANGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
@@ -224,6 +225,18 @@ public class ConsentedNotificationController {
         log.info("Received request for notification email for caseworker-invoked 'Notice of Change'. Case ID : {}",
                 notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_CONSENTED_NOC_CASEWORKER);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/list-for-hearing", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail for 'hearing'")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Hearing e-mail sent successfully")})
+    public ResponseEntity<Void> sendConsentedEmailForHearingSent(
+            @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for 'hearing'. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
+        emailService.sendConfirmationEmail(notificationRequest, FR_CONSENTED_LIST_FOR_HEARING);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

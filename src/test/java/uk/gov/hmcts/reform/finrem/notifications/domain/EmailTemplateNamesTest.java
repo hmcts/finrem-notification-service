@@ -7,6 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_LIST_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_AVAILABLE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_ORDER_MADE;
@@ -57,8 +58,9 @@ public class EmailTemplateNamesTest {
             .put(FR_CONTESTED_GENERAL_ORDER, "FR_CONTESTED_GENERAL_ORDER")
             .put(FR_CONTESTED_GENERAL_EMAIL, "FR_CONTESTED_GENERAL_EMAIL")
             .put(FR_CONTESTED_INTERIM_HEARING, "FR_CONTESTED_INTERIM_HEARING")
+            .put(FR_CONSENTED_LIST_FOR_HEARING, "FR_CONSENTED_LIST_FOR_HEARING")
             .build()
-            .entrySet().stream()
+            .entrySet()
             .forEach(enumAndName -> assertThat(enumAndName.getKey().name(), is(enumAndName.getValue())));
     }
 }
