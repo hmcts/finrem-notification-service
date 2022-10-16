@@ -40,6 +40,7 @@ public class EmailService {
     private static final String GENERAL_APPLICATION_REFER_TO_JUDGE = "FR_CONTESTED_GENERAL_APPLICATION_REFER_TO_JUDGE";
     public static final String FR_CONSENT_ORDER_AVAILABLE_CTSC = "FR_CONSENT_ORDER_AVAILABLE_CTSC";
     public static final String GENERAL_APPLICATION_REJECTED = "FR_REJECT_GENERAL_APPLICATION";
+    public static final String CONSENTED_LIST_FOR_HEARING = "FR_CONSENTED_LIST_FOR_HEARING";
 
     public void sendConfirmationEmail(NotificationRequest notificationRequest, EmailTemplateNames template) {
         Map<String, String> templateVars = buildTemplateVars(notificationRequest, template.name());
@@ -62,6 +63,13 @@ public class EmailService {
 
         //contested emails notifications require the court information, consented does not
         if (CONTESTED.equals(notificationRequest.getCaseType()) && !isEmpty(notificationRequest.getSelectedCourt())) {
+            Map<String, String> courtDetails = contestedContactEmails.get(notificationRequest.getSelectedCourt());
+
+            templateVars.put("courtName", courtDetails.get("name"));
+            templateVars.put("courtEmail", courtDetails.get("email"));
+        }
+
+        if (CONSENTED_LIST_FOR_HEARING.equals(templateName) && !isEmpty(notificationRequest.getSelectedCourt())) {
             Map<String, String> courtDetails = contestedContactEmails.get(notificationRequest.getSelectedCourt());
 
             templateVars.put("courtName", courtDetails.get("name"));

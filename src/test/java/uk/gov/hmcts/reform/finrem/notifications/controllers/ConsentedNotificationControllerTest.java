@@ -9,6 +9,7 @@ import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_ASSIGNED_TO_JUDGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_GENERAL_ORDER;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_LIST_FOR_HEARING;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_NOC_CASEWORKER;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENTED_NOTICE_OF_CHANGE;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONSENT_GENERAL_EMAIL;
@@ -37,6 +38,7 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_TRANSFER_TO_LOCAL_COURT_URL = "/notify/transfer-to-local-court";
     private static final String NOTIFY_NOTICE_OF_CHANGE = "/notify/notice-of-change";
     private static final String NOTIFY_NOC_CASEWORKER = "/notify/notice-of-change/caseworker";
+    private static final String NOTIFY_LIST_FOR_HEARING = "/notify/list-for-hearing";
 
 
     @Test
@@ -97,5 +99,10 @@ public class ConsentedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void givenConsentedCase_whenNocAsCaseworker_thenConsentedNocConfirmationEmailSent() throws Exception {
         performPostRequestWithMockContent(NOTIFY_NOC_CASEWORKER, FR_CONSENTED_NOC_CASEWORKER);
+    }
+
+    @Test
+    public void sendEmailForHearingSuccessFul() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_LIST_FOR_HEARING, FR_CONSENTED_LIST_FOR_HEARING);
     }
 }
