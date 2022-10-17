@@ -100,6 +100,7 @@ public class EmailService {
 
         if (BARRISTER_ACCESS_ADDED.equals(templateName) || BARRISTER_ACCESS_REMOVED.equals(templateName)) {
             templateVars.put("BarristerReferenceNumber", notificationRequest.getBarristerReferenceNumber());
+            templateVars.put("phoneOpeningHours", notificationRequest.getPhoneOpeningHours());
         }
 
         templateVars.putAll(emailTemplateVars.get(templateName));
