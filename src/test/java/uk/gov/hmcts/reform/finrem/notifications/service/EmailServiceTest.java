@@ -464,7 +464,7 @@ public class EmailServiceTest {
         Map<String, String> returnedTemplateVars =
                 emailService.buildTemplateVars(notificationRequest, FR_BARRISTER_ACCESS_ADDED.name());
 
-        assertEquals("1234567890", returnedTemplateVars.get("barristerReferenceNumber"));
+        assertEquals("1234567890", returnedTemplateVars.get("BarristerReferenceNumber"));
     }
 
     @Test
@@ -475,7 +475,7 @@ public class EmailServiceTest {
         Map<String, String> returnedTemplateVars =
                 emailService.buildTemplateVars(notificationRequest, FR_BARRISTER_ACCESS_REMOVED.name());
 
-        assertEquals("1234567890", returnedTemplateVars.get("barristerReferenceNumber"));
+        assertEquals("1234567890", returnedTemplateVars.get("BarristerReferenceNumber"));
     }
 
 

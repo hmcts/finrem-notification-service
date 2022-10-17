@@ -99,7 +99,7 @@ public class EmailService {
         }
 
         if (BARRISTER_ACCESS_ADDED.equals(templateName) || BARRISTER_ACCESS_REMOVED.equals(templateName)) {
-            templateVars.put("barristerReferenceNumber", notificationRequest.getBarristerReferenceNumber());
+            templateVars.put("BarristerReferenceNumber", notificationRequest.getBarristerReferenceNumber());
         }
 
         templateVars.putAll(emailTemplateVars.get(templateName));
