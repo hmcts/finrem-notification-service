@@ -7,6 +7,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import uk.gov.hmcts.reform.finrem.notifications.NotificationApplication;
 
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_BARRISTER_ACCESS_ADDED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_BARRISTER_ACCESS_REMOVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
@@ -53,6 +55,9 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     private static final String NOTIFY_CONTESTED_NOTICE_OF_CHANGE = "/notify/contested/notice-of-change";
     private static final String NOTIFY_CONTESTED_NOC_CASEWORKER = "/notify/contested/notice-of-change/caseworker";
     private static final String NOTIFY_CONTESTED_REJECTED_GENERAL_APPLICATION = "/notify/contested/general-application-rejected";
+    private static final String NOTIFY_CONTESTED_BARRISTER_ACCESS_ADDED = "/notify/contested/barrister-access-added";
+    private static final String NOTIFY_CONTESTED_BARRISTER_ACCESS_REMOVED = "/notify/contested/barrister-access-removed";
+
 
 
     @Test
@@ -153,5 +158,15 @@ public class ContestedNotificationControllerTest extends BaseNotificationTest {
     @Test
     public void givenContestedCase_whenRejectedGeneralApplication_thenEmailSent() throws Exception {
         performPostRequestWithMockContent(NOTIFY_CONTESTED_REJECTED_GENERAL_APPLICATION, FR_REJECT_GENERAL_APPLICATION);
+    }
+
+    @Test
+    public void givenContestedCase_whenBarristerAccessAdded_thenEmailSent() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_BARRISTER_ACCESS_ADDED, FR_BARRISTER_ACCESS_ADDED);
+    }
+
+    @Test
+    public void givenContestedCase_whenBarristerAccessRemoved_thenEmailSent() throws Exception {
+        performPostRequestWithMockContent(NOTIFY_CONTESTED_BARRISTER_ACCESS_REMOVED, FR_BARRISTER_ACCESS_REMOVED);
     }
 }
