@@ -17,6 +17,8 @@ import uk.gov.hmcts.reform.finrem.notifications.domain.NotificationRequest;
 import uk.gov.hmcts.reform.finrem.notifications.service.EmailService;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_BARRISTER_ACCESS_ADDED;
+import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_BARRISTER_ACCESS_REMOVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_APPLICATION_ISSUED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTESTED_CONSENT_ORDER_NOT_APPROVED;
@@ -37,6 +39,7 @@ import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_CONTEST_ORDER_NOT_APPROVED;
 import static uk.gov.hmcts.reform.finrem.notifications.domain.EmailTemplateNames.FR_REJECT_GENERAL_APPLICATION;
+
 
 @RestController
 @RequestMapping(path = "/notify/contested")
@@ -310,6 +313,30 @@ public class ContestedNotificationController {
         log.info("Received request for notification email for General Application Rejected event. Case ID : {}",
                 notificationRequest.getCaseReferenceNumber());
         emailService.sendConfirmationEmail(notificationRequest, FR_REJECT_GENERAL_APPLICATION);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/barrister-access-added", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail to Barristers for Barrister Access Added Event")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Barrister Access Added e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailBarristerAccessAdded(
+            @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Barrister Access Added event. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
+        emailService.sendConfirmationEmail(notificationRequest, FR_BARRISTER_ACCESS_ADDED);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping(path = "/barrister-access-removed", consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "send e-mail to Barristers for Barrister Access Removed Event")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Barrister Access Removed e-mail sent successfully")})
+    public ResponseEntity<Void> sendContestedEmailBarristerAccessRemoved(
+            @RequestBody final NotificationRequest notificationRequest) {
+        log.info("Received request for notification email for Barrister Access Removed event. Case ID : {}",
+                notificationRequest.getCaseReferenceNumber());
+        emailService.sendConfirmationEmail(notificationRequest, FR_BARRISTER_ACCESS_REMOVED);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

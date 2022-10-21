@@ -32,5 +32,6 @@ public class NotificationRequest {
     private String generalApplicationRejectionReason;
     private String applicantName;
     private String respondentName;
+    private String barristerReferenceNumber;
     private String hearingType;
 }
