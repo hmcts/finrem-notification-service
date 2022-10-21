@@ -61,6 +61,7 @@ public class EmailService {
         templateVars.put("name", notificationRequest.getName());
         templateVars.put("applicantName", notificationRequest.getApplicantName());
         templateVars.put("respondentName", notificationRequest.getRespondentName());
+        templateVars.put("hearingType", notificationRequest.getHearingType());
 
         //contested emails notifications require the court information, consented does not
         if (CONTESTED.equals(notificationRequest.getCaseType()) && !isEmpty(notificationRequest.getSelectedCourt())) {
