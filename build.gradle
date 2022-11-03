@@ -98,7 +98,6 @@ dependencyManagement {
   dependencies {
     dependency group: 'commons-beanutils', name: 'commons-beanutils', version: versions.commonsBeanUtils
 
-    //CVE-2022-23181
     dependencySet(
             group: 'org.apache.tomcat.embed', version: versions.tomcat
     ) {
