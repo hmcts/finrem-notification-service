@@ -98,9 +98,7 @@ dependencyManagement {
   dependencies {
     dependency group: 'commons-beanutils', name: 'commons-beanutils', version: versions.commonsBeanUtils
 
-    dependencySet(
-            group: 'org.apache.tomcat.embed', version: versions.tomcat
-    ) {
+    dependencySet(group: 'org.apache.tomcat.embed', version: versions.tomcat) {
       entry 'tomcat-embed-core'
       entry 'tomcat-embed-el'
       entry 'tomcat-embed-websocket'
