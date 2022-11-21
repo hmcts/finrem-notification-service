@@ -58,7 +58,7 @@ API documentation is provided with Swagger:
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning.
-For the versions available, see the tags on this repository.
+For the versions available, see the tags on this repository..
 
 ## Standard API
 
