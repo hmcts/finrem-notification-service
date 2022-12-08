@@ -74,8 +74,8 @@ configurations {
 
 def versions = [
   commonsBeanUtils        : '1.9.4',
-  commonsLang3            : '3.11',
-  commonsIo               : '2.7',
+  commonsLang3            : '3.12',
+  commonsIo               : '2.8.0',
   hmctsNotify             : '3.17.0-RELEASE',
   jsonAssert              : '1.5.0',
   junit                   : '4.13.1',
