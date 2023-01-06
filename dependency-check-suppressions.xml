@@ -18,4 +18,12 @@
         <notes><![CDATA[Suppressing apache commons failures until fix becomes available]]></notes>
         <cve>CVE-2021-37533</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+            The 'utils_project' is a personal collection of scripts from someones /bin/ directory, not a maven project
+            https://github.com/fredsmith/utils
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/.*/.*@.*$</packageUrl>
+       <cpe>cpe:/a:utils_project:utils</cpe>
+    </suppress>
 </suppressions>
