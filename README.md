@@ -5,7 +5,7 @@ The purpose of this application is to support Financial Remedy with GOV.UK Notif
 [![Build Status](https://travis-ci.org/hmcts/finrem-notification-service.svg?branch=master)](https://travis-ci.org/hmcts/finrem-notification-service)
 
 ## Building and deploying the application
-
+## This repo will be de-commision soon
 ### Building the application
 
 The project uses [Gradle](https://gradle.org) as a build tool. It already contains
